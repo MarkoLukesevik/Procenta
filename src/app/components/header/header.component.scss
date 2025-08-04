@@ -1,0 +1,135 @@
+:host {
+  display: flex;
+}
+
+.header {
+  position: fixed;
+  width: 100%;
+  z-index: 999999;
+
+  display: flex;
+  flex: 1 1 auto;
+  align-items: center;
+  justify-content: space-between;
+
+  height: 70px;
+  background-color: var(--base-green-color);
+  color: var(--base-white-color);
+  border-bottom-right-radius: 12px;
+  border-bottom-left-radius: 12px;
+
+  &-wrapper {
+    display: flex;
+    flex: 1 1 auto;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0 auto;
+    max-width: 1600px;
+    padding: 1rem;
+  }
+
+  &-logo {
+    max-width: 130px;
+    cursor: pointer;
+  }
+
+  &-nav {
+    display: none;
+  }
+
+  &-buttons {
+    &__profile {
+      display: none;
+    }
+
+    &__button {
+      display: none;
+    }
+  }
+}
+
+@media (min-width: 992px) {
+  .header {
+    &-buttons {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      column-gap: 1rem;
+
+      &__button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        border: none;
+        border-radius: 8px;
+        padding: 0.625rem;
+        width: 120px;
+
+        font-size: 1rem;
+        letter-spacing: 0.05rem;
+        cursor: pointer;
+      }
+
+      &__profile {
+        display: flex;
+      }
+
+      &__button {
+        display: flex;
+
+        background-color: var(--base-white-color);
+        color: var(--base-green-color);
+      }
+
+      &__profile {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+        background-color: #dfdfdf;
+        color: var(--base-white-color);
+        cursor: pointer;
+
+        & img {
+          width: 100%;
+          height: 100%;
+          border-radius: 50%;
+        }
+      }
+    }
+  }
+
+  .header-nav {
+    display: flex;
+    align-items: center;
+
+    & ul {
+      display: flex;
+      align-items: center;
+      column-gap: 2rem;
+
+      list-style: none;
+
+      & li {
+        position: relative;
+
+        font-size: 1.125rem;
+        cursor: pointer;
+
+        .header-nav__active-link {
+          position: absolute;
+          top: 100%;
+
+          background-color: var(--base-white-color);
+          border-radius: 8px;
+          width: 100%;
+          height: 3px;
+        }
+      }
+    }
+  }
+}

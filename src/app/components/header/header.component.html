@@ -1,0 +1,73 @@
+<header class="header">
+  <div class="header-wrapper">
+    <img
+      (click)="handleLogoClick()"
+      class="header-logo"
+      src="assets/icons/logo-with-text-white.svg"
+      alt=""
+    />
+    <nav class="header-nav">
+      <ul>
+        <li (click)="handleLinkClick('home')">
+          {{ t("home") }}
+          @if (isRouteActive("home")) {
+            <div class="header-nav__active-link"></div>
+          }
+        </li>
+        <li (click)="handleLinkClick('about')">
+          {{ t("about_us") }}
+          @if (isRouteActive("about")) {
+            <div class="header-nav__active-link"></div>
+          }
+        </li>
+        @if (loggedInLokal()) {
+          <li (click)="handleLinkClick('statistics')">
+            {{ t("statistics") }}
+            @if (isRouteActive("statistics")) {
+              <div class="header-nav__active-link"></div>
+            }
+          </li>
+        }
+      </ul>
+    </nav>
+
+    <div class="header-buttons">
+      @if (!loggedInUser() && !loggedInLokal()) {
+        <button
+          class="header-buttons__button sign-in-button"
+          (click)="handleLinkClick('sign-in')"
+        >
+          {{ t("sign_in") }}
+        </button>
+      }
+
+      @if (loggedInUser()) {
+        <div class="header-buttons__profile" (click)="handleProfileClick()">
+          @if (loggedInUser()?.profilePhoto) {
+            <img
+              class="header-right__user-icon"
+              [src]="getProfilePicture()"
+              alt=""
+            />
+          } @else {
+            <i class="fa-solid fa-user"></i>
+          }
+        </div>
+      }
+
+      @if (loggedInLokal()) {
+        <div class="header-buttons__profile" (click)="handleProfileClick()">
+          @if (loggedInLokal()?.image) {
+            <img
+              class="header-right__user-icon"
+              [src]="getLokalImage()"
+              alt=""
+            />
+          } @else {
+            <i class="fa-solid fa-user"></i>
+          }
+        </div>
+      }
+    </div>
+  </div>
+</header>

@@ -1,0 +1,26 @@
+<div class="are-you-sure-modal__overlay" (click)="handleModalClose(false)">
+  <div class="are-you-sure-modal" (click)="$event.stopPropagation()">
+    <div class="are-you-sure-modal__header">
+      <h2 class="are-you-sure-modal__header-title">{{ title }}</h2>
+    </div>
+
+    <div class="are-you-sure-modal__body">
+      <p class="are-you-sure-modal__body-description">{{ description }}</p>
+    </div>
+
+    <div class="are-you-sure-modal__footer">
+      <button
+        class="are-you-sure-modal__footer-button button-no"
+        (click)="handleModalClose(false)"
+      >
+        {{ t("no_cancel") }}
+      </button>
+      <button
+        class="are-you-sure-modal__footer-button button-yes"
+        (click)="handleModalClose(true)"
+      >
+        {{ t("yes_proceed") }}
+      </button>
+    </div>
+  </div>
+</div>

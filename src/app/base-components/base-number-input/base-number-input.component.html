@@ -1,0 +1,16 @@
+<div class="base-input">
+  @if (label) {
+    <label class="base-input__label">
+      {{ label }}
+    </label>
+  }
+  <div class="base-input__wrapper">
+    <input
+      class="base-input__field"
+      type="number"
+      [(ngModel)]="value"
+      [placeholder]="placeholder"
+      (input)="handleValueChange()"
+    />
+  </div>
+</div>

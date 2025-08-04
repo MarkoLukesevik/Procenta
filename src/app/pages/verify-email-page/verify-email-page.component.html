@@ -1,0 +1,12 @@
+<div class="verify-email-page">
+  <h1
+    [class.verify-email-page__verified]="isVerified"
+    [class.verify-email-page__unverified]="!isVerified"
+  >
+    {{ pageMessage }}
+  </h1>
+
+  <button *ngIf="isVerified" (click)="handleHomeClick()">
+    {{ t("return_to_home_page") }}
+  </button>
+</div>

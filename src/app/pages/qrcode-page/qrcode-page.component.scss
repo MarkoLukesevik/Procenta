@@ -1,0 +1,121 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  align-items: center;
+}
+
+.qr-page {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  align-items: center;
+  row-gap: 0.5rem;
+
+  padding: 0 1rem;
+
+  &__title {
+    text-align: center;
+    color: var(--base-black-color);
+    font-size: 1.375rem;
+    font-weight: 700;
+  }
+
+  &__description {
+    text-align: center;
+    color: var(--base-black-color);
+    font-size: 1rem;
+    font-weight: 500;
+  }
+
+  &__camera-view {
+    min-height: 250px;
+  }
+
+  &__scan-result {
+    display: flex;
+    flex-direction: column;
+    row-gap: 0.5rem;
+
+    margin-top: 1rem;
+
+    &__user {
+      display: flex;
+      align-items: center;
+      column-gap: 0.5rem;
+
+      &-image {
+        width: 65px;
+        height: 65px;
+        border-radius: 50%;
+        border: 1px dashed #dfdfdf;
+
+        & img {
+          width: 100%;
+          height: 100%;
+          border-radius: 50%;
+          object-fit: cover;
+        }
+      }
+
+      &-info {
+        display: flex;
+        flex-direction: column;
+        flex: 0 1 auto;
+
+        color: var(--base-black-color);
+
+        &__name {
+          color: var(--base-black-color);
+          font-size: 1rem;
+          font-weight: 600;
+        }
+
+        &__work {
+          color: var(--base-black-color);
+          font-size: 0.875rem;
+          font-weight: 400;
+          cursor: pointer;
+        }
+      }
+    }
+
+    &__eligible {
+      display: flex;
+      align-items: center;
+      column-gap: 0.5rem;
+      color: var(--base-black-color);
+
+      &-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        background-color: var(--base-light-green-color);
+        color: var(--base-white-color);
+      }
+    }
+
+    &__not-eligible {
+      display: flex;
+      align-items: center;
+      column-gap: 0.5rem;
+      color: var(--base-black-color);
+
+      &-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        background-color: var(--base-red-color);
+        color: var(--base-white-color);
+      }
+    }
+  }
+}

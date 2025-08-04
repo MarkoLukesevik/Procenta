@@ -1,0 +1,40 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  row-gap: 1rem;
+
+  &-content {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+
+    max-width: 1600px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 70px 0 50px 0;
+  }
+
+  & footer {
+    display: none;
+  }
+}
+
+@media (min-width: 992px) {
+  .app {
+    &-content {
+      padding: 70px 0 0 0;
+    }
+
+    & footer {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+}

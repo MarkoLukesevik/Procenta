@@ -1,0 +1,23 @@
+<div class="base-textarea">
+  @if (label) {
+    <label class="base-textarea__label">
+      {{ label }}
+      @if (isRequired) {
+        <span class="base-textarea__label-required">*</span>
+      }
+    </label>
+  }
+  <div class="base-textarea__wrapper">
+    <textarea
+      class="base-textarea__field"
+      [class.base-input__field-error]="error"
+      [(ngModel)]="value"
+      [placeholder]="placeholder"
+      (input)="handleValueChange()"
+    ></textarea>
+
+    @if (error) {
+      <span class="base-textarea__error">{{ error }}</span>
+    }
+  </div>
+</div>

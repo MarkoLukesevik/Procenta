@@ -1,0 +1,131 @@
+<div class="local-details">
+  <div class="local-details__spinner" *ngIf="isPageLoading">
+    <i class="fa-solid fa-spinner fa-spin"></i>
+  </div>
+
+  <ng-container *ngIf="!isPageLoading">
+    <h3>{{ lokal?.name }}</h3>
+
+    <div class="local-details__image" *ngIf="lokal && lokal.image">
+      <img [src]="lokal.image" alt="" />
+    </div>
+
+    <div class="local-details__content">
+      <p>{{ lokal?.description }}</p>
+    </div>
+
+    <div class="local-details__info">
+      <div class="local-details__info-items">
+        <div
+          class="local-details__info-items-item"
+          *ngIf="lokal && lokal.location"
+        >
+          <div class="local-details__info-items-item__wrapper">
+            <i class="fa-solid fa-location-dot"></i>
+            <p>Location</p>
+          </div>
+          <a
+            [href]="
+              'https://www.google.com/maps?q=' +
+              encodeURIComponent(lokal.location)
+            "
+            >{{ lokal.location }}</a
+          >
+        </div>
+
+        <div
+          class="local-details__info-items-item"
+          *ngIf="lokal && lokal.phoneNumber"
+        >
+          <div class="local-details__info-items-item__wrapper">
+            <i class="fa-solid fa-phone"></i>
+            <p>Contact</p>
+          </div>
+          <a [href]="'tel:' + lokal.phoneNumber">{{ lokal.phoneNumber }}</a>
+        </div>
+
+        <div
+          class="local-details__info-items-item"
+          *ngIf="lokal && lokal.email"
+        >
+          <div class="local-details__info-items-item__wrapper">
+            <i class="fa-solid fa-envelope"></i>
+            <p>Email</p>
+          </div>
+          <a [href]="'mailto:' + lokal.email">{{ lokal.email }}</a>
+        </div>
+      </div>
+
+      <div class="local-details__info-items">
+        <div
+          class="local-details__info-items-item"
+          *ngIf="lokal && lokal.instagramUrl"
+        >
+          <div class="local-details__info-items-item__wrapper">
+            <i class="fa-brands fa-instagram"></i>
+            <p>{{ t("instagram") }}</p>
+          </div>
+          <a [href]="lokal.instagramUrl">{{ lokal.instagramUrl }}</a>
+        </div>
+
+        <div
+          class="local-details__info-items-item"
+          *ngIf="lokal && lokal.facebookUrl"
+        >
+          <div class="local-details__info-items-item__wrapper">
+            <i class="fa-brands fa-facebook"></i>
+            <p>{{ t("facebook") }}</p>
+          </div>
+          <a [href]="lokal.facebookUrl">{{ lokal.facebookUrl }}</a>
+        </div>
+
+        <div class="local-details__info-items-item" *ngIf="lokal && lokal.url">
+          <div class="local-details__info-items-item__wrapper">
+            <i class="fa-solid fa-paperclip"></i>
+            <p>{{ t("website") }}</p>
+          </div>
+          <a [href]="lokal.url">{{ lokal.url }}</a>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="local-details__gallery"
+      *ngIf="
+        lokal && lokal.additionalImages && lokal.additionalImages.length > 0
+      "
+    >
+      <h3>{{ t("gallery") }}</h3>
+      <div class="local-details__gallery-images">
+        <div class="local-details__gallery-images__image">
+          <img
+            *ngIf="lokal.additionalImages[0]"
+            [src]="lokal.additionalImages[0]"
+            alt=""
+          />
+        </div>
+        <div class="local-details__gallery-images__image">
+          <img
+            *ngIf="lokal.additionalImages[1]"
+            [src]="lokal.additionalImages[1]"
+            alt=""
+          />
+        </div>
+        <div class="local-details__gallery-images__image">
+          <img
+            *ngIf="lokal.additionalImages[2]"
+            [src]="lokal.additionalImages[2]"
+            alt=""
+          />
+        </div>
+        <div class="local-details__gallery-images__image">
+          <img
+            *ngIf="lokal.additionalImages[3]"
+            [src]="lokal.additionalImages[3]"
+            alt=""
+          />
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</div>

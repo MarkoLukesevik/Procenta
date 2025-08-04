@@ -1,0 +1,49 @@
+:host {
+  display: flex;
+  flex: 0 1 auto;
+  flex-direction: row;
+}
+
+.app-checkbox {
+  display: flex;
+  flex-direction: row;
+  flex: 0 1 auto;
+  align-items: center;
+  column-gap: 0.5rem;
+
+  color: #040b0c;
+  font-size: 0.875rem;
+
+  cursor: pointer;
+
+  &__checkmark {
+    display: flex;
+    flex-direction: row;
+    flex: 0 1 auto;
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid #dfdfdf;
+    border-radius: 5px;
+    background-color: var(--base-white-color);
+    width: 1.25rem;
+    height: 1.25rem;
+
+    font-size: 0.75rem;
+
+    &-icon {
+      display: none;
+    }
+  }
+
+  &__checked {
+    .app-checkbox__checkmark {
+      background-color: var(--base-green-color);
+      color: var(--base-white-color);
+
+      &-icon {
+        display: inline-block;
+      }
+    }
+  }
+}

@@ -1,0 +1,167 @@
+<div class="admin-edit-user-page">
+  @if (isPageLoading) {
+    <div class="admin-edit-user-page__spinner">
+      <i class="fa-solid fa-spinner fa-spin"></i>
+    </div>
+  } @else {
+    <h3 class="admin-edit-user-page__title">Edit User</h3>
+
+    <div class="admin-edit-user-page__profile-picture">
+      <div
+        class="admin-edit-user-page__profile-picture-avatar"
+        [class.avatar-full]="profilePicture.imageUrl"
+        (click)="profilePictureUploadInput.click()"
+      >
+        @if (profilePicture.imageUrl) {
+          <button
+            class="admin-edit-user-page__profile-picture-avatar__delete"
+            (click)="handleDeletePreviewProfilePicture($event)"
+          >
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+
+          <img [src]="profilePicture.imageUrl" alt="" />
+        } @else {
+          <div class="admin-edit-user-page__profile-picture-avatar__content">
+            <i class="fa-solid fa-upload"></i>
+            <span>Upload Image</span>
+          </div>
+        }
+        <input
+          #profilePictureUploadInput
+          type="file"
+          accept="image/*"
+          class="hidden-input"
+          (change)="handleProfilePictureChange($event)"
+        />
+      </div>
+    </div>
+
+    <div class="admin-edit-user-page__inputs">
+      <app-base-input
+        [label]="'First name'"
+        [placeholder]="'First name'"
+        [value]="user.firstName"
+        [isRequired]="true"
+        (handleInputChange)="user.firstName = $event"
+      />
+      <app-base-input
+        [label]="'Last name'"
+        [placeholder]="'Last name'"
+        [value]="user.lastName"
+        [isRequired]="true"
+        (handleInputChange)="user.lastName = $event"
+      />
+    </div>
+
+    <div class="admin-edit-user-page__inputs">
+      <app-base-select
+        [label]="'Gender'"
+        [options]="genderOptions"
+        [selectedOption]="gender"
+        [borderColor]="'#dfdfdf'"
+        (selectionChange)="handleGenderChange($event)"
+      />
+
+      <app-base-number-input
+        [label]="'Age'"
+        [placeholder]="'18'"
+        [value]="user.age"
+        (handleInputChange)="user.age = $event"
+      />
+    </div>
+
+    <div class="admin-edit-user-page__inputs">
+      <app-base-input
+        [label]="'Email'"
+        [placeholder]="'Email'"
+        [value]="user.email"
+        [isRequired]="true"
+        [error]="emailError"
+        (handleInputChange)="user.email = $event"
+      />
+
+      <app-base-number-input
+        [label]="'Phone number'"
+        [placeholder]="'072123456'"
+        [value]="user.phoneNumber"
+        (handleInputChange)="user.phoneNumber = $event"
+      />
+    </div>
+
+    <div class="admin-edit-user-page__inputs">
+      <div class="admin-edit-user-page__workplace">
+        @if (!userWorkplace) {
+          <app-base-input
+            [label]="'Add your workplace'"
+            [placeholder]="'Search your workplace'"
+            [value]="searchLokalKey"
+            (handleInputChange)="handleLokalsSearch($event)"
+          />
+
+          @if (searchLokalKey.length > 2) {
+            <div class="admin-edit-user-page__workplace-results">
+              @if (matchingLokals.length === 0) {
+                <div class="admin-edit-user-page__workplace-results__empty">
+                  <p>No results found.</p>
+                </div>
+              }
+
+              @if (matchingLokals.length > 0) {
+                <ul class="admin-edit-user-page__workplace-results__list">
+                  @for (lokal of matchingLokals; track lokal.id) {
+                    <li
+                      class="admin-edit-user-page__workplace-results__list-item"
+                      (click)="handleMatchingLokalClick(lokal)"
+                    >
+                      <div
+                        class="admin-edit-user-page__workplace-results__list-item__image"
+                      >
+                        @if (lokal.image) {
+                          <img [src]="lokal.image" alt="" />
+                        }
+                      </div>
+                      <span>{{ lokal.name }}</span>
+                    </li>
+                  }
+                </ul>
+              }
+            </div>
+          }
+        }
+        @if (userWorkplace) {
+          <div class="admin-edit-user-page__workplace-card">
+            <div class="admin-edit-user-page__workplace-card__details">
+              <div class="admin-edit-user-page__workplace-card__details-image">
+                @if (userWorkplace.image) {
+                  <img [src]="userWorkplace.image" alt="" />
+                }
+              </div>
+              <div class="admin-edit-user-page__workplace-card__details-text">
+                <h4>{{ userWorkplace.name }}</h4>
+                <p>{{ userWorkplace.location }}</p>
+              </div>
+            </div>
+            <div class="admin-edit-user-page__workplace-card__footer">
+              <button (click)="handleRemoveUserLokal()">Cancel</button>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+
+    <div class="admin-edit-user-page__save">
+      <button
+        [disabled]="isSaveUserButtonDisabled()"
+        (click)="handleSaveUser()"
+      >
+        @if (!isSaveButtonSpinnerOn) {
+          <span>Save</span>
+          <i class="fa-solid fa-floppy-disk"></i>
+        } @else {
+          <i class="fa-solid fa-spinner fa-spin"></i>
+        }
+      </button>
+    </div>
+  }
+</div>

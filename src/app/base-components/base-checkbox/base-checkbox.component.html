@@ -1,0 +1,13 @@
+<div
+  class="app-checkbox"
+  [class.app-checkbox__checked]="checked"
+  (click)="handleCheckboxClick.emit(checked)"
+>
+  <div class="app-checkbox__checkmark">
+    <i class="app-checkbox__checkmark-icon fa-solid fa-check"></i>
+  </div>
+
+  @if (label) {
+    <span>{{ label }}</span>
+  }
+</div>

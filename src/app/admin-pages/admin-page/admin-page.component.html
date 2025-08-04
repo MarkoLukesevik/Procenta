@@ -1,0 +1,276 @@
+<div class="admin-page">
+  <ng-container>
+    <div class="header">
+      <h1>Lokals</h1>
+
+      <div class="search-wrapper">
+        <app-base-input
+          [label]="'Search lokals'"
+          [placeholder]="'Search lokals'"
+          [value]="lokalsSearchKey"
+          (handleInputChange)="handleLokalsSearch($event)"
+        />
+      </div>
+    </div>
+
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Status</th>
+            <th scope="col">Subscription</th>
+            <th class="actions-header" scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (lokal of filteredLokals; track lokal.id) {
+            <tr>
+              <td>{{ lokal.name }}</td>
+              <td>
+                <span
+                  class="status approved"
+                  [class.approved]="lokal.status === LokalStatus.Active"
+                  [class.pending]="lokal.status === LokalStatus.Pending"
+                  [class.inactive]="lokal.status === LokalStatus.Inactive"
+                  [class.declined]="lokal.status === LokalStatus.Declined"
+                  >{{ getLokalStatusText(lokal) }}</span
+                >
+              </td>
+              <td>
+                <span
+                  class="subscription"
+                  [class.active]="lokal.hasActiveSubscription"
+                  [class.inactive]="!lokal.hasActiveSubscription"
+                  >{{ getSubscriptionText(lokal) }}</span
+                >
+              </td>
+              <td>
+                <div class="actions">
+                  <button
+                    class="btn btn-edit"
+                    [disabled]="isButtonSpinnerOn"
+                    (click)="handleEditLokal(lokal)"
+                  >
+                    @if (!isButtonSpinnerOn) {
+                      <span>Edit</span>
+                    } @else {
+                      <i class="fa-solid fa-spinner fa-spin"></i>
+                    }
+                  </button>
+
+                  <button
+                    class="btn btn-delete"
+                    [disabled]="isButtonSpinnerOn"
+                    (click)="handleLokalDelete(lokal)"
+                  >
+                    @if (!isButtonSpinnerOn) {
+                      <span>Delete</span>
+                    } @else {
+                      <i class="fa-solid fa-spinner fa-spin"></i>
+                    }
+                  </button>
+
+                  @if (lokal.status === LokalStatus.Pending) {
+                    <button
+                      class="btn btn-approve"
+                      [disabled]="isButtonSpinnerOn"
+                      (click)="handleLokalApprove(lokal)"
+                    >
+                      @if (!isButtonSpinnerOn) {
+                        <span>Approve</span>
+                      } @else {
+                        <i class="fa-solid fa-spinner fa-spin"></i>
+                      }
+                    </button>
+                  }
+
+                  @if (lokal.status === LokalStatus.Active) {
+                    <button
+                      class="btn btn-decline"
+                      [disabled]="isButtonSpinnerOn"
+                      (click)="handleLokalDecline(lokal)"
+                    >
+                      @if (!isButtonSpinnerOn) {
+                        <span>Decline</span>
+                      } @else {
+                        <i class="fa-solid fa-spinner fa-spin"></i>
+                      }
+                    </button>
+                  }
+
+                  @if (lokal.hasActiveSubscription) {
+                    <button
+                      class="btn btn-decline"
+                      [disabled]="isButtonSpinnerOn"
+                      (click)="handleStopLokalSubscription(lokal)"
+                    >
+                      @if (!isButtonSpinnerOn) {
+                        <span>Stop subscription</span>
+                      } @else {
+                        <i class="fa-solid fa-spinner fa-spin"></i>
+                      }
+                    </button>
+                  }
+
+                  @if (!lokal.hasActiveSubscription) {
+                    <button
+                      class="btn btn-approve"
+                      [disabled]="isButtonSpinnerOn"
+                      (click)="handleStartLokalSubscription(lokal)"
+                    >
+                      @if (!isButtonSpinnerOn) {
+                        <span>Start subscription</span>
+                      } @else {
+                        <i class="fa-solid fa-spinner fa-spin"></i>
+                      }
+                    </button>
+                  }
+
+                  <button
+                    class="btn btn-edit"
+                    [disabled]="isButtonSpinnerOn"
+                    (click)="handlePopularActionClick(lokal)"
+                  >
+                    @if (!isButtonSpinnerOn) {
+                      @if (!lokal.isPopular) {
+                        <span>Set to popular</span>
+                      } @else {
+                        <span>Remove from popular</span>
+                      }
+                    } @else {
+                      <i class="fa-solid fa-spinner fa-spin"></i>
+                    }
+                  </button>
+
+                  <button
+                    class="btn btn-edit"
+                    [disabled]="isButtonSpinnerOn"
+                    (click)="handleRecommendedActionClick(lokal)"
+                  >
+                    @if (!isButtonSpinnerOn) {
+                      @if (!lokal.isRecommended) {
+                        <span>Set to recommended</span>
+                      } @else {
+                        <span>Remove from recommended</span>
+                      }
+                    } @else {
+                      <i class="fa-solid fa-spinner fa-spin"></i>
+                    }
+                  </button>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </ng-container>
+
+  <ng-container>
+    <div class="header">
+      <h1>Users</h1>
+
+      <div class="search-wrapper">
+        <app-base-input
+          [label]="'Search users'"
+          [placeholder]="'Search users'"
+          [value]="usersSearchKey"
+          (handleInputChange)="handleUsersSearch($event)"
+        />
+      </div>
+    </div>
+
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th scope="col">First Name</th>
+            <th scope="col">Last Name</th>
+            <th scope="col">Status</th>
+            <th scope="col">Lokal name</th>
+            <th class="actions-header" scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (user of filteredUsers; track user.id) {
+            <tr>
+              <td>{{ user.firstName }}</td>
+              <td>
+                {{ user.lastName }}
+              </td>
+              <td>
+                <span
+                  class="status approved"
+                  [class.approved]="user.status === LokalStatus.Active"
+                  [class.pending]="user.status === LokalStatus.Pending"
+                  [class.inactive]="user.status === LokalStatus.Inactive"
+                  [class.declined]="user.status === LokalStatus.Declined"
+                  >{{ getUserStatusText(user) }}</span
+                >
+              </td>
+              <td>
+                {{ user.lokalName }}
+              </td>
+              <td>
+                <div class="actions">
+                  <button
+                    class="btn btn-edit"
+                    [disabled]="isButtonSpinnerOn"
+                    (click)="handleEditUser(user)"
+                  >
+                    @if (!isButtonSpinnerOn) {
+                      <span>Edit</span>
+                    } @else {
+                      <i class="fa-solid fa-spinner fa-spin"></i>
+                    }
+                  </button>
+
+                  <button
+                    class="btn btn-delete"
+                    [disabled]="isButtonSpinnerOn"
+                    (click)="handleUserDelete(user)"
+                  >
+                    @if (!isButtonSpinnerOn) {
+                      <span>Delete</span>
+                    } @else {
+                      <i class="fa-solid fa-spinner fa-spin"></i>
+                    }
+                  </button>
+
+                  @if (user.status === LokalStatus.Pending) {
+                    <button
+                      class="btn btn-approve"
+                      [disabled]="isButtonSpinnerOn"
+                      (click)="handleUserApprove(user)"
+                    >
+                      @if (!isButtonSpinnerOn) {
+                        <span>Approve</span>
+                      } @else {
+                        <i class="fa-solid fa-spinner fa-spin"></i>
+                      }
+                    </button>
+                  }
+
+                  @if (user.status === LokalStatus.Active) {
+                    <button
+                      class="btn btn-decline"
+                      [disabled]="isButtonSpinnerOn"
+                      (click)="handleUserDecline(user)"
+                    >
+                      @if (!isButtonSpinnerOn) {
+                        <span>Decline</span>
+                      } @else {
+                        <i class="fa-solid fa-spinner fa-spin"></i>
+                      }
+                    </button>
+                  }
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </ng-container>
+</div>

@@ -1,0 +1,83 @@
+<div class="about-us-page">
+  <div class="about-us-page__title">
+    <h2>{{ t("our_idea_is_simple") }}</h2>
+    <h4>
+      {{ t("about_us_page_title") }}
+    </h4>
+  </div>
+
+  <div class="about-us-page__values">
+    <h3 class="about-us-page__values-title">{{ t("why_people_choose_us") }}</h3>
+    <div class="about-us-page__values-wrapper">
+      <div class="about-us-page__values-wrapper__item">
+        <div>1</div>
+        <p>
+          {{ t("procenta_connects") }}
+        </p>
+      </div>
+
+      <div class="about-us-page__values-wrapper__item">
+        <div>2</div>
+        <p>
+          {{ t("every_hour_of_work") }}
+        </p>
+      </div>
+
+      <div class="about-us-page__values-wrapper__item">
+        <div>3</div>
+        <p>
+          {{ t("but_the_real_power") }}
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="about-us-page__info">
+    <h3 class="about-us-page__info-title">{{ t("contact_information") }}</h3>
+    <div class="about-us-page__info-items">
+      <div class="about-us-page__info-items-item">
+        <div class="about-us-page__info-items-item__icon">
+          <i class="fa-solid fa-envelope"></i>
+        </div>
+        <h4 class="about-us-page__info-items-item__title">
+          {{ t("email_us") }}
+        </h4>
+        <a
+          class="about-us-page__info-items-item__text"
+          [href]="'mailto:protsenta@outlook.com'"
+          >protsenta&#64;outlook.com</a
+        >
+      </div>
+
+      <div class="about-us-page__info-items-item">
+        <div class="about-us-page__info-items-item__icon">
+          <i class="fa-solid fa-location-dot"></i>
+        </div>
+        <h4 class="about-us-page__info-items-item__title">
+          {{ t("visit_us") }}
+        </h4>
+        <a
+          class="about-us-page__info-items-item__text"
+          href="https://www.google.com/maps?q=New Delhi Rd 4, Skopje 1000"
+          >New Delhi Rd 4, Skopje 1000</a
+        >
+      </div>
+
+      <div class="about-us-page__info-items-item">
+        <div class="about-us-page__info-items-item__icon">
+          <i class="fa-solid fa-phone"></i>
+        </div>
+        <h4 class="about-us-page__info-items-item__title">
+          {{ t("contact_us") }}
+        </h4>
+        <a class="about-us-page__info-items-item__text" href="tel:075507077"
+          >075507077</a
+        >
+      </div>
+    </div>
+  </div>
+
+  <div class="about-us-page__map">
+    <app-map />
+  </div>
+</div>

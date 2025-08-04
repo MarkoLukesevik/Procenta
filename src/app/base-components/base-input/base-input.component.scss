@@ -1,0 +1,57 @@
+:host {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+}
+
+.base-input {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  row-gap: 0.25rem;
+
+  color: #a1a1a1;
+
+  &__label {
+    font-size: 0.875rem;
+    font-weight: 500;
+
+    &-required {
+      color: var(--base-red-color);
+    }
+  }
+
+  &__wrapper {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__field {
+    padding: 0.75rem 1rem;
+    border: 1px solid #dfdfdf;
+    border-radius: 12px;
+    color: var(--base-black-color);
+    background-color: transparent;
+
+    font-size: 0.875rem;
+
+    &:focus {
+      outline: none;
+    }
+
+    &::placeholder {
+      color: var(--base-black-color);
+      opacity: 0.25;
+    }
+
+    &-error {
+      border: 1px solid var(--base-red-color);
+    }
+  }
+
+  &__error {
+    margin-top: 0.2rem;
+    color: var(--base-red-color);
+    font-size: 0.75rem;
+  }
+}

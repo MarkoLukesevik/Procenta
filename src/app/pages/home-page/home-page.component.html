@@ -1,0 +1,54 @@
+<div class="home-page">
+  <div class="home-page__search">
+    <input
+      class="home-page__search-input"
+      [placeholder]="t('search_for_restaurants_bars_coffee_shop')"
+      [(ngModel)]="searchValue"
+      (input)="handleSearch()"
+    />
+
+    <button (click)="handleSearch()">
+      <i class="fa-solid fa-magnifying-glass"></i>
+    </button>
+  </div>
+
+  <div class="home-page__locals">
+    <div class="home-page__spinner" *ngIf="isPageLoading">
+      <i class="fa-solid fa-spinner fa-spin"></i>
+    </div>
+
+    <ng-container *ngIf="!isPageLoading">
+      <div *ngIf="!searchValue" class="home-page__locals-slider">
+        <app-lokals-slider
+          *ngIf="popularLokals.length > 0"
+          [title]="t('popular')"
+          [lokals]="popularLokals"
+        />
+        <app-lokals-slider
+          *ngIf="recommendedLokals.length > 0"
+          [title]="t('recommended')"
+          [lokals]="recommendedLokals"
+        />
+        <app-lokals-slider
+          *ngIf="bars.length > 0"
+          [title]="t('bars')"
+          [lokals]="bars"
+        />
+        <app-lokals-slider
+          *ngIf="coffeeShops.length > 0"
+          [title]="t('coffee_shops')"
+          [lokals]="coffeeShops"
+        />
+        <app-lokals-slider
+          *ngIf="restaurants.length > 0"
+          [title]="t('restaurants')"
+          [lokals]="restaurants"
+        />
+      </div>
+
+      <div *ngIf="searchValue" class="home-page__locals-list">
+        <app-lokal-card *ngFor="let lokal of filteredLokals" [lokal]="lokal" />
+      </div>
+    </ng-container>
+  </div>
+</div>

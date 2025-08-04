@@ -1,0 +1,251 @@
+<div class="admin-edit-lokal-page">
+  @if (isPageLoading) {
+    <div class="admin-edit-lokal-page__spinner">
+      <i class="fa-solid fa-spinner fa-spin"></i>
+    </div>
+  } @else {
+    <ng-container>
+      <h3 class="admin-edit-lokal-page__title">Edit Lokal</h3>
+
+      <div class="admin-edit-lokal-page__lokal-picture">
+        <div
+          class="admin-edit-lokal-page__lokal-picture-avatar"
+          [class.avatar-full]="lokalPicture.imageUrl"
+          (click)="lokalPictureUploadInput.click()"
+        >
+          @if (lokalPicture.imageUrl) {
+            <button
+              class="admin-edit-lokal-page__lokal-picture-avatar__delete"
+              (click)="handleDeleteLocalPicture($event)"
+            >
+              <i class="fa-solid fa-xmark"></i>
+            </button>
+            <img [src]="lokalPicture.imageUrl" alt="" />
+          } @else {
+            <div class="admin-edit-lokal-page__lokal-picture-avatar__content">
+              <i class="fa-solid fa-upload"></i>
+              <span>Upload Lokal Image</span>
+            </div>
+          }
+          <input
+            #lokalPictureUploadInput
+            type="file"
+            accept="image/*"
+            class="hidden-input"
+            (change)="handleLokalPictureChange($event)"
+          />
+        </div>
+      </div>
+
+      <div class="admin-edit-lokal-page__inputs">
+        <app-base-input
+          [label]="'Lokal name'"
+          [placeholder]="'Lokal name'"
+          [value]="lokal.name"
+          [isRequired]="true"
+          (handleInputChange)="lokal.name = $event"
+        />
+        <app-base-input
+          [label]="'Location'"
+          [placeholder]="'Location'"
+          [value]="lokal.location"
+          [isRequired]="true"
+          (handleInputChange)="lokal.location = $event"
+        />
+      </div>
+
+      <div class="admin-edit-lokal-page__inputs">
+        <app-base-input
+          [label]="'Email'"
+          [placeholder]="'Email'"
+          [value]="lokal.email"
+          [isRequired]="true"
+          [error]="emailError"
+          (handleInputChange)="lokal.email = $event"
+        />
+
+        <app-base-select
+          [label]="'Type'"
+          [options]="lokalTypeOptions"
+          [selectedOption]="lokalType"
+          [borderColor]="'#dfdfdf'"
+          (selectionChange)="handleLokalTypeChange($event)"
+        />
+      </div>
+
+      <div class="admin-edit-lokal-page__inputs">
+        <app-base-input
+          [label]="'Website'"
+          [placeholder]="'Website'"
+          [value]="lokal.url"
+          (handleInputChange)="lokal.url = $event"
+        />
+        <app-base-number-input
+          [label]="'Phone number'"
+          [placeholder]="'072123456'"
+          [value]="lokal.phoneNumber"
+          (handleInputChange)="lokal.phoneNumber = $event"
+        />
+      </div>
+
+      <div class="admin-edit-lokal-page__inputs">
+        <app-base-input
+          [label]="'Instagram'"
+          [placeholder]="'Instagram'"
+          [value]="lokal.instagramUrl"
+          (handleInputChange)="lokal.instagramUrl = $event"
+        />
+        <app-base-input
+          [label]="'Facebook'"
+          [placeholder]="'Facebook'"
+          [value]="lokal.facebookUrl"
+          (handleInputChange)="lokal.facebookUrl = $event"
+        />
+      </div>
+
+      <div class="admin-edit-lokal-page__inputs">
+        <app-base-textarea
+          [label]="'Description'"
+          [placeholder]="'Description'"
+          [value]="lokal.description"
+          (handleInputChange)="lokal.description = $event"
+        />
+
+        <div class="admin-edit-lokal-page__employees">
+          <div class="admin-edit-lokal-page__employees-input">
+            <app-base-input
+              [label]="'Add employee'"
+              [placeholder]="'Search employees'"
+              [value]="searchUserKey"
+              (handleInputChange)="handleUsersSearch($event)"
+            />
+
+            @if (searchUserKey.length > 2) {
+              <div class="admin-edit-lokal-page__employees-input__results">
+                @if (matchingUsers.length === 0) {
+                  <div
+                    class="admin-edit-lokal-page__employees-input__results-empty"
+                  >
+                    <p>No results found.</p>
+                  </div>
+                }
+
+                @if (matchingUsers.length > 0) {
+                  <ul
+                    class="admin-edit-lokal-page__employees-input__results-list"
+                  >
+                    @for (user of matchingUsers; track user.id) {
+                      <li
+                        class="admin-edit-lokal-page__employees-input__results-list__item"
+                        (click)="handleMatchingUserClick(user)"
+                      >
+                        <div
+                          class="admin-edit-lokal-page__employees-input__results-list__item-image"
+                        >
+                          @if (user.profilePhoto) {
+                            <img [src]="user.profilePhoto" alt="" />
+                          }
+                        </div>
+                        <span>{{ user.firstName }} {{ user.lastName }}</span>
+                      </li>
+                    }
+                  </ul>
+                }
+              </div>
+            }
+          </div>
+
+          <div class="admin-edit-lokal-page__employees-card-wrapper">
+            <p>Employees ({{ lokalEmployees.length }})</p>
+            <div class="admin-edit-lokal-page__employees-card">
+              @if (lokalEmployees.length === 0) {
+                <div class="admin-edit-lokal-page__employees-card__empty">
+                  There are no employees.
+                </div>
+              }
+
+              @for (employee of lokalEmployees; track employee.id) {
+                <div class="admin-edit-lokal-page__employees-card__item">
+                  <div
+                    class="admin-edit-lokal-page__employees-card__item-details"
+                  >
+                    <div
+                      class="admin-edit-lokal-page__employees-card__item-details__image"
+                    >
+                      @if (employee.profilePhoto) {
+                        <img [src]="employee.profilePhoto" alt="" />
+                      }
+                    </div>
+                    <div
+                      class="admin-edit-lokal-page__employees-card__item-details__text"
+                    >
+                      <p>{{ employee.firstName }} {{ employee.lastName }}</p>
+                    </div>
+                  </div>
+                  <button
+                    class="admin-edit-lokal-page__employees-card__item-button"
+                    (click)="handleRemoveEmployee(employee)"
+                  >
+                    <i class="fa-solid fa-xmark"></i>
+                  </button>
+                </div>
+              }
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="admin-edit-lokal-page__additional-lokal-pictures">
+        @for (
+          picture of additionalLocalPictures;
+          track picture;
+          let i = $index
+        ) {
+          <div
+            class="admin-edit-lokal-page__additional-lokal-pictures-avatar"
+            [class.avatar-full]="picture.imageUrl"
+            (click)="triggerAdditionalLocalPictureFileInput(i)"
+          >
+            @if (picture.imageUrl) {
+              <button
+                class="admin-edit-lokal-page__additional-lokal-pictures-avatar__delete"
+                (click)="handleDeleteAdditionalLocalPicture($event, i)"
+              >
+                <i class="fa-solid fa-xmark"></i>
+              </button>
+              <img [src]="picture.imageUrl" alt="" />
+            } @else {
+              <div
+                class="admin-edit-lokal-page__additional-lokal-pictures-avatar__content"
+              >
+                <i class="fa-solid fa-upload"></i>
+                <span>Upload additional Image</span>
+              </div>
+            }
+            <input
+              [id]="'additionalLokalPictureUploadInput-' + i"
+              type="file"
+              accept="image/*"
+              class="hidden-input"
+              (change)="handleAdditionalLokalPictureChange($event, i)"
+            />
+          </div>
+        }
+      </div>
+
+      <div class="admin-edit-lokal-page__save">
+        <button
+          [disabled]="isSaveLokalButtonDisabled()"
+          (click)="handleSaveLokal()"
+        >
+          @if (!isSaveButtonSpinnerOn) {
+            <span>Save</span>
+            <i class="fa-solid fa-floppy-disk"></i>
+          } @else {
+            <i class="fa-solid fa-spinner fa-spin"></i>
+          }
+        </button>
+      </div>
+    </ng-container>
+  }
+</div>

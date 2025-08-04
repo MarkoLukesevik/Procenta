@@ -1,0 +1,52 @@
+:host {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+}
+
+.base-input {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  row-gap: 0.25rem;
+
+  color: #a1a1a1;
+
+  &__label {
+    font-size: 0.875rem;
+    font-weight: 500;
+  }
+
+  &__wrapper {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__field {
+    padding: 0.75rem 1rem;
+    border: 0.77px solid #dfdfdf;
+    border-radius: 12px;
+    color: var(--base-black-color);
+    background-color: transparent;
+
+    font-size: 0.875rem;
+
+    &[type="number"]::-webkit-inner-spin-button,
+    &[type="number"]::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+    &[type="number"] {
+      -moz-appearance: textfield;
+    }
+
+    &:focus {
+      outline: none;
+    }
+
+    &::placeholder {
+      color: var(--base-black-color);
+      opacity: 0.25;
+    }
+  }
+}

@@ -1,0 +1,217 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  align-items: center;
+}
+
+.users-page {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  align-items: center;
+  row-gap: 2rem;
+
+  width: 100%;
+  padding: 0 1rem;
+
+  & h3 {
+    color: #070e05;
+    font-weight: 700;
+    font-size: 1.625rem;
+  }
+
+  &__filters {
+    display: flex;
+    flex-direction: column;
+    row-gap: 1rem;
+
+    width: 100%;
+
+    &-search {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      column-gap: 0.5rem;
+
+      padding: 0.5rem;
+      border-radius: 12px;
+      border: 1px solid #e9eaec;
+
+      &-input {
+        border: none;
+        flex: 1 1 auto;
+
+        font-size: 1rem;
+        font-weight: 500;
+
+        &:focus {
+          outline: none;
+        }
+      }
+
+      & button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        background-color: var(--base-green-color);
+        color: var(--base-white-color);
+        padding: 0.5rem;
+        border: none;
+        border-radius: 8px;
+
+        cursor: pointer;
+      }
+    }
+  }
+
+  &__spinner {
+    display: flex;
+    flex: 1 1 auto;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 2rem;
+  }
+
+  &__users {
+    display: flex;
+    flex-direction: column;
+    row-gap: 2rem;
+
+    &-list {
+      display: grid;
+      gap: 2rem;
+
+      &__user {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        row-gap: 0.75rem;
+
+        min-width: 250px;
+
+        &-image {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+
+          border-radius: 50%;
+          width: 65px;
+          height: 65px;
+          background-color: #dfdfdf;
+          color: var(--base-white-color);
+          font-size: 1.5rem;
+
+          & img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            object-position: top;
+          }
+        }
+
+        &-name {
+          color: #111827;
+          font-size: 1.125rem;
+          font-weight: 600;
+        }
+
+        &-work {
+          color: #687588;
+          font-size: 0.875rem;
+          font-weight: 400;
+          text-decoration: underline;
+          cursor: pointer;
+
+          &-empty {
+            visibility: hidden;
+          }
+        }
+
+        &-border {
+          width: 100%;
+          height: 1px;
+          background-color: #f1f2f4;
+        }
+
+        &-email {
+          display: flex;
+          align-items: center;
+          column-gap: 0.25rem;
+
+          color: #111827;
+          font-size: 1rem;
+          font-weight: 500;
+
+          & a {
+            color: #111827;
+            text-decoration: none;
+          }
+        }
+
+        &-phone {
+          display: flex;
+          align-items: center;
+          column-gap: 0.25rem;
+
+          color: #111827;
+          font-size: 1rem;
+          font-weight: 500;
+
+          & a {
+            color: #111827;
+            text-decoration: none;
+          }
+        }
+      }
+    }
+
+    &-button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      &__load-more {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        column-gap: 0.5rem;
+
+        border: none;
+        background-color: var(--base-green-color);
+        color: var(--base-white-color);
+        padding: 0.875rem;
+
+        font-size: 0.875rem;
+        font-weight: 300;
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+@media (min-width: 768px) {
+  .users-page__filters {
+    width: 75%;
+  }
+
+  .users-page__users-list {
+    grid-template-columns: 1fr 1fr;
+    justify-content: center;
+    column-gap: 2rem;
+    row-gap: 3rem;
+  }
+}
+
+@media (orientation: landscape) and (min-width: 992px) {
+  .users-page__filters {
+    width: 50%;
+  }
+
+  .users-page__users-list {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+}

@@ -1,0 +1,23 @@
+<div class="base-input">
+  @if (label) {
+    <label class="base-input__label">
+      {{ label }}
+      @if (isRequired) {
+        <span class="base-input__label-required">*</span>
+      }
+    </label>
+  }
+  <div class="base-input__wrapper">
+    <input
+      class="base-input__field"
+      [class.base-input__field-error]="error"
+      [type]="type"
+      [(ngModel)]="value"
+      [placeholder]="placeholder"
+      (input)="handleValueChange()"
+    />
+    @if (error) {
+      <span class="base-input__error">{{ error }}</span>
+    }
+  </div>
+</div>

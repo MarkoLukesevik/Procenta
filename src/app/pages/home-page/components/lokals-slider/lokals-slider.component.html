@@ -1,0 +1,8 @@
+<div class="slider-section">
+  <h2 class="slider-section__title">{{ title }}</h2>
+  <div class="slider-section__container">
+    <div class="slider-section__container-slider">
+      <app-lokal-card *ngFor="let lokal of lokals" [lokal]="lokal" />
+    </div>
+  </div>
+</div>

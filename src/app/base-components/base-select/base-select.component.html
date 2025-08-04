@@ -1,0 +1,25 @@
+@if (label) {
+  <span class="label">{{ label }}</span>
+}
+<div
+  class="app-select"
+  [style.border-color]="borderColor"
+  (click)="toggleDropdown()"
+  (appClickOutside)="isDropdownVisible = false"
+>
+  <div class="app-select__selected-option">
+    <span>{{ getSelectedOptionText() }}</span>
+    <i class="fa-solid fa-chevron-down"></i>
+  </div>
+  @if (isDropdownVisible) {
+    <div class="app-select__dropdown" [style.border-color]="borderColor">
+      <div
+        *ngFor="let option of options"
+        class="app-select__dropdown-option"
+        (click)="onSelectionChange(option, $event)"
+      >
+        <span>{{ option.text }}</span>
+      </div>
+    </div>
+  }
+</div>

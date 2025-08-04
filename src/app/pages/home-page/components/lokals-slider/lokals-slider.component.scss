@@ -1,0 +1,32 @@
+.slider-section {
+  margin-bottom: 1rem;
+
+  &__title {
+    color: var(--base-black-color);
+    margin-bottom: 20px;
+
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+
+  &__container {
+    &-slider {
+      display: flex;
+      gap: 1rem;
+
+      padding-bottom: 0.5rem;
+      scroll-behavior: smooth;
+      overflow-x: auto;
+
+      &::-webkit-scrollbar {
+        display: none;
+      }
+    }
+  }
+}
+
+@media (orientation: landscape) and (min-width: 992px) {
+  .slider-section {
+    margin-bottom: 2rem;
+  }
+}

@@ -1,0 +1,85 @@
+<div class="qr-page">
+  @if (loggedInUser) {
+    <h3 class="qr-page__title">{{ t("exclusive_discount_qr_code") }}</h3>
+    @if (loggedInUser.qrCode) {
+      <div class="qr-page__qr-code">
+        <qrcode
+          [qrdata]="loggedInUser.qrCode"
+          [colorDark]="'#ffffff'"
+          [colorLight]="'#006659'"
+          [width]="qrCodeSize"
+        ></qrcode>
+      </div>
+    }
+    <p class="qr-page__description">
+      {{ t("show_this_qr_to_our_partners") }}
+    </p>
+  }
+
+  @if (loggedInLokal) {
+    <h3 class="qr-page__title">{{ t("scan_qr_code") }}</h3>
+
+    <div class="qr-page__camera-view">
+      <zxing-scanner
+        [device]="currentDevice"
+        (scanSuccess)="onCodeResult($event)"
+      >
+      </zxing-scanner>
+    </div>
+    <p class="qr-page__description">
+      {{ t("use_your_camera_to_scan_qr_codes") }}
+    </p>
+
+    @if (scanResult) {
+      <div class="qr-page__scan-result">
+        @if (isScanningSpinnerOn) {
+          <p>
+            <i class="fa-solid fa-spinner fa-spin"></i>
+          </p>
+        }
+
+        @if (scannedUser) {
+          <div class="qr-page__scan-result__user">
+            <div class="qr-page__scan-result__user-image">
+              @if (scannedUser.profilePhoto) {
+                <img [src]="scannedUser.profilePhoto" alt="" />
+              }
+            </div>
+            <div class="qr-page__scan-result__user-info">
+              <p class="qr-page__scan-result__user-info__name">
+                {{ scannedUser.firstName }} {{ scannedUser.lastName }}
+              </p>
+              <p class="qr-page__scan-result__user-info__work">
+                {{ t("working_at") }} {{ scannedUser.lokalName }}
+              </p>
+            </div>
+          </div>
+        }
+
+        @if (isEligible) {
+          <div class="qr-page__scan-result__eligible">
+            <div class="qr-page__scan-result__eligible-icon">
+              <i class="fa-solid fa-check"></i>
+            </div>
+            <p>{{ t("eligible_for_discount") }}</p>
+          </div>
+        }
+
+        @if (!isEligible && !isScanningSpinnerOn) {
+          <div class="qr-page__scan-result__not-eligible">
+            <div class="qr-page__scan-result__not-eligible-icon">
+              <i class="fa-solid fa-xmark"></i>
+            </div>
+            <p>
+              {{
+                notEligibleReason
+                  ? notEligibleReason
+                  : t("not_eligible_for_discount")
+              }}
+            </p>
+          </div>
+        }
+      </div>
+    }
+  }
+</div>
