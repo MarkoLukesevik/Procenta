@@ -1,5 +1,5 @@
 # Stage 1: Build Angular app
-FROM node:18 as build
+FROM node:24.5.0 as build
 
 WORKDIR /app
 COPY package*.json ./
@@ -7,7 +7,7 @@ RUN npm install
 COPY . .
 RUN npx ng build --configuration production
 
-RUN ls /app/dist/procenta-web-client
+RUN ls /app/www
 
 # Stage 2: Serve with Nginx (Alpine)
 FROM nginx:alpine
@@ -16,7 +16,7 @@ FROM nginx:alpine
 RUN rm -rf /usr/share/nginx/html/*
 
 # Copy Angular build output
-COPY --from=build /app/dist/procenta-web-client/browser /usr/share/nginx/html
+COPY --from=build /app/www /usr/share/nginx/html
 
 # Copy your custom nginx config (if you have one)
 COPY nginx.conf /etc/nginx/conf.d/default.conf
