@@ -319,15 +319,55 @@ export class ProfilePageComponent implements OnInit {
     );
   }
 
-  public handleSaveUser(): void {
+  // public handleSaveUser(): void {
+  //   this.validateUserEmail();
+  //   if (this.emailError) return;
+  //
+  //   this.isSaveButtonSpinnerOn = true;
+  //
+  //   const user = {
+  //     ...this.user,
+  //     profilePhoto: this.profilePicture,
+  //   };
+  //   if (this.userWorkplace) {
+  //     user.lokalId = this.userWorkplace.id;
+  //     user.lokalName = this.userWorkplace.name;
+  //   } else {
+  //     user.lokalId = undefined;
+  //     user.lokalName = undefined;
+  //   }
+  //   this.userService.editUser(user).subscribe({
+  //     next: (user: User) => {
+  //       this.userService.setLoggedInUser(user);
+  //       this.user = user;
+  //       this.isSaveButtonSpinnerOn = false;
+  //     },
+  //     error: (httpErrorResponse: HttpErrorResponse): void => {
+  //       this.toastService.error(httpErrorResponse.error);
+  //       this.isSaveButtonSpinnerOn = false;
+  //     },
+  //   });
+  // }
+
+  public async handleSaveUser(): Promise<void> {
     this.validateUserEmail();
     if (this.emailError) return;
+
+    // Ensure profile picture is processed if recently changed
+    if (this.profilePicture.name && !this.profilePicture.payload) {
+      try {
+        await this.handleProfilePictureChange({ target: { files: [new File([], this.profilePicture.name)] } } as any);
+      } catch (error) {
+        this.toastService.error('Failed to process image');
+        return;
+      }
+    }
 
     this.isSaveButtonSpinnerOn = true;
 
     const user = {
       ...this.user,
-      profilePhoto: this.profilePicture,
+      profilePhoto: this.profilePicture
     };
     if (this.userWorkplace) {
       user.lokalId = this.userWorkplace.id;
@@ -336,17 +376,20 @@ export class ProfilePageComponent implements OnInit {
       user.lokalId = undefined;
       user.lokalName = undefined;
     }
-    this.userService.editUser(user).subscribe({
-      next: (user: User) => {
-        this.userService.setLoggedInUser(user);
-        this.user = user;
-        this.isSaveButtonSpinnerOn = false;
-      },
-      error: (httpErrorResponse: HttpErrorResponse): void => {
-        this.toastService.error(httpErrorResponse.error);
-        this.isSaveButtonSpinnerOn = false;
-      },
-    });
+
+    try {
+      const updatedUser = await this.userService.editUser(user).toPromise();
+      if (updatedUser) {
+        this.userService.setLoggedInUser(updatedUser);
+        this.user = updatedUser;
+
+      }
+    } catch (httpErrorResponse: any) {
+      console.error('API error:', httpErrorResponse);
+      this.toastService.error(httpErrorResponse.error?.message || 'Failed to save user');
+    } finally {
+      this.isSaveButtonSpinnerOn = false;
+    }
   }
   // endregion
 
@@ -465,24 +508,58 @@ export class ProfilePageComponent implements OnInit {
   // endregion
 
   // region picture handlers
-  public handleProfilePictureChange(event: Event): void {
-    const input = event.target as HTMLInputElement;
-    if (input.files && input.files[0]) {
-      this.profilePicture.name = input.files[0].name;
+  // public handleProfilePictureChange(event: Event): void {
+  //   const input = event.target as HTMLInputElement;
+  //   if (input.files && input.files[0]) {
+  //     this.profilePicture.name = input.files[0].name;
+  //
+  //     const reader = new FileReader();
+  //     reader.onload = () => {
+  //       this.profilePicture.imageUrl = reader.result as string;
+  //
+  //       this.profilePicture.payload = this.profilePicture.imageUrl.replace(
+  //         /^.*?,/,
+  //         '',
+  //       );
+  //     };
+  //     reader.readAsDataURL(input.files[0]);
+  //   }
+  //
+  //   input.value = '';
+  // }
+  public handleProfilePictureChange(event: Event): Promise<void> {
+    return new Promise((resolve, reject) => {
+      const input = event.target as HTMLInputElement;
+      if (!input.files || !input.files[0]) {
+        input.value = '';
+        return resolve();
+      }
+
+      const file = input.files[0];
+      this.profilePicture.name = file.name;
 
       const reader = new FileReader();
       reader.onload = () => {
-        this.profilePicture.imageUrl = reader.result as string;
-
-        this.profilePicture.payload = this.profilePicture.imageUrl.replace(
-          /^.*?,/,
-          '',
-        );
+        try {
+          const result = reader.result as string;
+          if (!result.startsWith('data:image/')) {
+            throw new Error('Invalid image data format');
+          }
+          this.profilePicture.imageUrl = result;
+          this.profilePicture.payload = result.replace(/^data:image\/[a-z]+;base64,/, '');
+          input.value = '';
+          resolve();
+        } catch (error) {
+          console.error('FileReader processing error:', error);
+          reject(error);
+        }
       };
-      reader.readAsDataURL(input.files[0]);
-    }
-
-    input.value = '';
+      reader.onerror = () => {
+        console.error('FileReader failed to read file:', reader.error);
+        reject(new Error('Failed to read file'));
+      };
+      reader.readAsDataURL(file);
+    });
   }
 
   public handleDeletePreviewProfilePicture(event: Event): void {
