@@ -8,7 +8,8 @@ pipeline {
         stage('Build') {
             steps {
                 script {
-                    docker.build("registry.nerathos.xyz/procenta-client:latest").push()
+                    def sha = sh(script: 'git rev-parse --short HEAD', returnStdout: true).trim()
+                    docker.build("registry.nerathos.xyz/procenta-client:${sha}").push()
                 }
             }
         }
