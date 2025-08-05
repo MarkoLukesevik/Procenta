@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
 import { take } from 'rxjs/operators';
+import imageCompression from 'browser-image-compression';
 
 import { BaseInputComponent } from '../../base-components/base-input/base-input.component';
 import {
@@ -465,10 +466,18 @@ export class ProfilePageComponent implements OnInit {
   // endregion
 
   // region picture handlers
-  public handleProfilePictureChange(event: Event): void {
+  public async handleProfilePictureChange(event: Event): Promise<void> {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files[0]) {
-      this.profilePicture.name = input.files[0].name;
+      const file = input.files[0];
+
+      const compressedFile = await imageCompression(file, {
+        maxSizeMB: 0.3,
+        maxWidthOrHeight: 800,
+        useWebWorker: true,
+      });
+
+      this.profilePicture.name = compressedFile.name;
 
       const reader = new FileReader();
       reader.onload = () => {
@@ -479,7 +488,7 @@ export class ProfilePageComponent implements OnInit {
           '',
         );
       };
-      reader.readAsDataURL(input.files[0]);
+      reader.readAsDataURL(compressedFile);
     }
 
     input.value = '';
@@ -494,10 +503,18 @@ export class ProfilePageComponent implements OnInit {
     };
   }
 
-  public handleLokalPictureChange(event: Event): void {
+  public async handleLokalPictureChange(event: Event): Promise<void> {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files[0]) {
-      this.lokalPicture.name = input.files[0].name;
+      const file = input.files[0];
+
+      const compressedFile = await imageCompression(file, {
+        maxSizeMB: 0.3,
+        maxWidthOrHeight: 800,
+        useWebWorker: true,
+      });
+
+      this.lokalPicture.name = compressedFile.name;
 
       const reader = new FileReader();
       reader.onload = () => {
@@ -508,7 +525,7 @@ export class ProfilePageComponent implements OnInit {
           '',
         );
       };
-      reader.readAsDataURL(input.files[0]);
+      reader.readAsDataURL(compressedFile);
     }
 
     input.value = '';
@@ -541,10 +558,18 @@ export class ProfilePageComponent implements OnInit {
     }
   }
 
-  public handleAdditionalLokalPictureChange(event: Event, index: number): void {
+  public async handleAdditionalLokalPictureChange(event: Event, index: number): Promise<void> {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files[0]) {
-      this.additionalLocalPictures[index].name = input.files[0].name;
+      const file = input.files[0];
+
+      const compressedFile = await imageCompression(file, {
+        maxSizeMB: 0.3,
+        maxWidthOrHeight: 800,
+        useWebWorker: true,
+      });
+
+      this.additionalLocalPictures[index].name = compressedFile.name;
 
       const reader = new FileReader();
       reader.onload = () => {
@@ -552,7 +577,7 @@ export class ProfilePageComponent implements OnInit {
         this.additionalLocalPictures[index].payload =
           this.additionalLocalPictures[index].imageUrl.replace(/^.*?,/, '');
       };
-      reader.readAsDataURL(input.files[0]);
+      reader.readAsDataURL(compressedFile);
     }
 
     input.value = '';
