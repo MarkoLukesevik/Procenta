@@ -45,7 +45,7 @@ export class QrcodePageComponent implements OnInit, OnDestroy {
 
   public qrCodeDataUrl: string | null = null;
 
-  public isScannerVisible = true;
+  public isScannerVisible: boolean = true;
 
   constructor() {
     this.loggedInUser = this.userService.getLoggedInUser()();
@@ -54,17 +54,15 @@ export class QrcodePageComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     if (this.loggedInUser && this.loggedInUser.qrCode) {
-      QRCode.toDataURL(this.loggedInUser.qrCode)
-        .then((url) => {
-          this.qrCodeDataUrl = url;
-        })
-        .catch((err) => console.error(err));
+      QRCode.toDataURL(this.loggedInUser.qrCode).then((url: string): void => {
+        this.qrCodeDataUrl = url;
+      });
     }
 
     if (this.loggedInLokal) {
       navigator.mediaDevices
         .enumerateDevices()
-        .then((devices) => {
+        .then((devices): void => {
           const videoDevices = devices.filter(
             (device) => device.kind === 'videoinput',
           );
@@ -73,11 +71,11 @@ export class QrcodePageComponent implements OnInit, OnDestroy {
             this.currentDevice = videoDevices[0];
             this.startScan();
           } else {
-            this.toastService.error('No camera device found.');
+            this.toastService.error(this.t('no_camera_device_found'));
           }
         })
-        .catch((error) => {
-          this.toastService.error('Error accessing camera: ' + error.message);
+        .catch((error: any): void => {
+          console.log(error.message);
         });
     }
   }
