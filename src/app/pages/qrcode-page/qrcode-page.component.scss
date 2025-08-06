@@ -29,7 +29,12 @@
   }
 
   &__camera-view {
-    min-height: 250px;
+    width: 50%;
+
+    &__scanner {
+      border: 1px solid var(--base-green-color);
+      border-radius: 12px;
+    }
   }
 
   &__scan-result {

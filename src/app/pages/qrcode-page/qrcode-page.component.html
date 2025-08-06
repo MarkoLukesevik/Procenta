@@ -3,12 +3,9 @@
     <h3 class="qr-page__title">{{ t("exclusive_discount_qr_code") }}</h3>
     @if (loggedInUser.qrCode) {
       <div class="qr-page__qr-code">
-        <qrcode
-          [qrdata]="loggedInUser.qrCode"
-          [colorDark]="'#006659'"
-          [colorLight]="'#ffffff'"
-          [width]="qrCodeSize"
-        ></qrcode>
+        @if (qrCodeDataUrl) {
+          <img [src]="qrCodeDataUrl" alt="QR Code" />
+        }
       </div>
     }
     <p class="qr-page__description">
@@ -20,12 +17,14 @@
     <h3 class="qr-page__title">{{ t("scan_qr_code") }}</h3>
 
     <div class="qr-page__camera-view">
-      <zxing-scanner
-        [device]="currentDevice"
-        (scanSuccess)="onCodeResult($event)"
-      >
-      </zxing-scanner>
+      @if (!isNativePlatform) {
+        <div
+          class="qr-page__camera-view__scanner"
+          id="html5qr-code-full-region"
+        ></div>
+      }
     </div>
+
     <p class="qr-page__description">
       {{ t("use_your_camera_to_scan_qr_codes") }}
     </p>

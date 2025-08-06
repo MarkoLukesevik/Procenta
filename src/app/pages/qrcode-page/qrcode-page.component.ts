@@ -1,15 +1,16 @@
 import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
+import { Capacitor } from '@capacitor/core';
 
-import { QRCodeComponent } from 'angularx-qrcode';
-import { ZXingScannerModule } from '@zxing/ngx-scanner';
+import QRCode from 'qrcode';
 
 import { ToastrService } from 'ngx-toastr';
 import { UserService } from '../../services/user.service';
 import { LokalsService } from '../../services/lokals.service';
 import { ScanService } from '../../services/scan.service';
 import { LanguageService } from '../../services/language.service';
+import { QrScannerService } from '../../services/qr-scanner.service';
 
 import { User } from '../../models/user';
 import { Lokal } from '../../models/lokal';
@@ -18,7 +19,7 @@ import { QRCodeResponse } from '../../responses/scan-qr-response';
 
 @Component({
   selector: 'app-qrcode-page',
-  imports: [CommonModule, QRCodeComponent, ZXingScannerModule],
+  imports: [CommonModule],
   templateUrl: './qrcode-page.component.html',
   styleUrl: './qrcode-page.component.scss',
 })
@@ -28,11 +29,10 @@ export class QrcodePageComponent implements OnInit, OnDestroy {
   private scanService: ScanService = inject(ScanService);
   private toastService: ToastrService = inject(ToastrService);
   private languageService: LanguageService = inject(LanguageService);
+  private qrScannerService: QrScannerService = inject(QrScannerService);
 
   public loggedInUser: User | null;
   public loggedInLokal: Lokal | null;
-
-  public qrCodeSize: number = window.innerWidth * 0.9;
 
   public scanResult: string | null = null;
   public isEligible: boolean = false;
@@ -41,6 +41,9 @@ export class QrcodePageComponent implements OnInit, OnDestroy {
   public isScanningSpinnerOn: boolean = false;
 
   public scannedUser?: User;
+  public isNativePlatform: boolean = Capacitor.isNativePlatform();
+
+  public qrCodeDataUrl: string | null = null;
 
   constructor() {
     this.loggedInUser = this.userService.getLoggedInUser()();
@@ -48,50 +51,50 @@ export class QrcodePageComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.setQrCodeWidth();
-    window.addEventListener('resize', this.resizeListener);
+    if (this.loggedInUser && this.loggedInUser.qrCode) {
+      QRCode.toDataURL(this.loggedInUser.qrCode)
+        .then((url) => {
+          this.qrCodeDataUrl = url;
+        })
+        .catch((err) => console.error(err));
+    }
 
-    navigator.mediaDevices
-      .enumerateDevices()
-      .then((devices) => {
-        const videoDevices = devices.filter(
-          (device) => device.kind === 'videoinput',
-        );
+    if (this.loggedInLokal) {
+      navigator.mediaDevices
+        .enumerateDevices()
+        .then((devices) => {
+          const videoDevices = devices.filter(
+            (device) => device.kind === 'videoinput',
+          );
 
-        if (videoDevices.length > 0) {
-          this.currentDevice = videoDevices[0];
-        } else {
-          this.toastService.error('No camera device found.');
-        }
-      })
-      .catch((error) => {
-        this.toastService.error('Error accessing camera: ' + error.message);
-      });
+          if (videoDevices.length > 0) {
+            this.currentDevice = videoDevices[0];
+            this.startScan();
+          } else {
+            this.toastService.error('No camera device found.');
+          }
+        })
+        .catch((error) => {
+          this.toastService.error('Error accessing camera: ' + error.message);
+        });
+    }
   }
 
-  ngOnDestroy(): void {
-    window.removeEventListener('resize', this.resizeListener);
+  async ngOnDestroy(): Promise<void> {
+    await this.qrScannerService.stop();
   }
 
   public t(key: string): string {
     return this.languageService.translate(key);
   }
 
-  private resizeListener = () => {
-    this.setQrCodeWidth();
-  };
-
-  private setQrCodeWidth() {
-    if (window.innerWidth > 1200) {
-      this.qrCodeSize = window.innerWidth * 0.3;
-    } else if (window.innerWidth > 600) {
-      this.qrCodeSize = window.innerWidth * 0.5;
-    } else {
-      this.qrCodeSize = window.innerWidth * 0.9;
-    }
+  startScan(): void {
+    this.qrScannerService.scan((result) => {
+      this.onCodeResult(result);
+    });
   }
 
-  public onCodeResult(result: string) {
+  public onCodeResult(result: string): void {
     if (this.scanResult === result) return;
 
     this.scanResult = result;
@@ -105,10 +108,12 @@ export class QrcodePageComponent implements OnInit, OnDestroy {
           this.isEligible = response.isEligible;
           this.notEligibleReason = response.reason;
           this.isScanningSpinnerOn = false;
+          this.qrScannerService.stop();
         },
-        error: (httpErrorResponse: HttpErrorResponse) => {
+        error: (httpErrorResponse: HttpErrorResponse): void => {
           this.toastService.error(httpErrorResponse.error);
           this.isScanningSpinnerOn = false;
+          this.qrScannerService.stop();
         },
       });
   }

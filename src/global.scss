@@ -53,3 +53,19 @@ body {
   }
 }
 
+#html5-qrcode-button-camera-stop,
+#html5-qrcode-button-camera-start {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid #dfdfdf;
+  border-radius: 12px;
+  background-color: transparent;
+  color: var(--base-black-color);
+  padding: 0.75rem;
+
+  font-size: 0.875rem;
+  font-weight: 400;
+  cursor: pointer;
+}
