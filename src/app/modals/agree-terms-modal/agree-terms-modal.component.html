@@ -1,0 +1,90 @@
+<div class="agree-terms-modal__overlay" (click)="handleModalClose(false)">
+  <div class="agree-terms-modal" (click)="$event.stopPropagation()">
+    <div class="agree-terms-modal__header">
+      <h2 class="agree-terms-modal__header-title">
+        {{ t("agree_terms_and_conditions") }}
+      </h2>
+    </div>
+
+    <div
+      #termsBody
+      class="agree-terms-modal__body"
+      (scroll)="onScroll(termsBody)"
+    >
+      <p class="agree-terms-modal__body-description">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent
+        rhoncus lacus vitae sapien aliquam, non semper metus sodales. Vivamus ac
+        arcu at metus ultrices venenatis. Ut ornare libero quam, quis pharetra
+        magna ornare ut. Lorem ipsum dolor sit amet, consectetur adipiscing
+        elit. Quisque interdum mi eget dapibus convallis. Aliquam elementum
+        porta ipsum eu suscipit. Donec eu mi vitae arcu tempor dapibus. Nulla
+        metus sem, lacinia varius mattis quis, ullamcorper in tortor. In congue
+        gravida magna, vitae aliquam tellus lacinia nec. Nam sapien felis,
+        volutpat sed arcu vel, semper finibus felis. In varius cursus nibh vel
+        laoreet. Curabitur pretium orci vel justo placerat, sed finibus nibh
+        dictum. Suspendisse luctus turpis massa, ac accumsan enim scelerisque
+        ut. In hac habitasse platea dictumst. Interdum et malesuada fames ac
+        ante ipsum primis in faucibus. Nulla in elementum dui. Quisque hendrerit
+        tortor quis felis sagittis, eu porta nunc euismod. Nunc consequat magna
+        sed ultricies hendrerit. Sed non mauris massa. Pellentesque vulputate
+        felis nec justo tincidunt posuere. Aliquam ultrices vitae urna venenatis
+        faucibus. Pellentesque aliquam sollicitudin lacus, vel pulvinar justo
+        tristique eu. Cras turpis magna, commodo sollicitudin consectetur sit
+        amet, euismod sed nulla. In tincidunt turpis fringilla ex pulvinar, ac
+        posuere magna aliquet. Aliquam mattis elit sed metus viverra, sed
+        blandit urna euismod. Curabitur aliquam, purus in sagittis facilisis,
+        felis risus aliquam mauris, vel consectetur tortor nunc vel ante. Nunc
+        vehicula velit nunc, sit amet mattis mauris viverra nec. Cras imperdiet
+        dapibus libero vitae gravida. Nunc a ipsum ut libero tempor venenatis
+        maximus non tortor. Praesent ac ullamcorper magna. Mauris elementum erat
+        quis sodales vehicula. In luctus interdum justo quis efficitur.
+        Pellentesque habitant morbi tristique senectus et netus et malesuada
+        fames ac turpis egestas. Mauris id arcu eget eros mattis consequat non
+        varius magna. Orci varius natoque penatibus et magnis dis parturient
+        montes, nascetur ridiculus mus. Nam nulla purus, scelerisque quis
+        malesuada eu, consectetur in orci. Ut ac pellentesque justo. Maecenas
+        gravida, sapien sed aliquet tincidunt, dolor dui auctor felis, quis
+        bibendum risus tellus sit amet arcu. Etiam consequat scelerisque varius.
+        Vivamus in lorem venenatis, suscipit nibh eget, laoreet lectus.
+        Phasellus volutpat, urna non bibendum luctus, justo lectus aliquam
+        ipsum, suscipit ultrices lectus massa id eros. Etiam condimentum
+        malesuada ex nec dapibus. Cras malesuada, metus efficitur venenatis
+        ultrices, eros ligula eleifend ipsum, sit amet hendrerit mi augue in
+        augue. Aliquam tempor molestie lectus. In ut libero ac felis eleifend
+        vehicula. Suspendisse eget blandit nisl, sit amet finibus erat.
+        Suspendisse viverra aliquet faucibus. Curabitur et faucibus enim.
+        Pellentesque maximus hendrerit ultrices. Maecenas porta malesuada
+        mauris, ac cursus quam. Sed porttitor sodales felis. In luctus ante sed
+        ligula dictum, at tempus diam lobortis. Nulla facilisi. Etiam eu
+        faucibus nisi. Phasellus ornare ipsum dui, id ultricies magna tempor et.
+        Sed nec diam ligula. Suspendisse at elit non urna bibendum gravida.
+        Donec gravida tincidunt magna vitae lacinia. Fusce faucibus leo arcu,
+        pharetra dictum felis posuere vel. Nunc id ullamcorper massa, sit amet
+        semper nibh. Pellentesque fermentum, erat id varius egestas, erat urna
+        condimentum diam, vel ultrices urna sapien pretium nisl. Sed tempus,
+        purus vel imperdiet dapibus, tellus nisl viverra nisl, ac ullamcorper mi
+        arcu sit amet enim. Morbi congue, metus auctor lacinia faucibus, neque
+        libero suscipit nibh, in aliquet velit arcu in mi. Vivamus egestas
+        vulputate semper. Etiam placerat pellentesque ligula at volutpat. Ut
+        dignissim semper velit, ac finibus orci. Nam posuere sed ante nec
+        ullamcorper.
+      </p>
+    </div>
+
+    <div class="agree-terms-modal__footer">
+      <button
+        class="agree-terms-modal__footer-button button-no"
+        (click)="handleModalClose(false)"
+      >
+        {{ t("no_cancel") }}
+      </button>
+      <button
+        class="agree-terms-modal__footer-button button-yes"
+        [disabled]="!hasScrolledToBottom"
+        (click)="handleModalClose(true)"
+      >
+        {{ t("i_agree") }}
+      </button>
+    </div>
+  </div>
+</div>

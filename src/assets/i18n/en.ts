@@ -12,6 +12,7 @@ export default {
 
   no_cancel: 'No, cancel',
   yes_proceed: 'Yes, proceed',
+  i_agree: 'I agree',
 
   user: 'User',
   local: 'Local',

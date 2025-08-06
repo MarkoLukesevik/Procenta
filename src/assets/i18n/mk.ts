@@ -12,6 +12,7 @@ export default {
 
   no_cancel: 'Не, откажи',
   yes_proceed: 'Да, продолжи',
+  i_agree: 'Се согласувам',
 
   user: 'Корисник',
   local: 'Локал',

@@ -11,6 +11,7 @@ import { SignInRegisterService } from '../../services/sign-in-register.service';
 import { LokalsService } from '../../services/lokals.service';
 import { UserService } from '../../services/user.service';
 import { LanguageService } from '../../services/language.service';
+import { ModalService } from '../../services/modal.service';
 
 import { User } from '../../models/user';
 import { Lokal } from '../../models/lokal';
@@ -22,6 +23,8 @@ import RegisterLokalRequest from '../../requests/lokal-requests/register-lokal-r
 import SignInRegisterResponse, {
   AccountType,
 } from '../../responses/sign-in-register-response';
+import { AgreeTermsModalComponent } from '../../modals/agree-terms-modal/agree-terms-modal.component';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-sign-register-page',
@@ -38,6 +41,7 @@ export class SignRegisterPageComponent {
   private router: Router = inject(Router);
   private toastService: ToastrService = inject(ToastrService);
   private languageService: LanguageService = inject(LanguageService);
+  private modalService: ModalService = inject(ModalService);
 
   public activeView: 'login' | 'register' = 'login';
   public accountType: AccountType = AccountType.User;
@@ -49,7 +53,6 @@ export class SignRegisterPageComponent {
   public password: string = '';
   public confirmPassword: string = '';
 
-  public termsAgreed: boolean = false;
   public rememberLogin: boolean = false;
 
   public emailError: string = '';
@@ -114,41 +117,47 @@ export class SignRegisterPageComponent {
 
     if (this.emailError || this.passwordError) return;
 
-    this.isSignButtonSpinnerOn = true;
+    this.modalService
+      .open(AgreeTermsModalComponent, {})
+      .pipe(take(1))
+      .subscribe((res: boolean): void => {
+        if (res) {
+          this.isSignButtonSpinnerOn = true;
+          if (this.accountType === AccountType.User) {
+            const request: RegisterUserRequest = {
+              firstName: this.firstName,
+              lastName: this.lastName,
+              email: this.email,
+              password: this.password,
+            };
 
-    if (this.accountType === AccountType.User) {
-      const request: RegisterUserRequest = {
-        firstName: this.firstName,
-        lastName: this.lastName,
-        email: this.email,
-        password: this.password,
-      };
-
-      this.signInRegisterService.registerUser(request).subscribe({
-        next: (res: SignInRegisterResponse): void => {
-          this.handleSignInRegisterFinish(res);
-        },
-        error: (httpErrorResponse: HttpErrorResponse): void => {
-          this.toastService.error(httpErrorResponse.error);
-          this.isSignButtonSpinnerOn = false;
-        },
+            this.signInRegisterService.registerUser(request).subscribe({
+              next: (res: SignInRegisterResponse): void => {
+                this.handleSignInRegisterFinish(res);
+              },
+              error: (httpErrorResponse: HttpErrorResponse): void => {
+                this.toastService.error(httpErrorResponse.error);
+                this.isSignButtonSpinnerOn = false;
+              },
+            });
+          } else {
+            const request: RegisterLokalRequest = {
+              name: this.lokalName,
+              email: this.email,
+              password: this.password,
+            };
+            this.signInRegisterService.registerLocal(request).subscribe({
+              next: (res: SignInRegisterResponse): void => {
+                this.handleSignInRegisterFinish(res);
+              },
+              error: (httpErrorResponse: HttpErrorResponse): void => {
+                this.toastService.error(httpErrorResponse.error);
+                this.isSignButtonSpinnerOn = false;
+              },
+            });
+          }
+        }
       });
-    } else {
-      const request: RegisterLokalRequest = {
-        name: this.lokalName,
-        email: this.email,
-        password: this.password,
-      };
-      this.signInRegisterService.registerLocal(request).subscribe({
-        next: (res: SignInRegisterResponse): void => {
-          this.handleSignInRegisterFinish(res);
-        },
-        error: (httpErrorResponse: HttpErrorResponse): void => {
-          this.toastService.error(httpErrorResponse.error);
-          this.isSignButtonSpinnerOn = false;
-        },
-      });
-    }
   }
 
   private handleLogin(): void {
@@ -226,7 +235,6 @@ export class SignRegisterPageComponent {
         !this.email ||
         !this.password ||
         !this.confirmPassword ||
-        !this.termsAgreed ||
         this.isSignButtonSpinnerOn
       );
     } else {
@@ -235,7 +243,6 @@ export class SignRegisterPageComponent {
         !this.email ||
         !this.password ||
         !this.confirmPassword ||
-        !this.termsAgreed ||
         this.isSignButtonSpinnerOn
       );
     }
