@@ -37,7 +37,7 @@ export class ApiService {
     ) {
       this.isRefreshingToken = true;
       return this.post<SignInRegisterResponse>('refresh-token', {
-        accessToken: token,
+        refreshToken: token,
       }).pipe(
         switchMap(
           (res: SignInRegisterResponse): Observable<SignInRegisterResponse> => {
