@@ -6,7 +6,9 @@
     {{ pageMessage }}
   </h1>
 
-  <button *ngIf="isVerified" (click)="handleHomeClick()">
-    {{ t("return_to_home_page") }}
-  </button>
+  @if (isVerified) {
+    <button (click)="handleHomeClick()">
+      {{ t("return_to_home_page") }}
+    </button>
+  }
 </div>

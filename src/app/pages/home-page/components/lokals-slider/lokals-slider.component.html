@@ -2,7 +2,9 @@
   <h2 class="slider-section__title">{{ title }}</h2>
   <div class="slider-section__container">
     <div class="slider-section__container-slider">
-      <app-lokal-card *ngFor="let lokal of lokals" [lokal]="lokal" />
+      @for (lokal of lokals; track lokal.id) {
+        <app-lokal-card [lokal]="lokal" />
+      }
     </div>
   </div>
 </div>

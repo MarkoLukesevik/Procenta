@@ -16,60 +16,68 @@
     </div>
   </div>
 
-  <div class="users-page__spinner" *ngIf="isPageLoading">
-    <i class="fa-solid fa-spinner fa-spin"></i>
-  </div>
+  @if (isPageLoading) {
+    <div class="users-page__spinner">
+      <i class="fa-solid fa-spinner fa-spin"></i>
+    </div>
+  }
 
-  <div *ngIf="!isPageLoading" class="users-page__users">
-    <div class="users-page__users-list">
-      <div
-        class="users-page__users-list__user"
-        *ngFor="let user of filteredUsers"
-      >
-        <div class="users-page__users-list__user-image">
-          <img *ngIf="user.profilePhoto" [src]="user.profilePhoto" alt="" />
-          <i *ngIf="!user.profilePhoto" class="fa-solid fa-user"></i>
-        </div>
-        <p class="users-page__users-list__user-name">
-          {{ user.firstName }} {{ user.lastName }}
-        </p>
-        <p
-          class="users-page__users-list__user-work"
-          [class.users-page__users-list__user-work-empty]="!user.lokalName"
-          (click)="handleLokalClick(user.lokalId)"
-        >
-          {{ user.lokalName || "\u00A0" }}
-        </p>
-        <div
-          *ngIf="user.email || user.phoneNumber"
-          class="users-page__users-list__user-border"
-        ></div>
-        <p *ngIf="user.email" class="users-page__users-list__user-email">
-          <i class="fa-solid fa-envelope"></i>
-          <a [href]="'mailto:' + user.email">{{ user.email }}</a>
-        </p>
-        <p *ngIf="user.phoneNumber" class="users-page__users-list__user-phone">
-          <i class="fa-solid fa-phone"></i>
-          <a [href]="'tel:' + user.phoneNumber">{{ user.phoneNumber }}</a>
-        </p>
+  @if (!isPageLoading) {
+    <div class="users-page__users">
+      <div class="users-page__users-list">
+        @for (user of filteredUsers; track user.id) {
+          <div class="users-page__users-list__user">
+            <div class="users-page__users-list__user-image">
+              @if (user.profilePhoto) {
+                <img [src]="user.profilePhoto" alt="" />
+              } @else {
+                <i class="fa-solid fa-user"></i>
+              }
+            </div>
+            <p class="users-page__users-list__user-name">
+              {{ user.firstName }} {{ user.lastName }}
+            </p>
+            <p
+              class="users-page__users-list__user-work"
+              [class.users-page__users-list__user-work-empty]="!user.lokalName"
+              (click)="handleLokalClick(user.lokalId)"
+            >
+              {{ user.lokalName || "\u00A0" }}
+            </p>
+            @if (user.email || user.phoneNumber) {
+              <div class="users-page__users-list__user-border"></div>
+            }
+            @if (user.email) {
+              <p class="users-page__users-list__user-email">
+                <i class="fa-solid fa-envelope"></i>
+                <a [href]="'mailto:' + user.email">{{ user.email }}</a>
+              </p>
+            }
+            @if (user.phoneNumber) {
+              <p class="users-page__users-list__user-phone">
+                <i class="fa-solid fa-phone"></i>
+                <a [href]="'tel:' + user.phoneNumber">{{ user.phoneNumber }}</a>
+              </p>
+            }
+          </div>
+        }
       </div>
-    </div>
 
-    <div
-      class="users-page__users-button"
-      *ngIf="filteredUsers.length < users.length"
-    >
-      <button
-        class="users-page__users-button__load-more"
-        [disabled]="isLoadMoreButtonSpinnerOn"
-        (click)="handleLoadMoreClick()"
-      >
-        <span>Load More</span>
-        <i
-          class="fa-solid fa-spinner"
-          [class.fa-spin]="isLoadMoreButtonSpinnerOn"
-        ></i>
-      </button>
+      @if (filteredUsers.length < users.length) {
+        <div class="users-page__users-button">
+          <button
+            class="users-page__users-button__load-more"
+            [disabled]="isLoadMoreButtonSpinnerOn"
+            (click)="handleLoadMoreClick()"
+          >
+            <span>Load More</span>
+            <i
+              class="fa-solid fa-spinner"
+              [class.fa-spin]="isLoadMoreButtonSpinnerOn"
+            ></i>
+          </button>
+        </div>
+      }
     </div>
-  </div>
+  }
 </div>

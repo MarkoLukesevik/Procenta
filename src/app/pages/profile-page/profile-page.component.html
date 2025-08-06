@@ -1,5 +1,5 @@
 <div class="profile-page">
-  <ng-container *ngIf="user">
+  @if (user) {
     <h3 class="profile-page__title">{{ t("personal_information") }}</h3>
 
     <div class="profile-page__profile-picture">
@@ -8,26 +8,21 @@
         [class.avatar-full]="profilePicture.imageUrl"
         (click)="profilePictureUploadInput.click()"
       >
-        <button
-          *ngIf="profilePicture.imageUrl"
-          class="profile-page__profile-picture-avatar__delete"
-          (click)="handleDeletePreviewProfilePicture($event)"
-        >
-          <i class="fa-solid fa-xmark"></i>
-        </button>
+        @if (profilePicture.imageUrl) {
+          <button
+            class="profile-page__profile-picture-avatar__delete"
+            (click)="handleDeletePreviewProfilePicture($event)"
+          >
+            <i class="fa-solid fa-xmark"></i>
+          </button>
 
-        <img
-          *ngIf="profilePicture.imageUrl"
-          [src]="profilePicture.imageUrl"
-          alt=""
-        />
-        <div
-          *ngIf="!profilePicture.imageUrl"
-          class="profile-page__profile-picture-avatar__content"
-        >
-          <i class="fa-solid fa-upload"></i>
-          <span>{{ t("upload_image") }}</span>
-        </div>
+          <img [src]="profilePicture.imageUrl" alt="" />
+        } @else {
+          <div class="profile-page__profile-picture-avatar__content">
+            <i class="fa-solid fa-upload"></i>
+            <span>{{ t("upload_image") }}</span>
+          </div>
+        }
         <input
           #profilePictureUploadInput
           type="file"
@@ -68,18 +63,19 @@
       >
     </div>
 
-    <div class="profile-page__account-verify" *ngIf="!user.isVerified">
-      <button
-        (click)="handleAccountVerificationClick(user.id)"
-        [disabled]="isVerifyButtonSpinnerOn"
-      >
-        {{ t("verify_your_account") }}
-        <i
-          *ngIf="isVerifyButtonSpinnerOn"
-          class="fa-solid fa-spinner fa-spin"
-        ></i>
-      </button>
-    </div>
+    @if (!user.isVerified) {
+      <div class="profile-page__account-verify">
+        <button
+          (click)="handleAccountVerificationClick(user.id)"
+          [disabled]="isVerifyButtonSpinnerOn"
+        >
+          {{ t("verify_your_account") }}
+          @if (isVerifyButtonSpinnerOn) {
+            <i class="fa-solid fa-spinner fa-spin"></i>
+          }
+        </button>
+      </div>
+    }
 
     <div class="profile-page__inputs">
       <app-base-input
@@ -135,7 +131,7 @@
 
     <div class="profile-page__inputs">
       <div class="profile-page__workplace">
-        <ng-container *ngIf="!userWorkplace">
+        @if (!userWorkplace) {
           <app-base-input
             [label]="t('add_your_workplace')"
             [placeholder]="t('search_your_workplace')"
@@ -143,44 +139,43 @@
             (handleInputChange)="handleLokalsSearch($event)"
           />
 
-          <div
-            *ngIf="searchLokalKey.length > 2"
-            class="profile-page__workplace-results"
-          >
-            <div
-              *ngIf="matchingLokals.length === 0"
-              class="profile-page__workplace-results__empty"
-            >
-              <p>{{ t("no_results_found") }}</p>
-            </div>
-
-            <ul
-              *ngIf="matchingLokals.length > 0"
-              class="profile-page__workplace-results__list"
-            >
-              <li
-                *ngFor="let lokal of matchingLokals"
-                class="profile-page__workplace-results__list-item"
-                (click)="handleMatchingLokalClick(lokal)"
-              >
-                <div class="profile-page__workplace-results__list-item__image">
-                  <img *ngIf="lokal.image" [src]="lokal.image" alt="" />
+          @if (searchLokalKey.length > 2) {
+            <div class="profile-page__workplace-results">
+              @if (matchingLokals.length === 0) {
+                <div class="profile-page__workplace-results__empty">
+                  <p>{{ t("no_results_found") }}</p>
                 </div>
-                <span>{{ lokal.name }}</span>
-              </li>
-            </ul>
-          </div>
-        </ng-container>
+              }
 
-        <ng-container *ngIf="userWorkplace">
+              @if (matchingLokals.length > 0) {
+                <ul class="profile-page__workplace-results__list">
+                  @for (lokal of matchingLokals; track lokal.id) {
+                    <li
+                      class="profile-page__workplace-results__list-item"
+                      (click)="handleMatchingLokalClick(lokal)"
+                    >
+                      <div
+                        class="profile-page__workplace-results__list-item__image"
+                      >
+                        @if (lokal.image) {
+                          <img [src]="lokal.image" alt="" />
+                        }
+                      </div>
+                      <span>{{ lokal.name }}</span>
+                    </li>
+                  }
+                </ul>
+              }
+            </div>
+          }
+        }
+        @if (userWorkplace) {
           <div class="profile-page__workplace-card">
             <div class="profile-page__workplace-card__details">
               <div class="profile-page__workplace-card__details-image">
-                <img
-                  *ngIf="userWorkplace.image"
-                  [src]="userWorkplace.image"
-                  alt=""
-                />
+                @if (userWorkplace.image) {
+                  <img [src]="userWorkplace.image" alt="" />
+                }
               </div>
               <div class="profile-page__workplace-card__details-text">
                 <h4>{{ userWorkplace.name }}</h4>
@@ -193,7 +188,7 @@
               </button>
             </div>
           </div>
-        </ng-container>
+        }
       </div>
     </div>
 
@@ -203,14 +198,12 @@
         [disabled]="isSaveUserButtonDisabled()"
         (click)="handleSaveUser()"
       >
-        <ng-container *ngIf="!isSaveButtonSpinnerOn">
+        @if (!isSaveButtonSpinnerOn) {
           <span>{{ t("save") }}</span>
           <i class="fa-solid fa-floppy-disk"></i>
-        </ng-container>
-        <i
-          *ngIf="isSaveButtonSpinnerOn"
-          class="fa-solid fa-spinner fa-spin"
-        ></i>
+        } @else {
+          <i class="fa-solid fa-spinner fa-spin"></i>
+        }
       </button>
 
       <div class="profile-page__footer-wrapper">
@@ -224,20 +217,18 @@
           [disabled]="isDeleteButtonSpinnerOn"
           (click)="handleDeleteAccountClick()"
         >
-          <ng-container *ngIf="!isDeleteButtonSpinnerOn">
+          @if (!isDeleteButtonSpinnerOn) {
             <span>{{ t("delete_account") }}</span>
             <i class="fa-solid fa-trash"></i>
-          </ng-container>
-          <i
-            *ngIf="isDeleteButtonSpinnerOn"
-            class="fa-solid fa-spinner fa-spin"
-          ></i>
+          } @else {
+            <i class="fa-solid fa-spinner fa-spin"></i>
+          }
         </button>
       </div>
     </div>
-  </ng-container>
+  }
 
-  <ng-container *ngIf="lokal">
+  @if (lokal) {
     <h3 class="profile-page__title">{{ t("lokal_details") }}</h3>
 
     <div class="profile-page__lokal-picture">
@@ -246,25 +237,21 @@
         [class.avatar-full]="lokalPicture.imageUrl"
         (click)="lokalPictureUploadInput.click()"
       >
-        <button
-          *ngIf="lokalPicture.imageUrl"
-          class="profile-page__lokal-picture-avatar__delete"
-          (click)="handleDeleteLocalPicture($event)"
-        >
-          <i class="fa-solid fa-xmark"></i>
-        </button>
-        <img
-          *ngIf="lokalPicture.imageUrl"
-          [src]="lokalPicture.imageUrl"
-          alt=""
-        />
-        <div
-          *ngIf="!lokalPicture.imageUrl"
-          class="profile-page__lokal-picture-avatar__content"
-        >
-          <i class="fa-solid fa-upload"></i>
-          <span>{{ t("upload_lokal_image") }}</span>
-        </div>
+        @if (lokalPicture.imageUrl) {
+          <button
+            class="profile-page__lokal-picture-avatar__delete"
+            (click)="handleDeleteLocalPicture($event)"
+          >
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+          <img [src]="lokalPicture.imageUrl" alt="" />
+        } @else {
+          <div class="profile-page__lokal-picture-avatar__content">
+            <i class="fa-solid fa-upload"></i>
+            <span>{{ t("upload_lokal_image") }}</span>
+          </div>
+        }
+
         <input
           #lokalPictureUploadInput
           type="file"
@@ -305,11 +292,13 @@
       >
     </div>
 
-    <div class="profile-page__account-verify" *ngIf="!lokal.isVerified">
-      <button (click)="handleAccountVerificationClick(lokal.id)">
-        {{ t("verify_your_account") }}
-      </button>
-    </div>
+    @if (!lokal.isVerified) {
+      <div class="profile-page__account-verify">
+        <button (click)="handleAccountVerificationClick(lokal.id)">
+          {{ t("verify_your_account") }}
+        </button>
+      </div>
+    }
 
     <div class="profile-page__inputs">
       <app-base-input
@@ -394,108 +383,107 @@
             (handleInputChange)="handleUsersSearch($event)"
           />
 
-          <div
-            *ngIf="searchUserKey.length > 2"
-            class="profile-page__employees-input__results"
-          >
-            <div
-              *ngIf="matchingUsers.length === 0"
-              class="profile-page__employees-input__results-empty"
-            >
-              <p>{{ t("no_results_found") }}</p>
-            </div>
-
-            <ul
-              *ngIf="matchingUsers.length > 0"
-              class="profile-page__employees-input__results-list"
-            >
-              <li
-                *ngFor="let user of matchingUsers"
-                class="profile-page__employees-input__results-list__item"
-                (click)="handleMatchingUserClick(user)"
-              >
-                <div
-                  class="profile-page__employees-input__results-list__item-image"
-                >
-                  <img
-                    *ngIf="user.profilePhoto"
-                    [src]="user.profilePhoto"
-                    alt=""
-                  />
+          @if (searchUserKey.length > 2) {
+            <div class="profile-page__employees-input__results">
+              @if (matchingUsers.length === 0) {
+                <div class="profile-page__employees-input__results-empty">
+                  <p>{{ t("no_results_found") }}</p>
                 </div>
-                <span>{{ user.firstName }} {{ user.lastName }}</span>
-              </li>
-            </ul>
-          </div>
+              }
+
+              @if (matchingUsers.length > 0) {
+                <ul class="profile-page__employees-input__results-list">
+                  @for (user of matchingUsers; track user.id) {
+                    <li
+                      class="profile-page__employees-input__results-list__item"
+                      (click)="handleMatchingUserClick(user)"
+                    >
+                      <div
+                        class="profile-page__employees-input__results-list__item-image"
+                      >
+                        @if (user.profilePhoto) {
+                          <img [src]="user.profilePhoto" alt="" />
+                        }
+                      </div>
+                      <span>{{ user.firstName }} {{ user.lastName }}</span>
+                    </li>
+                  }
+                </ul>
+              }
+            </div>
+          }
         </div>
 
         <div class="profile-page__employees-card-wrapper">
           <p>Employees ({{ lokalEmployees.length }})</p>
           <div class="profile-page__employees-card">
-            <div
-              class="profile-page__employees-card__empty"
-              *ngIf="lokalEmployees.length === 0"
-            >
-              {{ t("there_are_no_employees") }}
-            </div>
-            <div
-              *ngFor="let employee of lokalEmployees"
-              class="profile-page__employees-card__item"
-            >
-              <div class="profile-page__employees-card__item-details">
-                <div class="profile-page__employees-card__item-details__image">
-                  <img
-                    *ngIf="employee.profilePhoto"
-                    [src]="employee.profilePhoto"
-                    alt=""
-                  />
-                </div>
-                <div class="profile-page__employees-card__item-details__text">
-                  <p>{{ employee.firstName }} {{ employee.lastName }}</p>
-                </div>
+            @if (lokalEmployees.length === 0) {
+              <div class="profile-page__employees-card__empty">
+                {{ t("there_are_no_employees") }}
               </div>
-              <button
-                class="profile-page__employees-card__item-button"
-                (click)="handleRemoveEmployee(employee)"
-              >
-                <i class="fa-solid fa-xmark"></i>
-              </button>
-            </div>
+            }
+
+            @for (employee of lokalEmployees; track employee.id) {
+              <div class="profile-page__employees-card__item">
+                <div class="profile-page__employees-card__item-details">
+                  <div
+                    class="profile-page__employees-card__item-details__image"
+                  >
+                    @if (employee.profilePhoto) {
+                      <img [src]="employee.profilePhoto" alt="" />
+                    }
+                  </div>
+                  <div class="profile-page__employees-card__item-details__text">
+                    <p>{{ employee.firstName }} {{ employee.lastName }}</p>
+                  </div>
+                </div>
+                <button
+                  class="profile-page__employees-card__item-button"
+                  (click)="handleRemoveEmployee(employee)"
+                >
+                  <i class="fa-solid fa-xmark"></i>
+                </button>
+              </div>
+            }
           </div>
         </div>
       </div>
     </div>
 
     <div class="profile-page__additional-lokal-pictures">
-      <div
-        *ngFor="let picture of additionalLocalPictures; let i = index"
-        class="profile-page__additional-lokal-pictures-avatar"
-        [class.avatar-full]="picture.imageUrl"
-        (click)="triggerAdditionalLocalPictureFileInput(i)"
-      >
-        <button
-          *ngIf="picture.imageUrl"
-          class="profile-page__additional-lokal-pictures-avatar__delete"
-          (click)="handleDeleteAdditionalLocalPicture($event, i)"
-        >
-          <i class="fa-solid fa-xmark"></i>
-        </button>
-        <img *ngIf="picture.imageUrl" [src]="picture.imageUrl" alt="" />
+      @for (picture of additionalLocalPictures; track picture; let i = $index) {
         <div
-          *ngIf="!picture.imageUrl"
-          class="profile-page__additional-lokal-pictures-avatar__content"
+          class="profile-page__additional-lokal-pictures-avatar"
+          [class.avatar-full]="picture.imageUrl"
+          (click)="triggerAdditionalLocalPictureFileInput(i)"
         >
-          <i class="fa-solid fa-upload"></i>
-          <span>{{ t("upload_additional_images") }}</span>
+          @if (picture.imageUrl) {
+            <button
+              class="profile-page__additional-lokal-pictures-avatar__delete"
+              (click)="handleDeleteAdditionalLocalPicture($event, i)"
+            >
+              <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <img [src]="picture.imageUrl" alt="" />
+          } @else {
+            <div
+              class="profile-page__additional-lokal-pictures-avatar__content"
+            >
+              <i class="fa-solid fa-upload"></i>
+              <span>{{ t("upload_additional_images") }}</span>
+            </div>
+          }
+
+          <input
+            [id]="'additionalLokalPictureUploadInput-' + i"
+            type="file"
+            accept="image/*"
+            class="hidden-input"
+            (change)="handleAdditionalLokalPictureChange($event, i)"
+          />
         </div>
-        <input
-          [id]="'additionalLokalPictureUploadInput-' + i"
-          type="file"
-          accept="image/*"
-          class="hidden-input"
-          (change)="handleAdditionalLokalPictureChange($event, i)"
-        />
-      </div>
+      }
     </div>
 
     <div class="profile-page__footer">
@@ -504,14 +492,12 @@
         [disabled]="isSaveLokalButtonDisabled()"
         (click)="handleSaveLokal()"
       >
-        <ng-container *ngIf="!isSaveButtonSpinnerOn">
+        @if (!isSaveButtonSpinnerOn) {
           <span>{{ t("save") }}</span>
           <i class="fa-solid fa-floppy-disk"></i>
-        </ng-container>
-        <i
-          *ngIf="isSaveButtonSpinnerOn"
-          class="fa-solid fa-spinner fa-spin"
-        ></i>
+        } @else {
+          <i class="fa-solid fa-spinner fa-spin"></i>
+        }
       </button>
 
       <div class="profile-page__footer-wrapper">
@@ -525,16 +511,14 @@
           [disabled]="isDeleteButtonSpinnerOn"
           (click)="handleDeleteAccountClick()"
         >
-          <ng-container *ngIf="!isDeleteButtonSpinnerOn">
+          @if (!isDeleteButtonSpinnerOn) {
             <span>{{ t("delete_account") }}</span>
             <i class="fa-solid fa-trash"></i>
-          </ng-container>
-          <i
-            *ngIf="isDeleteButtonSpinnerOn"
-            class="fa-solid fa-spinner fa-spin"
-          ></i>
+          } @else {
+            <i class="fa-solid fa-spinner fa-spin"></i>
+          }
         </button>
       </div>
     </div>
-  </ng-container>
+  }
 </div>

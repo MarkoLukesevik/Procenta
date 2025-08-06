@@ -25,32 +25,33 @@
     <p>{{ getPageSubTitle() }}</p>
   </div>
 
-  <app-base-input
-    *ngIf="activeView === 'register' && accountType === AccountType.User"
-    [label]="t('first_name')"
-    [placeholder]="t('first_name')"
-    [value]="firstName"
-    [isRequired]="true"
-    (handleInputChange)="firstName = $event"
-  />
+  @if (activeView === "register" && accountType === AccountType.User) {
+    <app-base-input
+      [label]="t('first_name')"
+      [placeholder]="t('first_name')"
+      [value]="firstName"
+      [isRequired]="true"
+      (handleInputChange)="firstName = $event"
+    />
 
-  <app-base-input
-    *ngIf="activeView === 'register' && accountType === AccountType.User"
-    [label]="t('last_name')"
-    [placeholder]="t('last_name')"
-    [value]="lastName"
-    [isRequired]="true"
-    (handleInputChange)="lastName = $event"
-  />
+    <app-base-input
+      [label]="t('last_name')"
+      [placeholder]="t('last_name')"
+      [value]="lastName"
+      [isRequired]="true"
+      (handleInputChange)="lastName = $event"
+    />
+  }
 
-  <app-base-input
-    *ngIf="activeView === 'register' && accountType === AccountType.Lokal"
-    [label]="t('name')"
-    [placeholder]="t('name')"
-    [value]="lokalName"
-    [isRequired]="true"
-    (handleInputChange)="lokalName = $event"
-  />
+  @if (activeView === "register" && accountType === AccountType.Lokal) {
+    <app-base-input
+      [label]="t('name')"
+      [placeholder]="t('name')"
+      [value]="lokalName"
+      [isRequired]="true"
+      (handleInputChange)="lokalName = $event"
+    />
+  }
 
   <app-base-input
     [label]="t('email')"
@@ -73,51 +74,55 @@
       (handleInputChange)="password = $event"
     />
 
-    <div *ngIf="activeView === 'login'">
-      <app-base-checkbox
-        [label]="t('remember_me')"
-        [checked]="rememberLogin"
-        (handleCheckboxClick)="rememberLogin = !rememberLogin"
-      />
+    @if (activeView === "login") {
+      <div>
+        <app-base-checkbox
+          [label]="t('remember_me')"
+          [checked]="rememberLogin"
+          (handleCheckboxClick)="rememberLogin = !rememberLogin"
+        />
 
-      <span (click)="handleForgotPasswordClick()">{{
-        t("forgot_password")
-      }}</span>
-    </div>
+        <span (click)="handleForgotPasswordClick()">{{
+          t("forgot_password")
+        }}</span>
+      </div>
+    }
   </div>
 
-  <app-base-input
-    *ngIf="activeView === 'register'"
-    [label]="t('confirm_password')"
-    [placeholder]="t('confirm_password')"
-    [value]="confirmPassword"
-    [type]="'password'"
-    [isRequired]="true"
-    [error]="passwordError"
-    (handleInputChange)="confirmPassword = $event"
-  />
+  @if (activeView === "register") {
+    <app-base-input
+      [label]="t('confirm_password')"
+      [placeholder]="t('confirm_password')"
+      [value]="confirmPassword"
+      [type]="'password'"
+      [isRequired]="true"
+      [error]="passwordError"
+      (handleInputChange)="confirmPassword = $event"
+    />
 
-  <app-base-checkbox
-    *ngIf="activeView === 'register'"
-    [label]="t('remember_me')"
-    [checked]="rememberLogin"
-    (handleCheckboxClick)="rememberLogin = !rememberLogin"
-  />
+    <app-base-checkbox
+      [label]="t('remember_me')"
+      [checked]="rememberLogin"
+      (handleCheckboxClick)="rememberLogin = !rememberLogin"
+    />
 
-  <app-base-checkbox
-    *ngIf="activeView === 'register'"
-    [label]="t('agree_terms_and_conditions')"
-    [checked]="termsAgreed"
-    (handleCheckboxClick)="termsAgreed = !termsAgreed"
-  />
+    <app-base-checkbox
+      [label]="t('agree_terms_and_conditions')"
+      [checked]="termsAgreed"
+      (handleCheckboxClick)="termsAgreed = !termsAgreed"
+    />
+  }
 
   <button
     class="sign-page__button"
     [disabled]="isSignButtonDisabled()"
     (click)="handleSignButtonClick()"
   >
-    <i *ngIf="isSignButtonSpinnerOn" class="fa-solid fa-spinner fa-spin"></i>
-    <span *ngIf="!isSignButtonSpinnerOn">{{ getSignButtonText() }}</span>
+    @if (isSignButtonSpinnerOn) {
+      <i class="fa-solid fa-spinner fa-spin"></i>
+    } @else {
+      <span>{{ getSignButtonText() }}</span>
+    }
   </button>
 
   <div class="sign-page__toggle-view">
