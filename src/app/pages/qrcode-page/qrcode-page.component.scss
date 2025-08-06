@@ -44,6 +44,10 @@
 
     margin-top: 1rem;
 
+    &__spinner {
+      color: var(--base-black-color);
+    }
+
     &__user {
       display: flex;
       align-items: center;
@@ -121,6 +125,23 @@
         background-color: var(--base-red-color);
         color: var(--base-white-color);
       }
+    }
+
+    &__scan-again {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      column-gap: 0.5rem;
+
+      border: 1px solid #dfdfdf;
+      border-radius: 12px;
+      background-color: transparent;
+      color: var(--base-black-color);
+      padding: 0.75rem;
+
+      font-size: 0.875rem;
+      font-weight: 400;
+      cursor: pointer;
     }
   }
 }

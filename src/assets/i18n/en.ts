@@ -46,6 +46,7 @@ export default {
   show_this_qr_to_our_partners:
     'Show this QR code to our partners and enjoy special discounts on drinks and meals!',
   exclusive_discount_qr_code: 'Exclusive Discount QR Code',
+  scan_again: 'Scan again',
 
   newest_first: 'Newest first',
   oldest_first: 'Oldest first',

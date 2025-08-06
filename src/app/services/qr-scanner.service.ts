@@ -8,13 +8,10 @@ import { Html5QrcodeScanner } from 'html5-qrcode';
 })
 export class QrScannerService {
   private html5Scanner: Html5QrcodeScanner | null = null;
-  private isNative = Capacitor.isNativePlatform();
+  private isNative: boolean = Capacitor.isNativePlatform();
 
   constructor() {}
 
-  /**
-   * Start scanning based on platform (native or web)
-   */
   async scan(callback: (result: string) => void): Promise<void> {
     if (this.isNative) {
       await this.scanNative(callback);
@@ -23,9 +20,6 @@ export class QrScannerService {
     }
   }
 
-  /**
-   * Native scan using ML Kit
-   */
   private async scanNative(callback: (result: string) => void): Promise<void> {
     try {
       const result = await BarcodeScanner.scan();
@@ -41,9 +35,6 @@ export class QrScannerService {
     }
   }
 
-  /**
-   * Web scan using html5-qrcode
-   */
   private scanWeb(callback: (result: string) => void): void {
     const config = {
       fps: 10,
@@ -56,7 +47,7 @@ export class QrScannerService {
     this.html5Scanner.render(
       (decodedText) => {
         callback(decodedText);
-        this.html5Scanner?.clear(); // stop scanning after success
+        this.html5Scanner?.clear();
       },
       (error) => {
         console.warn('Scan error (ignored):', error);
@@ -64,12 +55,8 @@ export class QrScannerService {
     );
   }
 
-  /**
-   * Optional: stop scanner if needed
-   */
   async stop(): Promise<void> {
     if (this.isNative) {
-      // MLKit has no persistent scan session, so nothing to stop
     } else {
       await this.html5Scanner?.clear();
     }

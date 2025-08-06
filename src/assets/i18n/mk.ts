@@ -49,6 +49,7 @@ export default {
   show_this_qr_to_our_partners:
     'Покажете го овој QR код на нашите партнери и уживајте во специјални попусти на пијалоци и оброци!',
   exclusive_discount_qr_code: 'Ексклузивен QR код за попуст',
+  scan_again: 'Скенирајте повторно',
 
   newest_first: 'Најнови прво',
   oldest_first: 'Најстари прво',

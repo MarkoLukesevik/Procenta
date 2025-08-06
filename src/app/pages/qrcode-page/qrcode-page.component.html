@@ -32,7 +32,7 @@
     @if (scanResult) {
       <div class="qr-page__scan-result">
         @if (isScanningSpinnerOn) {
-          <p>
+          <p class="qr-page__scan-result__spinner">
             <i class="fa-solid fa-spinner fa-spin"></i>
           </p>
         }
@@ -78,6 +78,14 @@
             </p>
           </div>
         }
+
+        <button
+          (click)="restartScan()"
+          class="qr-page__scan-result__scan-again"
+        >
+          <span>{{ t("scan_again") }}</span>
+          <i class="fa-solid fa-rotate-right"></i>
+        </button>
       </div>
     }
   }

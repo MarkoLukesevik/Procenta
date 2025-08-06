@@ -45,6 +45,8 @@ export class QrcodePageComponent implements OnInit, OnDestroy {
 
   public qrCodeDataUrl: string | null = null;
 
+  public isScannerVisible = true;
+
   constructor() {
     this.loggedInUser = this.userService.getLoggedInUser()();
     this.loggedInLokal = this.lokalService.getLoggedInLokal()();
@@ -88,7 +90,17 @@ export class QrcodePageComponent implements OnInit, OnDestroy {
     return this.languageService.translate(key);
   }
 
-  startScan(): void {
+  public restartScan(): void {
+    this.scanResult = null;
+    this.isEligible = false;
+    this.scannedUser = undefined;
+    this.notEligibleReason = '';
+    this.isScanningSpinnerOn = false;
+
+    this.startScan();
+  }
+
+  public startScan(): void {
     this.qrScannerService.scan((result) => {
       this.onCodeResult(result);
     });
@@ -109,6 +121,7 @@ export class QrcodePageComponent implements OnInit, OnDestroy {
           this.notEligibleReason = response.reason;
           this.isScanningSpinnerOn = false;
           this.qrScannerService.stop();
+          this.isScannerVisible = false;
         },
         error: (httpErrorResponse: HttpErrorResponse): void => {
           this.toastService.error(httpErrorResponse.error);
