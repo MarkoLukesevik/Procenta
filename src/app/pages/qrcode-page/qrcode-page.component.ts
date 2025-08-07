@@ -60,23 +60,7 @@ export class QrcodePageComponent implements OnInit, OnDestroy {
     }
 
     if (this.loggedInLokal) {
-      navigator.mediaDevices
-        .enumerateDevices()
-        .then((devices): void => {
-          const videoDevices = devices.filter(
-            (device) => device.kind === 'videoinput',
-          );
-
-          if (videoDevices.length > 0) {
-            this.currentDevice = videoDevices[0];
-            this.startScan();
-          } else {
-            this.toastService.error(this.t('no_camera_device_found'));
-          }
-        })
-        .catch((error: any): void => {
-          console.log(error.message);
-        });
+      this.startScan();
     }
   }
 
