@@ -48,6 +48,7 @@ export default {
     'Show this QR code to our partners and enjoy special discounts on drinks and meals!',
   exclusive_discount_qr_code: 'Exclusive Discount QR Code',
   scan_again: 'Scan again',
+  start_scanning: 'Start scanning',
   no_camera_device_found: 'No camera device found.',
 
   newest_first: 'Newest first',

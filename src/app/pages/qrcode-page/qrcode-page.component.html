@@ -29,6 +29,13 @@
       {{ t("use_your_camera_to_scan_qr_codes") }}
     </p>
 
+    @if (isNativePlatform) {
+      <button (click)="restartScan()" class="qr-page__scan-result__scan-again">
+        <span>{{ t("start_scanning") }}</span>
+        <i class="fa-solid fa-rotate-right"></i>
+      </button>
+    }
+
     @if (scanResult) {
       <div class="qr-page__scan-result">
         @if (isScanningSpinnerOn) {
@@ -79,13 +86,15 @@
           </div>
         }
 
-        <button
-          (click)="restartScan()"
-          class="qr-page__scan-result__scan-again"
-        >
-          <span>{{ t("scan_again") }}</span>
-          <i class="fa-solid fa-rotate-right"></i>
-        </button>
+        @if (!isNativePlatform) {
+          <button
+            (click)="restartScan()"
+            class="qr-page__scan-result__scan-again"
+          >
+            <span>{{ t("scan_again") }}</span>
+            <i class="fa-solid fa-rotate-right"></i>
+          </button>
+        }
       </div>
     }
   }
