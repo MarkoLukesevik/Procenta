@@ -40,9 +40,9 @@ export class LanguageService {
   private async loadTranslations(lang: Lang): Promise<TranslationMap> {
     switch (lang) {
       case 'en':
-        return (await import('../../assets/i18n/en')).default;
+        return (await import('../localization/en')).default;
       case 'mk':
-        return (await import('../../assets/i18n/mk')).default;
+        return (await import('../localization/mk')).default;
       default:
         return {};
     }
