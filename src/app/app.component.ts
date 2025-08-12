@@ -4,6 +4,7 @@ import { filter } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ScreenOrientation } from '@capacitor/screen-orientation';
 import { Platform } from '@ionic/angular';
+import { Keyboard } from '@capacitor/keyboard';
 
 import { UserService } from './services/user.service';
 import { LokalsService } from './services/lokals.service';
@@ -31,6 +32,7 @@ export class AppComponent implements OnInit {
   private platform = inject(Platform);
 
   constructor() {
+    this.setupKeyboardListeners();
     this.router.events
       .pipe(filter((event) => event instanceof NavigationEnd))
       .subscribe((): void => {
@@ -83,5 +85,20 @@ export class AppComponent implements OnInit {
         });
       }
     }
+  }
+
+  private setupKeyboardListeners() {
+    Keyboard.addListener('keyboardWillShow', (info: any) => {
+      document.body.classList.add('keyboard-visible');
+      document.documentElement.style.setProperty(
+        '--keyboard-height',
+        `${info.keyboardHeight}px`,
+      );
+    });
+
+    Keyboard.addListener('keyboardWillHide', () => {
+      document.body.classList.remove('keyboard-visible');
+      document.documentElement.style.setProperty('--keyboard-height', '0px');
+    });
   }
 }

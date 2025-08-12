@@ -3,10 +3,5 @@
   "integrations": {
     "capacitor": {}
   },
-  "type": "angular-standalone",
-  "plugins": {
-    "Keyboard": {
-      "resize": "native"
-    }
-  }
+  "type": "angular-standalone"
 }

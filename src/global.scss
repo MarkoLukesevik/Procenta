@@ -52,6 +52,19 @@ body {
   }
 }
 
+html,
+body,
+ion-app,
+ion-content {
+  height: 100%;
+  overflow: hidden;
+}
+
+.keyboard-visible ion-content {
+  height: calc(100% - var(--keyboard-height));
+  transition: height 0.2s ease;
+}
+
 @media (orientation: portrait) {
   body::-webkit-scrollbar {
     display: none;
