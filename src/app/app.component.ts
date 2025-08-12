@@ -17,6 +17,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { BottomNavComponent } from './components/bottom-nav/bottom-nav.component';
 import { ToastrService } from 'ngx-toastr';
+import { Capacitor } from '@capacitor/core';
 
 @Component({
   selector: 'app-root',
@@ -88,17 +89,22 @@ export class AppComponent implements OnInit {
   }
 
   private setupKeyboardListeners() {
-    Keyboard.addListener('keyboardWillShow', (info: any) => {
-      document.body.classList.add('keyboard-visible');
-      document.documentElement.style.setProperty(
-        '--keyboard-height',
-        `${info.keyboardHeight}px`,
-      );
-    });
+    if (
+      Capacitor.isNativePlatform() &&
+      (this.platform.is('ios') || this.platform.is('android'))
+    ) {
+      Keyboard.addListener('keyboardWillShow', (info: any) => {
+        document.body.classList.add('keyboard-visible');
+        document.documentElement.style.setProperty(
+          '--keyboard-height',
+          `${info.keyboardHeight}px`,
+        );
+      });
 
-    Keyboard.addListener('keyboardWillHide', () => {
-      document.body.classList.remove('keyboard-visible');
-      document.documentElement.style.setProperty('--keyboard-height', '0px');
-    });
+      Keyboard.addListener('keyboardWillHide', () => {
+        document.body.classList.remove('keyboard-visible');
+        document.documentElement.style.setProperty('--keyboard-height', '0px');
+      });
+    }
   }
 }
