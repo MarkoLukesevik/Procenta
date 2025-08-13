@@ -36,9 +36,13 @@ export class ApiService {
       !this.isRefreshingToken
     ) {
       this.isRefreshingToken = true;
-      return this.post<SignInRegisterResponse>('refresh-token', {
-        refreshToken: token,
-      }).pipe(
+      return this.post<SignInRegisterResponse>(
+        'refresh-token',
+        {
+          refreshToken: token,
+        },
+        false,
+      ).pipe(
         switchMap(
           (res: SignInRegisterResponse): Observable<SignInRegisterResponse> => {
             window.localStorage.setItem(
