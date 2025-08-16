@@ -7,6 +7,7 @@
   --base-white-color: #ffffff;
   --base-red-color: #ea5555;
   --base-yellow-color: #f8bd49;
+  --base-grey-color: #687588;
 }
 
 * {
@@ -57,7 +58,6 @@ body,
 ion-app,
 ion-content {
   height: 100%;
-  overflow: hidden;
 }
 
 .keyboard-visible ion-content {

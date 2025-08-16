@@ -145,4 +145,8 @@ export default {
   email_us: 'Email Us',
   visit_us: 'Visit Us',
   contact_us: 'Contact Us',
+
+  statistics_dashboard: 'Statistics Dashboard',
+  restaurants_dashboard: 'Restaurants',
+  total_discounts_given: 'Total Discounts Given',
 };

@@ -1,1 +1,100 @@
-<p>statistics-page works!</p>
+<div class="statistics-page">
+  <div class="statistics-page__dashboard">
+    <h3 class="statistics-page__dashboard-title">
+      {{ t("statistics_dashboard") }}
+    </h3>
+
+    <div class="statistics-page__dashboard-cards">
+      <div class="statistics-page__dashboard-cards__item">
+        <div class="statistics-page__dashboard-cards__item-icon">
+          <i class="fa-solid fa-percent"></i>
+        </div>
+        <p class="statistics-page__dashboard-cards__item-title">
+          {{ t("total_discounts_given") }}
+        </p>
+        <p class="statistics-page__dashboard-cards__item-value">120</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="statistics-page__restaurants">
+    <h3 class="statistics-page__restaurants-title">
+      {{ t("restaurants_dashboard") }}
+    </h3>
+
+    <div class="statistics-page__restaurants-cards">
+      <div class="statistics-page__restaurants-cards__item">
+        <div class="statistics-page__restaurants-cards__item-lokal">
+          <div class="statistics-page__restaurants-cards__item-lokal__icon">
+            <i class="fa-solid fa-user-group"></i>
+          </div>
+          <p class="statistics-page__restaurants-cards__item-lokal__title">
+            The Golden Spoon
+          </p>
+          <p class="statistics-page__restaurants-cards__item-lokal__value">
+            120
+          </p>
+        </div>
+
+        <div class="statistics-page__restaurants-cards__item-employees">
+          <div class="statistics-page__restaurants-cards__item-employees-user">
+            <div
+              class="statistics-page__restaurants-cards__item-employees-user__image"
+            >
+              <img [src]="''" alt="" />
+            </div>
+
+            <p
+              class="statistics-page__restaurants-cards__item-employees-user__name"
+            >
+              Marko
+            </p>
+
+            <span
+              class="statistics-page__restaurants-cards__item-employees-user__discounts"
+              >20</span
+            >
+          </div>
+
+          <div class="statistics-page__restaurants-cards__item-employees-user">
+            <div
+              class="statistics-page__restaurants-cards__item-employees-user__image"
+            >
+              <img [src]="''" alt="" />
+            </div>
+
+            <p
+              class="statistics-page__restaurants-cards__item-employees-user__name"
+            >
+              Marko
+            </p>
+
+            <span
+              class="statistics-page__restaurants-cards__item-employees-user__discounts"
+              >20</span
+            >
+          </div>
+
+          <div class="statistics-page__restaurants-cards__item-employees-user">
+            <div
+              class="statistics-page__restaurants-cards__item-employees-user__image"
+            >
+              <img [src]="''" alt="" />
+            </div>
+
+            <p
+              class="statistics-page__restaurants-cards__item-employees-user__name"
+            >
+              Marko
+            </p>
+
+            <span
+              class="statistics-page__restaurants-cards__item-employees-user__discounts"
+              >20</span
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

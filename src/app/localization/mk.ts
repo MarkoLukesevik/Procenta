@@ -150,4 +150,8 @@ export default {
   email_us: 'Испратете ни е-пошта',
   visit_us: 'Посетете нè',
   contact_us: 'Контактирајте нè',
+
+  statistics_dashboard: 'Контролна табла за статистика',
+  restaurants_dashboard: 'Ресторани',
+  total_discounts_given: 'Вкупно дадени попусти',
 };
