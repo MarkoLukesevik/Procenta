@@ -61,6 +61,7 @@ export default {
   recommended: 'Recommended',
   search_for_restaurants_bars_coffee_shop:
     'Search for restaurants, bars, pubs, coffee shops',
+  no_matches: "We couldn't find any matches. Please try different name.",
 
   active: 'Active',
   pending: 'Pending',

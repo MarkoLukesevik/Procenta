@@ -53,11 +53,17 @@
           }
         </div>
       } @else {
-        <div class="home-page__locals-list">
-          @for (lokal of filteredLokals; track lokal.id) {
-            <app-lokal-card [lokal]="lokal" />
-          }
-        </div>
+        @if (filteredLokals.length > 0) {
+          <div class="home-page__locals-list">
+            @for (lokal of filteredLokals; track lokal.id) {
+              <app-lokal-card [lokal]="lokal" />
+            }
+          </div>
+        } @else {
+          <div class="home-page__locals-list__empty">
+            {{ t("no_matches") }}
+          </div>
+        }
       }
     }
   </div>

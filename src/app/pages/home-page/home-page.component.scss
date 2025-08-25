@@ -71,6 +71,13 @@
       flex-wrap: wrap;
       justify-content: center;
       gap: 2rem;
+
+      &__empty {
+        text-align: center;
+        color: var(--base-black-color);
+        font-size: 1rem;
+        font-weight: 500;
+      }
     }
   }
 }

@@ -154,4 +154,5 @@ export default {
   statistics_dashboard: 'Контролна табла за статистика',
   restaurants_dashboard: 'Ресторани',
   total_discounts_given: 'Вкупно дадени попусти',
+  no_matches: 'Не се пронајдени резултати. Ве молиме обидете се со друго име.',
 };
