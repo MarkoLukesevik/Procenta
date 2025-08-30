@@ -97,6 +97,7 @@ export default {
   description: 'Опис',
   add_employee: 'Додадете вработен',
   search_employees: 'Пребарувајте вработени',
+  employees: 'Вработени',
   there_are_no_employees: 'Не се пронајдени вработени',
   upload_additional_images: 'Поставете дополнителни слики',
   are_you_sure_you_want_to_delete_your_workplace:

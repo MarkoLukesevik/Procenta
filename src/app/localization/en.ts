@@ -95,6 +95,7 @@ export default {
   description: 'Description',
   add_employee: 'Add employee',
   search_employees: 'Search employees',
+  employees: 'Employees',
   there_are_no_employees: 'There are no employees',
   upload_additional_images: 'Upload additional images',
   are_you_sure_you_want_to_delete_your_workplace:

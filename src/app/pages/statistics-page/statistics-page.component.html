@@ -1,100 +1,80 @@
 <div class="statistics-page">
-  <div class="statistics-page__dashboard">
-    <h3 class="statistics-page__dashboard-title">
-      {{ t("statistics_dashboard") }}
-    </h3>
-
-    <div class="statistics-page__dashboard-cards">
-      <div class="statistics-page__dashboard-cards__item">
-        <div class="statistics-page__dashboard-cards__item-icon">
-          <i class="fa-solid fa-percent"></i>
-        </div>
-        <p class="statistics-page__dashboard-cards__item-title">
-          {{ t("total_discounts_given") }}
-        </p>
-        <p class="statistics-page__dashboard-cards__item-value">120</p>
-      </div>
+  @if (isPageSpinnerOn) {
+    <div class="statistics-page__spinner">
+      <i class="fa-solid fa-spinner fa-spin"></i>
     </div>
-  </div>
+  } @else {
+    <div class="statistics-page__dashboard">
+      <h3 class="statistics-page__dashboard-title">
+        {{ t("statistics_dashboard") }}
+      </h3>
 
-  <div class="statistics-page__restaurants">
-    <h3 class="statistics-page__restaurants-title">
-      {{ t("restaurants_dashboard") }}
-    </h3>
-
-    <div class="statistics-page__restaurants-cards">
-      <div class="statistics-page__restaurants-cards__item">
-        <div class="statistics-page__restaurants-cards__item-lokal">
-          <div class="statistics-page__restaurants-cards__item-lokal__icon">
-            <i class="fa-solid fa-user-group"></i>
+      <div class="statistics-page__dashboard-cards">
+        <div class="statistics-page__dashboard-cards__item">
+          <div class="statistics-page__dashboard-cards__item-icon">
+            <i class="fa-solid fa-percent"></i>
           </div>
-          <p class="statistics-page__restaurants-cards__item-lokal__title">
-            The Golden Spoon
+          <p class="statistics-page__dashboard-cards__item-title">
+            {{ t("total_discounts_given") }}
           </p>
-          <p class="statistics-page__restaurants-cards__item-lokal__value">
-            120
+          <p class="statistics-page__dashboard-cards__item-value">
+            {{ statistics.totalDiscounts }}
           </p>
-        </div>
-
-        <div class="statistics-page__restaurants-cards__item-employees">
-          <div class="statistics-page__restaurants-cards__item-employees-user">
-            <div
-              class="statistics-page__restaurants-cards__item-employees-user__image"
-            >
-              <img [src]="''" alt="" />
-            </div>
-
-            <p
-              class="statistics-page__restaurants-cards__item-employees-user__name"
-            >
-              Marko
-            </p>
-
-            <span
-              class="statistics-page__restaurants-cards__item-employees-user__discounts"
-              >20</span
-            >
-          </div>
-
-          <div class="statistics-page__restaurants-cards__item-employees-user">
-            <div
-              class="statistics-page__restaurants-cards__item-employees-user__image"
-            >
-              <img [src]="''" alt="" />
-            </div>
-
-            <p
-              class="statistics-page__restaurants-cards__item-employees-user__name"
-            >
-              Marko
-            </p>
-
-            <span
-              class="statistics-page__restaurants-cards__item-employees-user__discounts"
-              >20</span
-            >
-          </div>
-
-          <div class="statistics-page__restaurants-cards__item-employees-user">
-            <div
-              class="statistics-page__restaurants-cards__item-employees-user__image"
-            >
-              <img [src]="''" alt="" />
-            </div>
-
-            <p
-              class="statistics-page__restaurants-cards__item-employees-user__name"
-            >
-              Marko
-            </p>
-
-            <span
-              class="statistics-page__restaurants-cards__item-employees-user__discounts"
-              >20</span
-            >
-          </div>
         </div>
       </div>
     </div>
-  </div>
+
+    <div class="statistics-page__restaurants">
+      <h3 class="statistics-page__restaurants-title">
+        {{ t("restaurants_dashboard") }}
+      </h3>
+
+      <div class="statistics-page__restaurants-cards">
+        @for (lokal of statistics.lokals; track lokal.name) {
+          <div class="statistics-page__restaurants-cards__item">
+            <div class="statistics-page__restaurants-cards__item-lokal">
+              <div class="statistics-page__restaurants-cards__item-lokal__icon">
+                <i class="fa-solid fa-user-group"></i>
+              </div>
+              <p class="statistics-page__restaurants-cards__item-lokal__title">
+                {{ lokal.name }}
+              </p>
+              <p class="statistics-page__restaurants-cards__item-lokal__value">
+                {{ lokal.totalDiscounts }}
+              </p>
+            </div>
+
+            <div class="statistics-page__restaurants-cards__item-employees">
+              @for (employee of lokal.employees; track employee.name) {
+                <div
+                  class="statistics-page__restaurants-cards__item-employees-user"
+                >
+                  <div
+                    class="statistics-page__restaurants-cards__item-employees-user__image"
+                  >
+                    @if (employee.imageUrl) {
+                      <img [src]="employee.imageUrl" alt="" />
+                    } @else {
+                      <i class="fa-solid fa-user"></i>
+                    }
+                  </div>
+
+                  <p
+                    class="statistics-page__restaurants-cards__item-employees-user__name"
+                  >
+                    {{ employee.name }}
+                  </p>
+
+                  <span
+                    class="statistics-page__restaurants-cards__item-employees-user__discounts"
+                    >{{ employee.discountsGiven }}</span
+                  >
+                </div>
+              }
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  }
 </div>

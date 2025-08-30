@@ -411,11 +411,13 @@
                 </ul>
               }
             </div>
+            `
           }
+          `
         </div>
 
         <div class="profile-page__employees-card-wrapper">
-          <p>Employees ({{ lokalEmployees.length }})</p>
+          <p>{{ t("employees") }} ({{ lokalEmployees.length }})</p>
           <div class="profile-page__employees-card">
             @if (lokalEmployees.length === 0) {
               <div class="profile-page__employees-card__empty">

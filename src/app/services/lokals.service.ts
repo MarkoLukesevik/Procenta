@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { ApiService } from './api.service';
 import { Lokal } from '../models/lokal';
 import { EditLokalRequest } from '../requests/lokal-requests/edit-lokal-request';
+import StatisticsResponse from '../responses/statistics';
 
 @Injectable({
   providedIn: 'root',
@@ -43,5 +44,12 @@ export class LokalsService {
 
   public deleteLokal(lokal: Lokal): Observable<Lokal> {
     return this.apiService.delete<Lokal>(`lokals/${lokal.id}`);
+  }
+
+  public getStatistics(lokalId: string): Observable<StatisticsResponse> {
+    return this.apiService.get<StatisticsResponse>(
+      `lokals/${lokalId}/statistics`,
+      true,
+    );
   }
 }
