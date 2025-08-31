@@ -40,7 +40,7 @@
                 {{ lokal.name }}
               </p>
               <p class="statistics-page__restaurants-cards__item-lokal__value">
-                {{ lokal.totalDiscounts }}
+                Discounts: {{ lokal.totalDiscounts }}
               </p>
             </div>
 
@@ -58,17 +58,66 @@
                       <i class="fa-solid fa-user"></i>
                     }
                   </div>
-
                   <p
                     class="statistics-page__restaurants-cards__item-employees-user__name"
                   >
                     {{ employee.name }}
                   </p>
-
-                  <span
+                  <p
                     class="statistics-page__restaurants-cards__item-employees-user__discounts"
-                    >{{ employee.discountsGiven }}</span
                   >
+                    Discounts: {{ employee.discountsGiven }}
+                  </p>
+                </div>
+              }
+              @for (employee of lokal.employees; track employee.name) {
+                <div
+                  class="statistics-page__restaurants-cards__item-employees-user"
+                >
+                  <div
+                    class="statistics-page__restaurants-cards__item-employees-user__image"
+                  >
+                    @if (employee.imageUrl) {
+                      <img [src]="employee.imageUrl" alt="" />
+                    } @else {
+                      <i class="fa-solid fa-user"></i>
+                    }
+                  </div>
+                  <p
+                    class="statistics-page__restaurants-cards__item-employees-user__name"
+                  >
+                    {{ employee.name }}
+                  </p>
+                  <p
+                    class="statistics-page__restaurants-cards__item-employees-user__discounts"
+                  >
+                    Discounts: {{ employee.discountsGiven }}
+                  </p>
+                </div>
+              }
+              @for (employee of lokal.employees; track employee.name) {
+                <div
+                  class="statistics-page__restaurants-cards__item-employees-user"
+                >
+                  <div
+                    class="statistics-page__restaurants-cards__item-employees-user__image"
+                  >
+                    @if (employee.imageUrl) {
+                      <img [src]="employee.imageUrl" alt="" />
+                    } @else {
+                      <i class="fa-solid fa-user"></i>
+                    }
+                  </div>
+                  <p
+                    class="statistics-page__restaurants-cards__item-employees-user__name"
+                  >
+                    {{ employee.name }}
+                  </p>
+                  <p
+                    class="statistics-page__restaurants-cards__item-employees-user__discounts"
+                  >
+                    Discounts: {{ employee.discountsGiven }}
+                  </p>
                 </div>
               }
             </div>
