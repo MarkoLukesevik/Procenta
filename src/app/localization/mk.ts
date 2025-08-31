@@ -156,4 +156,7 @@ export default {
   restaurants_dashboard: 'Ресторани',
   total_discounts_given: 'Вкупно дадени попусти',
   no_matches: 'Не се пронајдени резултати. Ве молиме обидете се со друго име.',
+  discounts: 'Попусти:',
+  qr_scans_per_day: 'QR скенирања на ден',
+  qr_scans: 'QR скенирања',
 };

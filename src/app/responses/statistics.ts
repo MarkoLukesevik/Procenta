@@ -1,16 +1,26 @@
 export default interface StatisticsResponse {
   totalDiscounts: number;
-  lokals: statisticsLokal[];
+  lokals: StatisticsLokal[];
+  statistics: StatisticsPerDay[];
 }
 
-export interface statisticsLokal {
+export interface StatisticsLokal {
   name: string;
   totalDiscounts: number;
-  employees: statisticsLokalEmployees[];
+  employees: StatisticsLokalEmployees[];
 }
 
-export interface statisticsLokalEmployees {
+export interface StatisticsLokalEmployees {
   discountsGiven: number;
   imageUrl: string;
   name: string;
+}
+
+export interface StatisticsPerDay {
+  day: string;
+  qrScans: QrScan[];
+}
+
+export interface QrScan {
+  lokalId: string;
 }

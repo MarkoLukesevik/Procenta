@@ -24,6 +24,15 @@
       </div>
     </div>
 
+    <canvas
+      style="height: 250px"
+      baseChart
+      [data]="chartData"
+      [options]="chartOptions"
+      [type]="'bar'"
+    >
+    </canvas>
+
     <div class="statistics-page__restaurants">
       <h3 class="statistics-page__restaurants-title">
         {{ t("restaurants_dashboard") }}
@@ -40,7 +49,7 @@
                 {{ lokal.name }}
               </p>
               <p class="statistics-page__restaurants-cards__item-lokal__value">
-                Discounts: {{ lokal.totalDiscounts }}
+                {{ t("discounts") }} {{ lokal.totalDiscounts }}
               </p>
             </div>
 
@@ -66,57 +75,7 @@
                   <p
                     class="statistics-page__restaurants-cards__item-employees-user__discounts"
                   >
-                    Discounts: {{ employee.discountsGiven }}
-                  </p>
-                </div>
-              }
-              @for (employee of lokal.employees; track employee.name) {
-                <div
-                  class="statistics-page__restaurants-cards__item-employees-user"
-                >
-                  <div
-                    class="statistics-page__restaurants-cards__item-employees-user__image"
-                  >
-                    @if (employee.imageUrl) {
-                      <img [src]="employee.imageUrl" alt="" />
-                    } @else {
-                      <i class="fa-solid fa-user"></i>
-                    }
-                  </div>
-                  <p
-                    class="statistics-page__restaurants-cards__item-employees-user__name"
-                  >
-                    {{ employee.name }}
-                  </p>
-                  <p
-                    class="statistics-page__restaurants-cards__item-employees-user__discounts"
-                  >
-                    Discounts: {{ employee.discountsGiven }}
-                  </p>
-                </div>
-              }
-              @for (employee of lokal.employees; track employee.name) {
-                <div
-                  class="statistics-page__restaurants-cards__item-employees-user"
-                >
-                  <div
-                    class="statistics-page__restaurants-cards__item-employees-user__image"
-                  >
-                    @if (employee.imageUrl) {
-                      <img [src]="employee.imageUrl" alt="" />
-                    } @else {
-                      <i class="fa-solid fa-user"></i>
-                    }
-                  </div>
-                  <p
-                    class="statistics-page__restaurants-cards__item-employees-user__name"
-                  >
-                    {{ employee.name }}
-                  </p>
-                  <p
-                    class="statistics-page__restaurants-cards__item-employees-user__discounts"
-                  >
-                    Discounts: {{ employee.discountsGiven }}
+                    {{ t("discounts") }} {{ employee.discountsGiven }}
                   </p>
                 </div>
               }

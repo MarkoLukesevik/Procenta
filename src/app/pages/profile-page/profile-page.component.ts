@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
 import { take } from 'rxjs/operators';
 import imageCompression from 'browser-image-compression';
+import { Router } from '@angular/router';
 
 import { BaseInputComponent } from '../../base-components/base-input/base-input.component';
 import {
@@ -24,7 +25,6 @@ import { ModalService } from '../../services/modal.service';
 import { User, UserGender } from '../../models/user';
 import { Lokal, LokalType } from '../../models/lokal';
 import { SignInRegisterService } from '../../services/sign-in-register.service';
-import { Router } from '@angular/router';
 import { Status } from '../../models/enums/status';
 
 import { PhotoRequest } from '../../requests/user-requests/edit-user-request';
@@ -558,7 +558,10 @@ export class ProfilePageComponent implements OnInit {
     }
   }
 
-  public async handleAdditionalLokalPictureChange(event: Event, index: number): Promise<void> {
+  public async handleAdditionalLokalPictureChange(
+    event: Event,
+    index: number,
+  ): Promise<void> {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files[0]) {
       const file = input.files[0];

@@ -151,4 +151,7 @@ export default {
   statistics_dashboard: 'Statistics Dashboard',
   restaurants_dashboard: 'Restaurants',
   total_discounts_given: 'Total Discounts Given',
+  discounts: 'Discounts:',
+  qr_scans_per_day: 'QR Scans per Day',
+  qr_scans: 'QR Scans',
 };
