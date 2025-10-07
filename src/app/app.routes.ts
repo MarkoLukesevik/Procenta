@@ -13,6 +13,7 @@ import { AdminEditLokalPageComponent } from './admin-pages/admin-edit-lokal-page
 import { VerifyEmailPageComponent } from './pages/verify-email-page/verify-email-page.component';
 import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
+import { PrivacyPolicyPageComponent } from './pages/privacy-policy-page/privacy-policy-page.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -30,6 +31,7 @@ export const routes: Routes = [
     canActivate: [AuthGuard],
   },
   { path: 'sign-in', component: SignRegisterPageComponent },
+  { path: 'privacy-policy', component: PrivacyPolicyPageComponent },
   { path: 'qrcode', component: QrcodePageComponent, canActivate: [AuthGuard] },
   { path: 'verify-account/:id', component: VerifyEmailPageComponent },
   { path: 'forgot-password', component: ForgotPasswordComponent },
