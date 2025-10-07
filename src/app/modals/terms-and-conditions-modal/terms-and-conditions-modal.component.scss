@@ -1,4 +1,4 @@
-.privacy-policy-modal__overlay {
+.terms-and-conditions-modal__overlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -13,7 +13,7 @@
   z-index: 1000;
 }
 
-.privacy-policy-modal {
+.terms-and-conditions-modal {
   display: flex;
   flex-direction: column;
   row-gap: 1rem;
