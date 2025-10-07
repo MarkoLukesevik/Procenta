@@ -13,7 +13,6 @@ import SignInRegisterResponse from '../responses/sign-in-register-response';
 export class SignInRegisterService {
   private apiService = inject(ApiService);
 
-
   public setAccountInfo(
     info: SignInRegisterResponse,
     rememberLogin: boolean,
@@ -40,6 +39,9 @@ export class SignInRegisterService {
     window.localStorage.removeItem('refreshToken');
     window.localStorage.removeItem('accountId');
     window.localStorage.removeItem('tokenExpiresAt');
+
+    window.sessionStorage.removeItem('accountType');
+    window.sessionStorage.removeItem('accountId');
   }
 
   public login(request: LoginRequest): Observable<SignInRegisterResponse> {

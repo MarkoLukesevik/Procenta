@@ -5,9 +5,11 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { ScreenOrientation } from '@capacitor/screen-orientation';
 import { Platform } from '@ionic/angular';
 import { Keyboard } from '@capacitor/keyboard';
+import { Capacitor } from '@capacitor/core';
 
 import { UserService } from './services/user.service';
 import { LokalsService } from './services/lokals.service';
+import { ToastrService } from 'ngx-toastr';
 
 import { User } from './models/user';
 import { Lokal } from './models/lokal';
@@ -16,8 +18,6 @@ import { AccountType } from './responses/sign-in-register-response';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { BottomNavComponent } from './components/bottom-nav/bottom-nav.component';
-import { ToastrService } from 'ngx-toastr';
-import { Capacitor } from '@capacitor/core';
 
 @Component({
   selector: 'app-root',
@@ -26,11 +26,11 @@ import { Capacitor } from '@capacitor/core';
   styleUrl: './app.component.scss',
 })
 export class AppComponent implements OnInit {
-  private router = inject(Router);
-  private userService = inject(UserService);
-  private lokalsService = inject(LokalsService);
-  private toastService = inject(ToastrService);
-  private platform = inject(Platform);
+  private router: Router = inject(Router);
+  private userService: UserService = inject(UserService);
+  private lokalsService: LokalsService = inject(LokalsService);
+  private toastService: ToastrService = inject(ToastrService);
+  private platform: Platform = inject(Platform);
 
   constructor() {
     this.setupKeyboardListeners();
