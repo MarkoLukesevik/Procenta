@@ -23,7 +23,7 @@ import RegisterLokalRequest from '../../requests/lokal-requests/register-lokal-r
 import SignInRegisterResponse, {
   AccountType,
 } from '../../responses/sign-in-register-response';
-import { AgreeTermsModalComponent } from '../../modals/agree-terms-modal/agree-terms-modal.component';
+import { PrivacyPolicyModalComponent } from '../../modals/privacy-policy-modal/privacy-policy-modal.component';
 import { take } from 'rxjs/operators';
 
 @Component({
@@ -118,7 +118,7 @@ export class SignRegisterPageComponent {
     if (this.emailError || this.passwordError) return;
 
     this.modalService
-      .open(AgreeTermsModalComponent, {})
+      .open(PrivacyPolicyModalComponent, {})
       .pipe(take(1))
       .subscribe((res: boolean): void => {
         if (res) {

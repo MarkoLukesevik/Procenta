@@ -25,6 +25,7 @@ export default {
   forgot_password: 'Forgot password',
   confirm_password: 'Confirm password',
   agree_terms_and_conditions: 'Agree to Terms & Conditions',
+  privacy_policy: 'Privacy Policy',
   sign_up: 'Sign up',
   please_enter_the_sign_in_information: 'Please enter the sign in information.',
   please_enter_the_sign_up_information: 'Please enter the sign up information.',

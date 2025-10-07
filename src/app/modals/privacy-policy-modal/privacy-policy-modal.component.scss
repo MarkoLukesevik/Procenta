@@ -63,6 +63,12 @@
       background-color: var(--base-green-color);
       border-radius: 2px;
     }
+
+    &-description {
+      display: flex;
+      flex-direction: column;
+      row-gap: 0.5rem;
+    }
   }
 
   &__footer {

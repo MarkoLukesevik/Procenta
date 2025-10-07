@@ -3,11 +3,11 @@ import { LanguageService } from '../../services/language.service';
 import { ModalService } from '../../services/modal.service';
 
 @Component({
-  selector: 'app-agree-terms-modal',
-  templateUrl: './agree-terms-modal.component.html',
-  styleUrls: ['./agree-terms-modal.component.scss'],
+  selector: 'app-privacy-policy-modal',
+  templateUrl: './privacy-policy-modal.component.html',
+  styleUrls: ['./privacy-policy-modal.component.scss'],
 })
-export class AgreeTermsModalComponent {
+export class PrivacyPolicyModalComponent {
   private languageService: LanguageService = inject(LanguageService);
   private modalService: ModalService = inject(ModalService);
 

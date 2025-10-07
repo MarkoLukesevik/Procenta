@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { AgreeTermsModalComponent } from './agree-terms-modal.component';
+import { PrivacyPolicyModalComponent } from './privacy-policy-modal.component';
 
 describe('AgreeTermsModalComponent', () => {
-  let component: AgreeTermsModalComponent;
-  let fixture: ComponentFixture<AgreeTermsModalComponent>;
+  let component: PrivacyPolicyModalComponent;
+  let fixture: ComponentFixture<PrivacyPolicyModalComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ AgreeTermsModalComponent ],
-      imports: [IonicModule.forRoot()]
+      declarations: [PrivacyPolicyModalComponent],
+      imports: [IonicModule.forRoot()],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(AgreeTermsModalComponent);
+    fixture = TestBed.createComponent(PrivacyPolicyModalComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

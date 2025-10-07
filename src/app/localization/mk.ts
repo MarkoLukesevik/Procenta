@@ -25,6 +25,7 @@ export default {
   forgot_password: 'Заборавена лозинка',
   confirm_password: 'Потврдете ја лозинката',
   agree_terms_and_conditions: 'Согласете се со Условите и одредбите',
+  privacy_policy: 'Политика за приватност',
   sign_up: 'Пријавете се',
   please_enter_the_sign_in_information:
     'Внесете ги информациите за најавување.',
