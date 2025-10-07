@@ -25,6 +25,7 @@ import SignInRegisterResponse, {
 } from '../../responses/sign-in-register-response';
 import { PrivacyPolicyModalComponent } from '../../modals/privacy-policy-modal/privacy-policy-modal.component';
 import { take } from 'rxjs/operators';
+import { TermsAndConditionsModalComponent } from '../../modals/terms-and-conditions-modal/terms-and-conditions-modal.component';
 
 @Component({
   selector: 'app-sign-register-page',
@@ -120,42 +121,53 @@ export class SignRegisterPageComponent {
     this.modalService
       .open(PrivacyPolicyModalComponent, {})
       .pipe(take(1))
-      .subscribe((res: boolean): void => {
-        if (res) {
-          this.isSignButtonSpinnerOn = true;
-          if (this.accountType === AccountType.User) {
-            const request: RegisterUserRequest = {
-              firstName: this.firstName,
-              lastName: this.lastName,
-              email: this.email,
-              password: this.password,
-            };
+      .subscribe((isPrivacyAccepted: boolean): void => {
+        if (isPrivacyAccepted) {
+          setTimeout(() => {
+            this.modalService
+              .open(TermsAndConditionsModalComponent, {})
+              .pipe(take(1))
+              .subscribe((termsAndConditionsAccepted: boolean): void => {
+                if (termsAndConditionsAccepted) {
+                  this.isSignButtonSpinnerOn = true;
+                  if (this.accountType === AccountType.User) {
+                    const request: RegisterUserRequest = {
+                      firstName: this.firstName,
+                      lastName: this.lastName,
+                      email: this.email,
+                      password: this.password,
+                    };
 
-            this.signInRegisterService.registerUser(request).subscribe({
-              next: (res: SignInRegisterResponse): void => {
-                this.handleSignInRegisterFinish(res);
-              },
-              error: (httpErrorResponse: HttpErrorResponse): void => {
-                this.toastService.error(httpErrorResponse.error);
-                this.isSignButtonSpinnerOn = false;
-              },
-            });
-          } else {
-            const request: RegisterLokalRequest = {
-              name: this.lokalName,
-              email: this.email,
-              password: this.password,
-            };
-            this.signInRegisterService.registerLocal(request).subscribe({
-              next: (res: SignInRegisterResponse): void => {
-                this.handleSignInRegisterFinish(res);
-              },
-              error: (httpErrorResponse: HttpErrorResponse): void => {
-                this.toastService.error(httpErrorResponse.error);
-                this.isSignButtonSpinnerOn = false;
-              },
-            });
-          }
+                    this.signInRegisterService.registerUser(request).subscribe({
+                      next: (res: SignInRegisterResponse): void => {
+                        this.handleSignInRegisterFinish(res);
+                      },
+                      error: (httpErrorResponse: HttpErrorResponse): void => {
+                        this.toastService.error(httpErrorResponse.error);
+                        this.isSignButtonSpinnerOn = false;
+                      },
+                    });
+                  } else {
+                    const request: RegisterLokalRequest = {
+                      name: this.lokalName,
+                      email: this.email,
+                      password: this.password,
+                    };
+                    this.signInRegisterService
+                      .registerLocal(request)
+                      .subscribe({
+                        next: (res: SignInRegisterResponse): void => {
+                          this.handleSignInRegisterFinish(res);
+                        },
+                        error: (httpErrorResponse: HttpErrorResponse): void => {
+                          this.toastService.error(httpErrorResponse.error);
+                          this.isSignButtonSpinnerOn = false;
+                        },
+                      });
+                  }
+                }
+              });
+          }, 0);
         }
       });
   }

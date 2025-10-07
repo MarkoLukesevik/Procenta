@@ -24,7 +24,10 @@ export class PrivacyPolicyModalComponent {
   }
 
   public onScroll(element: HTMLElement): void {
-    this.hasScrolledToBottom =
-      element.scrollHeight - element.scrollTop === element.clientHeight;
+    const threshold = 5;
+    const position: number = element.scrollTop + element.clientHeight;
+    const height: number = element.scrollHeight;
+
+    this.hasScrolledToBottom = position >= height - threshold;
   }
 }
