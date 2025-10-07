@@ -1,0 +1,12 @@
+.terms-and-conditions-page {
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.5rem;
+
+  color: var(--base-black-color);
+  padding: 1rem;
+
+  & ul {
+    padding: 0 1rem;
+  }
+}

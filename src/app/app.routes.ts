@@ -14,6 +14,7 @@ import { VerifyEmailPageComponent } from './pages/verify-email-page/verify-email
 import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
 import { PrivacyPolicyPageComponent } from './pages/privacy-policy-page/privacy-policy-page.component';
+import { TermsAndConditionsPageComponent } from './pages/terms-and-conditions-page/terms-and-conditions-page.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -32,6 +33,7 @@ export const routes: Routes = [
   },
   { path: 'sign-in', component: SignRegisterPageComponent },
   { path: 'privacy-policy', component: PrivacyPolicyPageComponent },
+  { path: 'terms', component: TermsAndConditionsPageComponent },
   { path: 'qrcode', component: QrcodePageComponent, canActivate: [AuthGuard] },
   { path: 'verify-account/:id', component: VerifyEmailPageComponent },
   { path: 'forgot-password', component: ForgotPasswordComponent },
