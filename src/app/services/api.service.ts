@@ -10,7 +10,7 @@ import SignInRegisterResponse from '../responses/sign-in-register-response';
 export class ApiService {
   private http = inject(HttpClient);
 
-  private baseurl: string = 'https://procenta-api.k8s.nerathos.xyz/';
+  private baseurl: string = 'http://3.73.152.93';
   private isRefreshingToken: boolean = false;
 
   private getAuthHeaders(): HttpHeaders {
