@@ -38,8 +38,8 @@
   @if (!loggedInUser() && !loggedInLokal()) {
     <div
       class="bottom-nav__button"
-      [class.bottom-nav__button-active]="isRouteActive('sign-in')"
-      (click)="handleLinkClick('sign-in')"
+      [class.bottom-nav__button-active]="isRouteActive('auth')"
+      (click)="handleLinkClick('auth')"
     >
       <i class="fa-solid fa-user"></i>
     </div>

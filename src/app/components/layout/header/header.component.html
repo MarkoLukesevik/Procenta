@@ -35,7 +35,7 @@
       @if (!loggedInUser() && !loggedInLokal()) {
         <button
           class="header-buttons__button sign-in-button"
-          (click)="handleLinkClick('sign-in')"
+          (click)="handleLinkClick('auth')"
         >
           {{ t("sign_in") }}
         </button>

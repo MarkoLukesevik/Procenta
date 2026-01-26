@@ -32,7 +32,7 @@ export const routes: Routes = [
     component: StatisticsPageComponent,
     canActivate: [AuthGuard],
   },
-  { path: 'sign-in', component: AuthPageComponent },
+  { path: 'auth', component: AuthPageComponent },
   { path: 'privacy-policy', component: PrivacyPolicyPageComponent },
   { path: 'terms', component: TermsAndConditionsPageComponent },
   { path: 'qrcode', component: QrcodePageComponent, canActivate: [AuthGuard] },

@@ -37,7 +37,7 @@ export class ResetPasswordComponent implements OnInit {
     if (tokenId) {
       this.tokenId = tokenId;
     } else {
-      await this.router.navigate(['/sign-in']);
+      await this.router.navigate(['/auth']);
     }
   }
 
@@ -56,7 +56,7 @@ export class ResetPasswordComponent implements OnInit {
       next: () => {
         this.toastService.success(this.t('password_reset_successfully'));
         setTimeout(async (): Promise<void> => {
-          await this.router.navigate(['/sign-in']);
+          await this.router.navigate(['/auth']);
         }, 1000);
       },
       error: (httpErrorResponse: HttpErrorResponse): void => {
