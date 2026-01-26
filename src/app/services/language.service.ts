@@ -12,7 +12,6 @@ export class LanguageService {
   private translations: TranslationMap = {};
 
   private langChangeSubject = new BehaviorSubject<Lang>(this.currentLang);
-  public langChanges$ = this.langChangeSubject.asObservable();
 
   async loadInitialLanguage() {
     const savedLang = localStorage.getItem('lang') as Lang | null;

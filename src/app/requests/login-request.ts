@@ -1,4 +1,4 @@
-import { AccountType } from '../responses/sign-in-register-response';
+import { AccountType } from '../responses/auth-response';
 
 export default interface LoginRequest {
   email: string;

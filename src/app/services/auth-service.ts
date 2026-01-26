@@ -5,18 +5,15 @@ import { ApiService } from './api.service';
 import LoginRequest from '../requests/login-request';
 import RegisterUserRequest from '../requests/user-requests/register-user-request';
 import RegisterLokalRequest from '../requests/lokal-requests/register-lokal-request';
-import SignInRegisterResponse from '../responses/sign-in-register-response';
+import AuthResponse from '../responses/auth-response';
 
 @Injectable({
   providedIn: 'root',
 })
-export class SignInRegisterService {
+export class AuthService {
   private apiService = inject(ApiService);
 
-  public setAccountInfo(
-    info: SignInRegisterResponse,
-    rememberLogin: boolean,
-  ): void {
+  public setAccountInfo(info: AuthResponse, rememberLogin: boolean): void {
     if (rememberLogin) {
       window.localStorage.setItem('accountType', JSON.stringify(info.type));
       window.localStorage.setItem('accountId', info.id);
@@ -44,32 +41,18 @@ export class SignInRegisterService {
     window.sessionStorage.removeItem('accountId');
   }
 
-  public login(request: LoginRequest): Observable<SignInRegisterResponse> {
-    return this.apiService.post<SignInRegisterResponse>(
-      'login',
-      request,
-      false,
-    );
+  public login(request: LoginRequest): Observable<AuthResponse> {
+    return this.apiService.post<AuthResponse>('login', request, false);
   }
 
-  public registerUser(
-    request: RegisterUserRequest,
-  ): Observable<SignInRegisterResponse> {
-    return this.apiService.post<SignInRegisterResponse>(
-      'users',
-      request,
-      false,
-    );
+  public registerUser(request: RegisterUserRequest): Observable<AuthResponse> {
+    return this.apiService.post<AuthResponse>('users', request, false);
   }
 
   public registerLocal(
     request: RegisterLokalRequest,
-  ): Observable<SignInRegisterResponse> {
-    return this.apiService.post<SignInRegisterResponse>(
-      'lokals',
-      request,
-      false,
-    );
+  ): Observable<AuthResponse> {
+    return this.apiService.post<AuthResponse>('lokals', request, false);
   }
 
   public verifyAccount(id: string): Observable<void> {

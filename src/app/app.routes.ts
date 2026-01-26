@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { AuthGuard } from './auth-guard';
+
 import { HomePageComponent } from './pages/home-page/home-page.component';
 import { AboutUsPageComponent } from './pages/about-us-page/about-us-page.component';
 import { ProfilePageComponent } from './pages/profile-page/profile-page.component';

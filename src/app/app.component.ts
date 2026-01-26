@@ -13,7 +13,7 @@ import { ToastrService } from 'ngx-toastr';
 
 import { User } from './models/user';
 import { Lokal } from './models/lokal';
-import { AccountType } from './responses/sign-in-register-response';
+import { AccountType } from './responses/auth-response';
 
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';

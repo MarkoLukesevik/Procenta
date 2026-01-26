@@ -24,7 +24,7 @@ import { ModalService } from '../../services/modal.service';
 
 import { User, UserGender } from '../../models/user';
 import { Lokal, LokalType } from '../../models/lokal';
-import { SignInRegisterService } from '../../services/sign-in-register.service';
+import { AuthService } from '../../services/auth-service';
 import { Status } from '../../models/enums/status';
 
 import { PhotoRequest } from '../../requests/user-requests/edit-user-request';
@@ -46,9 +46,7 @@ export class ProfilePageComponent implements OnInit {
   private userService: UserService = inject(UserService);
   private lokalService: LokalsService = inject(LokalsService);
   private toastService: ToastrService = inject(ToastrService);
-  private singInRegisterService: SignInRegisterService = inject(
-    SignInRegisterService,
-  );
+  private authService: AuthService = inject(AuthService);
   private router: Router = inject(Router);
   private languageService: LanguageService = inject(LanguageService);
   private modalService: ModalService = inject(ModalService);
@@ -411,7 +409,7 @@ export class ProfilePageComponent implements OnInit {
   public async handleLogoutClick(): Promise<void> {
     this.userService.removeLoggedInUser();
     this.lokalService.removeLoggedInLokal();
-    this.singInRegisterService.removeAccountInfo();
+    this.authService.removeAccountInfo();
     await this.router.navigateByUrl('home');
   }
 
@@ -590,7 +588,7 @@ export class ProfilePageComponent implements OnInit {
   // region account verification
   public handleAccountVerificationClick(id: string) {
     this.isVerifyButtonSpinnerOn = true;
-    this.singInRegisterService.verifyAccount(id).subscribe({
+    this.authService.verifyAccount(id).subscribe({
       next: async () => {
         this.toastService.success(this.t('verification_mail'));
         this.isVerifyButtonSpinnerOn = false;

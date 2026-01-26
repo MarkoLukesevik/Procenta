@@ -11,7 +11,6 @@ import { Status } from '../models/enums/status';
 export class AdminService {
   private apiService = inject(ApiService);
 
-
   public deleteUser(user: User): Observable<User> {
     return this.apiService.delete<User>(`users/${user.id}`);
   }

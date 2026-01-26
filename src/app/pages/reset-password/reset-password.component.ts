@@ -6,7 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { BaseInputComponent } from '../../base-components/base-input/base-input.component';
 
 import { ToastrService } from 'ngx-toastr';
-import { SignInRegisterService } from '../../services/sign-in-register.service';
+import { AuthService } from '../../services/auth-service';
 import { LanguageService } from '../../services/language.service';
 
 @Component({
@@ -18,9 +18,7 @@ import { LanguageService } from '../../services/language.service';
 export class ResetPasswordComponent implements OnInit {
   private router: Router = inject(Router);
   private route: ActivatedRoute = inject(ActivatedRoute);
-  private signInRegisterService: SignInRegisterService = inject(
-    SignInRegisterService,
-  );
+  private authService: AuthService = inject(AuthService);
   private languageService: LanguageService = inject(LanguageService);
   private toastService: ToastrService = inject(ToastrService);
 
@@ -54,20 +52,18 @@ export class ResetPasswordComponent implements OnInit {
     this.validatePassword();
     if (this.passwordError) return;
 
-    this.signInRegisterService
-      .resetPassword(this.password, this.tokenId)
-      .subscribe({
-        next: () => {
-          this.toastService.success(this.t('password_reset_successfully'));
-          setTimeout(async (): Promise<void> => {
-            await this.router.navigate(['/sign-in']);
-          }, 1000);
-        },
-        error: (httpErrorResponse: HttpErrorResponse): void => {
-          this.toastService.error(httpErrorResponse.error);
-          this.isSubmitButtonSpinnerOn = false;
-        },
-      });
+    this.authService.resetPassword(this.password, this.tokenId).subscribe({
+      next: () => {
+        this.toastService.success(this.t('password_reset_successfully'));
+        setTimeout(async (): Promise<void> => {
+          await this.router.navigate(['/sign-in']);
+        }, 1000);
+      },
+      error: (httpErrorResponse: HttpErrorResponse): void => {
+        this.toastService.error(httpErrorResponse.error);
+        this.isSubmitButtonSpinnerOn = false;
+      },
+    });
   }
 
   private validatePassword(): boolean {

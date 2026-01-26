@@ -2,13 +2,13 @@ import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { SignInRegisterService } from '../../services/sign-in-register.service';
+import { AuthService } from '../../services/auth-service';
 import { LanguageService } from '../../services/language.service';
 import { UserService } from '../../services/user.service';
 import { LokalsService } from '../../services/lokals.service';
 import { User } from '../../models/user';
 import { Lokal } from '../../models/lokal';
-import { AccountType } from '../../responses/sign-in-register-response';
+import { AccountType } from '../../responses/auth-response';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
 
@@ -21,9 +21,7 @@ import { ToastrService } from 'ngx-toastr';
 export class VerifyEmailPageComponent implements OnInit {
   private route: ActivatedRoute = inject(ActivatedRoute);
   private router: Router = inject(Router);
-  private signInRegisterService: SignInRegisterService = inject(
-    SignInRegisterService,
-  );
+  private authService: AuthService = inject(AuthService);
   private languageService: LanguageService = inject(LanguageService);
   private userService: UserService = inject(UserService);
   private lokalsService: LokalsService = inject(LokalsService);
@@ -84,7 +82,7 @@ export class VerifyEmailPageComponent implements OnInit {
     const tokenId: string | null = this.route.snapshot.paramMap.get('id');
 
     if (tokenId) {
-      this.signInRegisterService.activeAccountByEmail(tokenId).subscribe({
+      this.authService.activeAccountByEmail(tokenId).subscribe({
         next: async () => {
           this.isVerified = true;
           this.pageMessage = this.t('successfully_verified');

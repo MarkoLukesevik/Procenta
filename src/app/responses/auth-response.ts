@@ -1,4 +1,4 @@
-export default interface SignInRegisterResponse {
+export default interface AuthResponse {
   accessToken: string;
   refreshToken: string;
   id: string;

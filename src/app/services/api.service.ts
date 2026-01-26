@@ -2,7 +2,7 @@ import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, Observable, of, switchMap } from 'rxjs';
 
-import SignInRegisterResponse from '../responses/sign-in-register-response';
+import AuthResponse from '../responses/auth-response';
 
 @Injectable({
   providedIn: 'root',
@@ -22,7 +22,7 @@ export class ApiService {
     return headers;
   }
 
-  private refreshTokenIfExpired(): Observable<SignInRegisterResponse | null> {
+  private refreshTokenIfExpired(): Observable<AuthResponse | null> {
     const token: string | null = window.localStorage.getItem('refreshToken');
     const tokenExpiresAt: number | null = JSON.parse(
       localStorage.getItem('tokenExpiresAt') || '0',
@@ -36,29 +36,24 @@ export class ApiService {
       !this.isRefreshingToken
     ) {
       this.isRefreshingToken = true;
-      return this.post<SignInRegisterResponse>(
+      return this.post<AuthResponse>(
         'refresh-token',
         {
           refreshToken: token,
         },
         false,
       ).pipe(
-        switchMap(
-          (res: SignInRegisterResponse): Observable<SignInRegisterResponse> => {
-            window.localStorage.setItem(
-              'accountType',
-              JSON.stringify(res.type),
-            );
-            window.localStorage.setItem('accessToken', res.accessToken);
-            window.localStorage.setItem('accountId', res.id);
-            window.localStorage.setItem(
-              'tokenExpiresAt',
-              JSON.stringify(res.expiresAt),
-            );
-            this.isRefreshingToken = false;
-            return of(res);
-          },
-        ),
+        switchMap((res: AuthResponse): Observable<AuthResponse> => {
+          window.localStorage.setItem('accountType', JSON.stringify(res.type));
+          window.localStorage.setItem('accessToken', res.accessToken);
+          window.localStorage.setItem('accountId', res.id);
+          window.localStorage.setItem(
+            'tokenExpiresAt',
+            JSON.stringify(res.expiresAt),
+          );
+          this.isRefreshingToken = false;
+          return of(res);
+        }),
         catchError((): Observable<null> => {
           this.isRefreshingToken = false;
           return of(null);

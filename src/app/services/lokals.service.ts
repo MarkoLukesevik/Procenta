@@ -1,4 +1,10 @@
-import { Injectable, Signal, signal, inject } from '@angular/core';
+import {
+  Injectable,
+  Signal,
+  signal,
+  inject,
+  WritableSignal,
+} from '@angular/core';
 import { Observable } from 'rxjs';
 import { ApiService } from './api.service';
 import { Lokal } from '../models/lokal';
@@ -11,8 +17,10 @@ import StatisticsResponse from '../responses/statistics';
 export class LokalsService {
   private apiService = inject(ApiService);
 
-  private lokals = signal<Lokal[]>([]);
-  private loggedInLokal = signal<Lokal | null>(null);
+  private lokals: WritableSignal<Lokal[]> = signal<Lokal[]>([]);
+  private loggedInLokal: WritableSignal<Lokal | null> = signal<Lokal | null>(
+    null,
+  );
 
   public setLokals(lokals: Lokal[]): void {
     this.lokals.set(lokals);

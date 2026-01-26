@@ -7,7 +7,7 @@ import { BaseInputComponent } from '../../base-components/base-input/base-input.
 import { BaseCheckboxComponent } from '../../base-components/base-checkbox/base-checkbox.component';
 
 import { ToastrService } from 'ngx-toastr';
-import { SignInRegisterService } from '../../services/sign-in-register.service';
+import { AuthService } from '../../services/auth-service';
 import { LokalsService } from '../../services/lokals.service';
 import { UserService } from '../../services/user.service';
 import { LanguageService } from '../../services/language.service';
@@ -20,9 +20,7 @@ import RegisterUserRequest from '../../requests/user-requests/register-user-requ
 import LoginRequest from '../../requests/login-request';
 import RegisterLokalRequest from '../../requests/lokal-requests/register-lokal-request';
 
-import SignInRegisterResponse, {
-  AccountType,
-} from '../../responses/sign-in-register-response';
+import AuthResponse, { AccountType } from '../../responses/auth-response';
 import { PrivacyPolicyModalComponent } from '../../modals/privacy-policy-modal/privacy-policy-modal.component';
 import { take } from 'rxjs/operators';
 import { TermsAndConditionsModalComponent } from '../../modals/terms-and-conditions-modal/terms-and-conditions-modal.component';
@@ -35,10 +33,8 @@ import { TermsAndConditionsModalComponent } from '../../modals/terms-and-conditi
 })
 export class SignRegisterPageComponent {
   private userService: UserService = inject(UserService);
-  private lokalService: LokalsService = inject(LokalsService);
-  private signInRegisterService: SignInRegisterService = inject(
-    SignInRegisterService,
-  );
+  private lokalsService: LokalsService = inject(LokalsService);
+  private authService: AuthService = inject(AuthService);
   private router: Router = inject(Router);
   private toastService: ToastrService = inject(ToastrService);
   private languageService: LanguageService = inject(LanguageService);
@@ -138,8 +134,8 @@ export class SignRegisterPageComponent {
                       password: this.password,
                     };
 
-                    this.signInRegisterService.registerUser(request).subscribe({
-                      next: (res: SignInRegisterResponse): void => {
+                    this.authService.registerUser(request).subscribe({
+                      next: (res: AuthResponse): void => {
                         this.handleSignInRegisterFinish(res);
                       },
                       error: (httpErrorResponse: HttpErrorResponse): void => {
@@ -153,17 +149,15 @@ export class SignRegisterPageComponent {
                       email: this.email,
                       password: this.password,
                     };
-                    this.signInRegisterService
-                      .registerLocal(request)
-                      .subscribe({
-                        next: (res: SignInRegisterResponse): void => {
-                          this.handleSignInRegisterFinish(res);
-                        },
-                        error: (httpErrorResponse: HttpErrorResponse): void => {
-                          this.toastService.error(httpErrorResponse.error);
-                          this.isSignButtonSpinnerOn = false;
-                        },
-                      });
+                    this.authService.registerLocal(request).subscribe({
+                      next: (res: AuthResponse): void => {
+                        this.handleSignInRegisterFinish(res);
+                      },
+                      error: (httpErrorResponse: HttpErrorResponse): void => {
+                        this.toastService.error(httpErrorResponse.error);
+                        this.isSignButtonSpinnerOn = false;
+                      },
+                    });
                   }
                 }
               });
@@ -182,8 +176,8 @@ export class SignRegisterPageComponent {
       type: this.accountType,
     };
 
-    this.signInRegisterService.login(request).subscribe({
-      next: (res: SignInRegisterResponse): void => {
+    this.authService.login(request).subscribe({
+      next: (res: AuthResponse): void => {
         this.handleSignInRegisterFinish(res);
       },
       error: (httpErrorResponse: HttpErrorResponse): void => {
@@ -193,8 +187,8 @@ export class SignRegisterPageComponent {
     });
   }
 
-  private handleSignInRegisterFinish(res: SignInRegisterResponse): void {
-    this.signInRegisterService.setAccountInfo(res, this.rememberLogin);
+  private handleSignInRegisterFinish(res: AuthResponse): void {
+    this.authService.setAccountInfo(res, this.rememberLogin);
 
     if (res.type === AccountType.User) {
       this.userService.getUser(res.id).subscribe({
@@ -209,9 +203,9 @@ export class SignRegisterPageComponent {
         },
       });
     } else {
-      this.lokalService.getLokal(res.id).subscribe({
+      this.lokalsService.getLokal(res.id).subscribe({
         next: async (lokal: Lokal): Promise<void> => {
-          this.lokalService.setLoggedInLokal(lokal);
+          this.lokalsService.setLoggedInLokal(lokal);
           this.isSignButtonSpinnerOn = false;
           await this.router.navigateByUrl('home');
         },

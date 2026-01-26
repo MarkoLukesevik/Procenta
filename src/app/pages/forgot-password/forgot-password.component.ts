@@ -6,7 +6,7 @@ import { BaseInputComponent } from '../../base-components/base-input/base-input.
 
 import { ToastrService } from 'ngx-toastr';
 import { LanguageService } from '../../services/language.service';
-import { SignInRegisterService } from '../../services/sign-in-register.service';
+import { AuthService } from '../../services/auth-service';
 
 @Component({
   selector: 'app-forgot-password',
@@ -16,9 +16,7 @@ import { SignInRegisterService } from '../../services/sign-in-register.service';
 })
 export class ForgotPasswordComponent {
   private languageService: LanguageService = inject(LanguageService);
-  private signInRegisterService: SignInRegisterService = inject(
-    SignInRegisterService,
-  );
+  private authService: AuthService = inject(AuthService);
   private toastService: ToastrService = inject(ToastrService);
 
   public isSendEmailButtonSpinnerOn: boolean = false;
@@ -39,7 +37,7 @@ export class ForgotPasswordComponent {
 
     this.isSendEmailButtonSpinnerOn = true;
 
-    this.signInRegisterService.forgotPassword(this.email).subscribe({
+    this.authService.forgotPassword(this.email).subscribe({
       next: (): void => {
         this.message = this.t('you_will_receive_email_to_reset_password');
         this.isSendEmailButtonSpinnerOn = false;
