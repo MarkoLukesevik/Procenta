@@ -1,76 +1,116 @@
-Процента
+# Procenta
 
-Процента е модерна веб и мобилна апликација која создава дигитална мрежа меѓу кафичи, ресторани и барови, овозможувајќи им на вработените во угостителскиот сектор да добиваат ексклузивни попусти и бенефити преку скенирање на QR код.
-🚀 Карактеристики
-🔗 Поврзување на кафичи, ресторани и барови во единствена мрежа
-🎟️ Попусти и бенефити за вработени во угостителскиот сектор
-📱 Скенирање QR код за автоматска валидација на попуст
-🧾 Историја и статистики и искористени попусти
-🏪 Админ панел за локали
-👤 Кориснички профили и улоги
-🔐 Безбеден систем за најава и автентикација
+**Procenta** is a modern web and mobile application that creates a digital network of cafés, restaurants, and bars, enabling employees in the hospitality sector to receive exclusive discounts and benefits by scanning QR codes.
 
-🛠️ Технологии
-Проектот е изграден со следниве технологии:
-Angular – Frontend framework
-TypeScript – Главен програмски јазик
-SCSS / CSS – Стилизација
-REST API – Backend комуникација
-QR Code скенер – За валидација на попуст
-Native мобилни апликации – Посебни build-ови за iOS и Android (App Store & Google Play)
+---
 
-📦 Инсталација
-1. Клонирање на проектот
-   git clone https://github.com/your-username/procenta.git
-   cd procenta
-2. Инсталација на зависности
-   npm install
-3. Стартување на проектот
-   ng serve
+## 🚀 Features
 
-Апликацијата ќе биде достапна на:
+- 🔗 Connects cafés, restaurants, and bars into a unified digital network
+- 🎟️ Discounts and benefits for employees in the hospitality industry
+- 📱 QR code scanning for automatic discount validation
+- 🧾 History and statistics of redeemed discounts
+- 🏪 Admin panel for business management
+- 👤 User profiles and role management
+- 🔐 Secure authentication and authorization system
+
+---
+
+## 🛠️ Technologies
+
+The project is built using the following technologies:
+
+- Angular – Frontend framework
+- TypeScript – Primary programming language
+- SCSS / CSS – Styling
+- REST API – Backend communication
+- QR Code Scanner – Discount validation
+- Native Mobile Applications – Dedicated builds for iOS and Android (App Store & Google Play)
+
+---
+
+## 📦 Installation
+
+### 1. Clone the repository
+
+git clone https://github.com/MarkoLukesevik/Procenta.git  
+cd procenta
+
+### 2. Install dependencies
+
+npm install
+
+### 3. Run the project
+
+ng serve
+
+The application will be available at:  
 http://localhost:4200
 
-🏗️ Build за продукција
+---
+
+## 🏗️ Production Build
+
 ng build --configuration production
 
-Build фајловите ќе се наоѓаат во:
+Build files will be located in:  
 www/
 
-🧪 Тестирање
+---
+
+## 🧪 Testing
+
 ng test
 
-📁 Структура на проектот
-src/
-├── app/
-│ ├── components/ # Reusable UI components
-│ ├── pages/ # Page-level components (routes)
-│ ├── services/ # Business logic & API services
-│ ├── directives/ # Custom Angular directives
-│ ├── requests/ # API request DTO models
-│ ├── responses/ # API response DTO models
-│ ├── localization/ # i18n translations & language config
-│ ├── models/ # Shared interfaces & types
-│ └── app.component.*
-├── assets/ # Static assets (images, icons, fonts)
-└── environments/
+---
 
-📱 Мобилни апликации
-Процента има посебни native апликации за:
-🍎 iOS (App Store)
-🤖 Android (Google Play)
-Мобилните апликации нудат оптимизирано корисничко искуство, подобри перформанси и целосна интеграција со QR скенер и системските функционалности.
+## 📁 Project Structure
 
-🌍 SEO & Accessibility
-Проектот е оптимизиран за:
-Lighthouse SEO
-WCAG 2.1 Accessibility стандарди
-Mobile-first дизајн
-Семантички HTML5 layout
+src/  
+├── app/  
+│   ├── components/   # Reusable UI components  
+│   ├── pages/        # Page-level components (routes)  
+│   ├── services/     # Business logic & API services  
+│   ├── directives/   # Custom Angular directives  
+│   ├── requests/     # API request DTO models  
+│   ├── responses/    # API response DTO models  
+│   ├── localization/ # i18n translations & language configuration  
+│   ├── models/       # Shared interfaces & types  
+│   └── app.component.*  
+├── assets/           # Static assets (images, icons, fonts)  
+└── environments/     # Environment configuration (dev, prod)
 
-👨‍💻 Автор
-Развиено со ❤️ од тимот на Процента.
+---
 
-📞 Контакт
-Website: https://procenta.mk
-Email: info@procenta.mk
+## 📱 Mobile Applications
+
+Procenta provides dedicated native mobile applications for:
+
+- iOS (App Store)
+- Android (Google Play)
+
+The mobile apps deliver optimized user experience, better performance, and full integration with QR scanning and native device features.
+
+---
+
+## 🌍 SEO & Accessibility
+
+The project is optimized for:
+
+- Lighthouse SEO
+- WCAG 2.1 Accessibility standards
+- Mobile-first design
+- Semantic HTML5 layout
+
+---
+
+## 👨‍💻 Author
+
+Developed with ❤️ by the Procenta Team.
+
+---
+
+## 📞 Contact
+
+Website: https://procenta.mk  
+Email: info@procenta.mk  
