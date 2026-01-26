@@ -2,6 +2,7 @@ import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
+import imageCompression from 'browser-image-compression';
 
 import { BaseInputComponent } from '../../components/base/base-input/base-input.component';
 import { BaseNumberInputComponent } from '../../components/base/base-number-input/base-number-input.component';
@@ -137,10 +138,18 @@ export class AdminEditUserPageComponent implements OnInit {
   // endregion
 
   // region picture handlers
-  public handleProfilePictureChange(event: Event): void {
+  public async handleProfilePictureChange(event: Event): Promise<void> {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files[0]) {
-      this.profilePicture.name = input.files[0].name;
+      const file = input.files[0];
+
+      const compressedFile = await imageCompression(file, {
+        maxSizeMB: 0.3,
+        maxWidthOrHeight: 800,
+        useWebWorker: true,
+      });
+
+      this.profilePicture.name = compressedFile.name;
 
       const reader = new FileReader();
       reader.onload = () => {
@@ -151,7 +160,7 @@ export class AdminEditUserPageComponent implements OnInit {
           '',
         );
       };
-      reader.readAsDataURL(input.files[0]);
+      reader.readAsDataURL(compressedFile);
     }
 
     input.value = '';
