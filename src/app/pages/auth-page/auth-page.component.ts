@@ -1,7 +1,15 @@
-import { Component, inject } from '@angular/core';
+import {
+  Component,
+  computed,
+  inject,
+  Signal,
+  signal,
+  WritableSignal,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { take } from 'rxjs/operators';
 
 import { BaseInputComponent } from '../../components/base/base-input/base-input.component';
 import { BaseCheckboxComponent } from '../../components/base/base-checkbox/base-checkbox.component';
@@ -21,17 +29,17 @@ import LoginRequest from '../../requests/login-request';
 import RegisterLokalRequest from '../../requests/lokal-requests/register-lokal-request';
 
 import AuthResponse, { AccountType } from '../../responses/auth-response';
+
 import { PrivacyPolicyModalComponent } from '../../components/modals/privacy-policy-modal/privacy-policy-modal.component';
-import { take } from 'rxjs/operators';
 import { TermsAndConditionsModalComponent } from '../../components/modals/terms-and-conditions-modal/terms-and-conditions-modal.component';
 
 @Component({
-  selector: 'app-sign-register-page',
+  selector: 'app-auth-page',
   imports: [CommonModule, BaseInputComponent, BaseCheckboxComponent],
-  templateUrl: './sign-register-page.component.html',
-  styleUrl: './sign-register-page.component.scss',
+  templateUrl: './auth-page.component.html',
+  styleUrl: './auth-page.component.scss',
 })
-export class SignRegisterPageComponent {
+export class AuthPageComponent {
   private userService: UserService = inject(UserService);
   private lokalsService: LokalsService = inject(LokalsService);
   private authService: AuthService = inject(AuthService);
@@ -40,7 +48,9 @@ export class SignRegisterPageComponent {
   private languageService: LanguageService = inject(LanguageService);
   private modalService: ModalService = inject(ModalService);
 
-  public activeView: 'login' | 'register' = 'login';
+  public activeView: WritableSignal<'login' | 'register'> = signal<
+    'login' | 'register'
+  >('login');
   public accountType: AccountType = AccountType.User;
 
   public lokalName: string = '';
@@ -62,10 +72,10 @@ export class SignRegisterPageComponent {
   }
 
   // region ui logic
-  public toggleActiveView() {
+  public toggleActiveView(): void {
     this.resetUser();
-    if (this.activeView === 'login') this.activeView = 'register';
-    else this.activeView = 'login';
+    if (this.activeView() === 'login') this.activeView.set('register');
+    else this.activeView.set('login');
   }
 
   public handleAccountTypeChange(accountType: AccountType): void {
@@ -73,38 +83,36 @@ export class SignRegisterPageComponent {
     this.resetUser();
   }
 
-  public getPageTitle(): string {
-    return this.activeView === 'register'
+  public pageTitle: Signal<string> = computed((): string =>
+    this.activeView() === 'register'
       ? this.t('create_account')
-      : this.t('welcome_back');
-  }
+      : this.t('welcome_back'),
+  );
 
-  public getPageSubTitle(): string {
-    return this.activeView === 'register'
+  public pageSubtitle: Signal<string> = computed((): string =>
+    this.activeView() === 'register'
       ? this.t('please_enter_the_sign_up_information')
-      : this.t('please_enter_the_sign_in_information');
-  }
+      : this.t('please_enter_the_sign_in_information'),
+  );
 
-  public getSignButtonText(): string {
-    return this.activeView === 'register'
-      ? this.t('sign_up')
-      : this.t('sign_in');
-  }
+  public signButtonText: Signal<string> = computed((): string =>
+    this.activeView() === 'register' ? this.t('sign_up') : this.t('sign_in'),
+  );
 
-  public getToggleViewButtonText(): string {
-    return this.activeView === 'login' ? this.t('sign_up') : this.t('sign_in');
-  }
+  public toggleViewButtonText: Signal<string> = computed((): string =>
+    this.activeView() === 'register' ? this.t('sign_up') : this.t('sign_in'),
+  );
 
-  public getActiveViewToggleButtonText(): string {
-    if (this.activeView === 'register')
-      return this.t('already_have_an_account');
-    return this.t('dont_have_an_account');
-  }
+  public activeViewToggleButtonText: Signal<string> = computed((): string =>
+    this.activeView() === 'register'
+      ? this.t('already_have_an_account')
+      : this.t('dont_have_an_account'),
+  );
   // endregion
 
   // region handlers
   public handleSignButtonClick(): void {
-    if (this.activeView === 'register') this.handleRegister();
+    if (this.activeView() === 'register') this.handleRegister();
     else this.handleLogin();
   }
 
@@ -232,7 +240,7 @@ export class SignRegisterPageComponent {
   // endregion
 
   public isSignButtonDisabled(): boolean {
-    if (this.activeView === 'login')
+    if (this.activeView() === 'login')
       return !this.email || !this.password || this.isSignButtonSpinnerOn;
     else if (this.accountType === AccountType.User) {
       return (

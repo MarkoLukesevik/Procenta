@@ -6,7 +6,7 @@ import { AboutUsPageComponent } from './pages/about-us-page/about-us-page.compon
 import { ProfilePageComponent } from './pages/profile-page/profile-page.component';
 import { LokalDetailsPageComponent } from './pages/lokal-details-page/lokal-details-page.component';
 import { StatisticsPageComponent } from './pages/statistics-page/statistics-page.component';
-import { SignRegisterPageComponent } from './pages/sign-register-page/sign-register-page.component';
+import { AuthPageComponent } from './pages/auth-page/auth-page.component';
 import { QrcodePageComponent } from './pages/qrcode-page/qrcode-page.component';
 import { AdminPageComponent } from './admin-pages/admin-page/admin-page.component';
 import { AdminEditUserPageComponent } from './admin-pages/admin-edit-user-page/admin-edit-user-page.component';
@@ -32,7 +32,7 @@ export const routes: Routes = [
     component: StatisticsPageComponent,
     canActivate: [AuthGuard],
   },
-  { path: 'sign-in', component: SignRegisterPageComponent },
+  { path: 'sign-in', component: AuthPageComponent },
   { path: 'privacy-policy', component: PrivacyPolicyPageComponent },
   { path: 'terms', component: TermsAndConditionsPageComponent },
   { path: 'qrcode', component: QrcodePageComponent, canActivate: [AuthGuard] },

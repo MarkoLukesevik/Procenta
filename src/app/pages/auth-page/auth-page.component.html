@@ -21,11 +21,11 @@
   </div>
 
   <div class="sign-page__text">
-    <h2>{{ getPageTitle() }}</h2>
-    <p>{{ getPageSubTitle() }}</p>
+    <h2>{{ pageTitle() }}</h2>
+    <p>{{ pageSubtitle() }}</p>
   </div>
 
-  @if (activeView === "register" && accountType === AccountType.User) {
+  @if (activeView() === "register" && accountType === AccountType.User) {
     <app-base-input
       [label]="t('first_name')"
       [placeholder]="t('first_name')"
@@ -43,7 +43,7 @@
     />
   }
 
-  @if (activeView === "register" && accountType === AccountType.Lokal) {
+  @if (activeView() === "register" && accountType === AccountType.Lokal) {
     <app-base-input
       [label]="t('name')"
       [placeholder]="t('name')"
@@ -74,7 +74,7 @@
       (handleInputChange)="password = $event"
     />
 
-    @if (activeView === "login") {
+    @if (activeView() === "login") {
       <div>
         <app-base-checkbox
           [label]="t('remember_me')"
@@ -89,7 +89,7 @@
     }
   </div>
 
-  @if (activeView === "register") {
+  @if (activeView() === "register") {
     <app-base-input
       [label]="t('confirm_password')"
       [placeholder]="t('confirm_password')"
@@ -115,14 +115,14 @@
     @if (isSignButtonSpinnerOn) {
       <i class="fa-solid fa-spinner fa-spin"></i>
     } @else {
-      <span>{{ getSignButtonText() }}</span>
+      <span>{{ signButtonText() }}</span>
     }
   </button>
 
   <div class="sign-page__toggle-view">
-    {{ getActiveViewToggleButtonText() }}
+    {{ activeViewToggleButtonText() }}
     <span class="sign-page__toggle-view__button" (click)="toggleActiveView()">{{
-      getToggleViewButtonText()
+      toggleViewButtonText()
     }}</span>
   </div>
 </div>
