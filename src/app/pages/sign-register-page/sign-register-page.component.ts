@@ -3,8 +3,8 @@ import { CommonModule } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 
-import { BaseInputComponent } from '../../base-components/base-input/base-input.component';
-import { BaseCheckboxComponent } from '../../base-components/base-checkbox/base-checkbox.component';
+import { BaseInputComponent } from '../../components/base/base-input/base-input.component';
+import { BaseCheckboxComponent } from '../../components/base/base-checkbox/base-checkbox.component';
 
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from '../../services/auth-service';
@@ -21,9 +21,9 @@ import LoginRequest from '../../requests/login-request';
 import RegisterLokalRequest from '../../requests/lokal-requests/register-lokal-request';
 
 import AuthResponse, { AccountType } from '../../responses/auth-response';
-import { PrivacyPolicyModalComponent } from '../../modals/privacy-policy-modal/privacy-policy-modal.component';
+import { PrivacyPolicyModalComponent } from '../../components/modals/privacy-policy-modal/privacy-policy-modal.component';
 import { take } from 'rxjs/operators';
-import { TermsAndConditionsModalComponent } from '../../modals/terms-and-conditions-modal/terms-and-conditions-modal.component';
+import { TermsAndConditionsModalComponent } from '../../components/modals/terms-and-conditions-modal/terms-and-conditions-modal.component';
 
 @Component({
   selector: 'app-sign-register-page',

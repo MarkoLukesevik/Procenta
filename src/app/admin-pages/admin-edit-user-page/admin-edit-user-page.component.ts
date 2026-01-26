@@ -3,12 +3,12 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 
-import { BaseInputComponent } from '../../base-components/base-input/base-input.component';
-import { BaseNumberInputComponent } from '../../base-components/base-number-input/base-number-input.component';
+import { BaseInputComponent } from '../../components/base/base-input/base-input.component';
+import { BaseNumberInputComponent } from '../../components/base/base-number-input/base-number-input.component';
 import {
   BaseSelectComponent,
   BaseSelectOption,
-} from '../../base-components/base-select/base-select.component';
+} from '../../components/base/base-select/base-select.component';
 
 import { UserService } from '../../services/user.service';
 import { LokalsService } from '../../services/lokals.service';

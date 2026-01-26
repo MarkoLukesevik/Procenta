@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 
-import { BaseInputComponent } from '../../base-components/base-input/base-input.component';
+import { BaseInputComponent } from '../../components/base/base-input/base-input.component';
 
 import { ToastrService } from 'ngx-toastr';
 import { UserService } from '../../services/user.service';

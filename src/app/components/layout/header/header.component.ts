@@ -3,12 +3,12 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 
-import { UserService } from '../../services/user.service';
-import { LokalsService } from '../../services/lokals.service';
-import { LanguageService } from '../../services/language.service';
+import { UserService } from '../../../services/user.service';
+import { LokalsService } from '../../../services/lokals.service';
+import { LanguageService } from '../../../services/language.service';
 
-import { User } from '../../models/user';
-import { Lokal } from '../../models/lokal';
+import { User } from '../../../models/user';
+import { Lokal } from '../../../models/lokal';
 
 @Component({
   selector: 'app-header',

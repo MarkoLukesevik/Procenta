@@ -15,9 +15,9 @@ import { User } from './models/user';
 import { Lokal } from './models/lokal';
 import { AccountType } from './responses/auth-response';
 
-import { HeaderComponent } from './components/header/header.component';
-import { FooterComponent } from './components/footer/footer.component';
-import { BottomNavComponent } from './components/bottom-nav/bottom-nav.component';
+import { HeaderComponent } from './components/layout/header/header.component';
+import { FooterComponent } from './components/layout/footer/footer.component';
+import { BottomNavComponent } from './components/layout/bottom-nav/bottom-nav.component';
 
 @Component({
   selector: 'app-root',

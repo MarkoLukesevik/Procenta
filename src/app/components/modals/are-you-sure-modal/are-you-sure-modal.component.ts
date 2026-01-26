@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
-import { LanguageService } from '../../services/language.service';
-import { ModalService } from '../../services/modal.service';
+import { LanguageService } from '../../../services/language.service';
+import { ModalService } from '../../../services/modal.service';
 
 @Component({
   selector: 'app-are-you-sure-modal',

@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
 
-import { BaseInputComponent } from '../../base-components/base-input/base-input.component';
+import { BaseInputComponent } from '../../components/base/base-input/base-input.component';
 
 import { ToastrService } from 'ngx-toastr';
 import { LanguageService } from '../../services/language.service';

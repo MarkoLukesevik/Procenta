@@ -2,11 +2,11 @@ import { Component, Signal, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 
-import { UserService } from '../../services/user.service';
-import { LokalsService } from '../../services/lokals.service';
+import { UserService } from '../../../services/user.service';
+import { LokalsService } from '../../../services/lokals.service';
 
-import { User } from '../../models/user';
-import { Lokal } from '../../models/lokal';
+import { User } from '../../../models/user';
+import { Lokal } from '../../../models/lokal';
 
 @Component({
   selector: 'app-bottom-nav',

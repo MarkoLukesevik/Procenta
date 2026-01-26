@@ -1,16 +1,15 @@
 import { Component, inject } from '@angular/core';
-import { LanguageService } from '../../services/language.service';
-import { ModalService } from '../../services/modal.service';
+import { LanguageService } from '../../../services/language.service';
+import { ModalService } from '../../../services/modal.service';
 
 @Component({
-  selector: 'app-privacy-policy-modal',
-  templateUrl: './privacy-policy-modal.component.html',
-  styleUrls: ['./privacy-policy-modal.component.scss'],
+  selector: 'app-terms-and-conditions-modal',
+  templateUrl: './terms-and-conditions-modal.component.html',
+  styleUrls: ['./terms-and-conditions-modal.component.scss'],
 })
-export class PrivacyPolicyModalComponent {
+export class TermsAndConditionsModalComponent {
   private languageService: LanguageService = inject(LanguageService);
   private modalService: ModalService = inject(ModalService);
-
   constructor() {}
 
   public hasScrolledToBottom: boolean = false;

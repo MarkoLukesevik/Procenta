@@ -6,15 +6,15 @@ import { take } from 'rxjs/operators';
 import imageCompression from 'browser-image-compression';
 import { Router } from '@angular/router';
 
-import { BaseInputComponent } from '../../base-components/base-input/base-input.component';
+import { BaseInputComponent } from '../../components/base/base-input/base-input.component';
 import {
   BaseSelectComponent,
   BaseSelectOption,
-} from '../../base-components/base-select/base-select.component';
-import { BaseNumberInputComponent } from '../../base-components/base-number-input/base-number-input.component';
-import { BaseTextareaComponent } from '../../base-components/base-textarea/base-textarea.component';
+} from '../../components/base/base-select/base-select.component';
+import { BaseNumberInputComponent } from '../../components/base/base-number-input/base-number-input.component';
+import { BaseTextareaComponent } from '../../components/base/base-textarea/base-textarea.component';
 
-import { AreYouSureModalComponent } from '../../modals/are-you-sure-modal/are-you-sure-modal.component';
+import { AreYouSureModalComponent } from '../../components/modals/are-you-sure-modal/are-you-sure-modal.component';
 
 import { UserService } from '../../services/user.service';
 import { ToastrService } from 'ngx-toastr';
