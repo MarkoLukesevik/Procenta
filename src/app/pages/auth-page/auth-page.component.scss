@@ -5,7 +5,7 @@
   align-items: center;
 }
 
-.sign-page {
+.auth-page {
   display: flex;
   flex-direction: column;
   row-gap: 0.875rem;
@@ -170,13 +170,13 @@
 }
 
 @media (orientation: landscape) and (min-width: 992px) {
-  .sign-page {
+  .auth-page {
     width: 60%;
   }
 }
 
 @media (orientation: landscape) and (min-width: 1200px) {
-  .sign-page {
+  .auth-page {
     width: 50%;
   }
 }

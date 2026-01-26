@@ -1,8 +1,8 @@
-<div class="sign-page">
-  <div class="sign-page__role-toggle">
+<div class="auth-page">
+  <div class="auth-page__role-toggle">
     <button
-      class="sign-page__role-toggle__button"
-      [class.sign-page__role-toggle__button-active]="
+      class="auth-page__role-toggle__button"
+      [class.auth-page__role-toggle__button-active]="
         accountType === AccountType.User
       "
       (click)="handleAccountTypeChange(AccountType.User)"
@@ -10,8 +10,8 @@
       {{ t("user") }}
     </button>
     <button
-      class="sign-page__role-toggle__button"
-      [class.sign-page__role-toggle__button-active]="
+      class="auth-page__role-toggle__button"
+      [class.auth-page__role-toggle__button-active]="
         accountType === AccountType.Lokal
       "
       (click)="handleAccountTypeChange(AccountType.Lokal)"
@@ -20,7 +20,7 @@
     </button>
   </div>
 
-  <div class="sign-page__text">
+  <div class="auth-page__text">
     <h2>{{ pageTitle() }}</h2>
     <p>{{ pageSubtitle() }}</p>
   </div>
@@ -63,7 +63,7 @@
     (handleInputChange)="email = $event"
   />
 
-  <div class="sign-page__password-wrapper">
+  <div class="auth-page__password-wrapper">
     <app-base-input
       [label]="t('password')"
       [placeholder]="t('password')"
@@ -108,7 +108,7 @@
   }
 
   <button
-    class="sign-page__button"
+    class="auth-page__button"
     [disabled]="isSignButtonDisabled()"
     (click)="handleSignButtonClick()"
   >
@@ -119,9 +119,9 @@
     }
   </button>
 
-  <div class="sign-page__toggle-view">
+  <div class="auth-page__toggle-view">
     {{ activeViewToggleButtonText() }}
-    <span class="sign-page__toggle-view__button" (click)="toggleActiveView()">{{
+    <span class="auth-page__toggle-view__button" (click)="toggleActiveView()">{{
       toggleViewButtonText()
     }}</span>
   </div>
