@@ -34,7 +34,8 @@
                 "input": "src/assets",
                 "output": "assets"
               },
-              "src/robots.txt"
+              "src/robots.txt",
+              "src/favicon.png"
             ],
             "styles": [
               "src/global.scss",
@@ -119,7 +120,8 @@
                 "input": "src/assets",
                 "output": "assets"
               },
-              "src/robots.txt"
+              "src/robots.txt",
+              "src/favicon.png"
             ],
             "styles": ["src/global.scss", "src/theme/variables.scss"],
             "scripts": []
