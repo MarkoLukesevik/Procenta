@@ -33,7 +33,8 @@
                 "glob": "**/*",
                 "input": "src/assets",
                 "output": "assets"
-              }
+              },
+              "src/robots.txt"
             ],
             "styles": [
               "src/global.scss",
@@ -117,7 +118,8 @@
                 "glob": "**/*",
                 "input": "src/assets",
                 "output": "assets"
-              }
+              },
+              "src/robots.txt"
             ],
             "styles": ["src/global.scss", "src/theme/variables.scss"],
             "scripts": []
