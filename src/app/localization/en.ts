@@ -4,7 +4,7 @@ export default {
   statistics: 'Statistics',
   sign_in: 'Sign in',
 
-  right_reserved: '© 2025 All rights reserved. Designed by Procenta.',
+  right_reserved: '© 2026 All rights reserved. Designed by Procenta.',
   looking_forward_to_connect: 'We are looking forward to connect with you!',
   new_delhi: 'New Delhi Rd 4, Skopje 1000',
 

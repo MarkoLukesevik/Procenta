@@ -100,7 +100,7 @@ export class AuthPageComponent {
   );
 
   public toggleViewButtonText: Signal<string> = computed((): string =>
-    this.activeView() === 'register' ? this.t('sign_up') : this.t('sign_in'),
+    this.activeView() === 'register' ? this.t('sign_in') : this.t('sign_up'),
   );
 
   public activeViewToggleButtonText: Signal<string> = computed((): string =>
