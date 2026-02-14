@@ -11,7 +11,7 @@ export class ApiService {
   private http = inject(HttpClient);
 
   private baseurl: string =
-    'https://procenta-server-production.up.railway.app/';
+    'https://procenta-server-production.up.railway.app/api/';
   private isRefreshingToken: boolean = false;
 
   private getAuthHeaders(): HttpHeaders {
