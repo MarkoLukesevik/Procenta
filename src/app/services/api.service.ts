@@ -10,7 +10,8 @@ import AuthResponse from '../responses/auth-response';
 export class ApiService {
   private http = inject(HttpClient);
 
-  private baseurl: string = 'http://api.procenta.mk/api/';
+  private baseurl: string =
+    'https://procenta-server-production.up.railway.app/';
   private isRefreshingToken: boolean = false;
 
   private getAuthHeaders(): HttpHeaders {
