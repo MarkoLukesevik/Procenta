@@ -100,26 +100,30 @@
       <div class="local-details__gallery">
         <h3>{{ t("gallery") }}</h3>
         <div class="local-details__gallery-images">
-          <div class="local-details__gallery-images__image">
-            @if (lokal.additionalImages[0]) {
-              <img [src]="lokal.additionalImages[0]" alt="" />
-            }
-          </div>
-          <div class="local-details__gallery-images__image">
-            @if (lokal.additionalImages[1]) {
-              <img [src]="lokal.additionalImages[1]" alt="" />
-            }
-          </div>
-          <div class="local-details__gallery-images__image">
-            @if (lokal.additionalImages[2]) {
-              <img [src]="lokal.additionalImages[2]" alt="" />
-            }
-          </div>
-          <div class="local-details__gallery-images__image">
-            @if (lokal.additionalImages[3]) {
-              <img [src]="lokal.additionalImages[3]" alt="" />
-            }
-          </div>
+          @if (lokal.additionalImages[0] || lokal.additionalImages[1]) {
+            <div class="local-details__gallery-images__image">
+              @if (lokal.additionalImages[0]) {
+                <img [src]="lokal.additionalImages[0]" alt="" />
+              }
+            </div>
+            <div class="local-details__gallery-images__image">
+              @if (lokal.additionalImages[1]) {
+                <img [src]="lokal.additionalImages[1]" alt="" />
+              }
+            </div>
+          }
+          @if (lokal.additionalImages[2] || lokal.additionalImages[3]) {
+            <div class="local-details__gallery-images__image">
+              @if (lokal.additionalImages[2]) {
+                <img [src]="lokal.additionalImages[2]" alt="" />
+              }
+            </div>
+            <div class="local-details__gallery-images__image">
+              @if (lokal.additionalImages[3]) {
+                <img [src]="lokal.additionalImages[3]" alt="" />
+              }
+            </div>
+          }
         </div>
       </div>
     }
