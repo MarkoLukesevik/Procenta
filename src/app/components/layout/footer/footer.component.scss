@@ -68,7 +68,8 @@
 
       font-size: 1.125rem;
 
-      & i {
+      & a {
+        color: var(--base-white-color);
         cursor: pointer;
       }
     }
