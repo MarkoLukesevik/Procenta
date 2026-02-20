@@ -26,7 +26,7 @@ export class QrScannerService {
 
       if (result?.barcodes?.length) {
         const code = result.barcodes[0].rawValue;
-        callback(code);
+        if (code) callback(code);
       } else {
         console.warn('No barcode found');
       }

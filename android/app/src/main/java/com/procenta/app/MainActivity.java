@@ -1,4 +1,4 @@
-package io.ionic.starter;
+package com.procenta.app;
 
 import android.os.Build;
 import android.os.Handler;
