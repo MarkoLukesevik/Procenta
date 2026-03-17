@@ -48,7 +48,7 @@
   }
 }
 
-@media (min-width: 992px) {
+@media (orientation: landscape) and (min-width: 992px) {
   :host {
     display: none;
   }

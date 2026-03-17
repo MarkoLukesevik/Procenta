@@ -23,9 +23,7 @@
               "browser": ""
             },
             "index": "src/index.html",
-            "polyfills": [
-              "src/polyfills.ts"
-            ],
+            "polyfills": ["src/polyfills.ts"],
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [
@@ -41,15 +39,11 @@
               "src/global.scss",
               "src/theme/variables.scss",
               "node_modules/@fortawesome/fontawesome-free/css/all.min.css",
-              "node_modules/leaflet/dist/leaflet.css",
               "node_modules/ngx-toastr/toastr.css"
             ],
             "scripts": [],
             "browser": "src/main.ts",
-            "allowedCommonJsDependencies": [
-              "qrcode",
-              "leaflet"
-            ]
+            "allowedCommonJsDependencies": ["qrcode"]
           },
           "configurations": {
             "production": {
@@ -143,9 +137,7 @@
     }
   },
   "cli": {
-    "schematicCollections": [
-      "@ionic/angular-toolkit"
-    ],
+    "schematicCollections": ["@ionic/angular-toolkit"],
     "analytics": false
   },
   "schematics": {

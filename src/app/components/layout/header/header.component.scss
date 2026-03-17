@@ -12,7 +12,8 @@
   align-items: center;
   justify-content: space-between;
 
-  height: 70px;
+  height: calc(70px + env(safe-area-inset-top));
+  padding-top: env(safe-area-inset-top);
   background-color: var(--base-green-color);
   color: var(--base-white-color);
   border-bottom-right-radius: 12px;
@@ -49,7 +50,7 @@
   }
 }
 
-@media (min-width: 992px) {
+@media (orientation: landscape) and (min-width: 992px) {
   .header {
     &-buttons {
       display: flex;

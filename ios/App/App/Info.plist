@@ -24,6 +24,8 @@
 	<true/>
 	<key>NSCameraUsageDescription</key>
 	<string>We need camera access to scan QR codes.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>This app allows users to select images from their photo library to upload.</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>

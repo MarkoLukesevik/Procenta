@@ -1,10 +1,9 @@
 import { Component, inject } from '@angular/core';
 import { LanguageService } from '../../services/language.service';
-import { MapComponent } from './components/map/map.component';
 
 @Component({
   selector: 'app-about-us-page',
-  imports: [MapComponent],
+  imports: [],
   templateUrl: './about-us-page.component.html',
   styleUrl: './about-us-page.component.scss',
 })
