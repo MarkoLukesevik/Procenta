@@ -14,12 +14,14 @@
             <div class="header-nav__active-link"></div>
           }
         </li>
+
         <li (click)="handleLinkClick('about')">
           {{ t("about_us") }}
           @if (isRouteActive("about")) {
             <div class="header-nav__active-link"></div>
           }
         </li>
+
         @if (loggedInLokal()) {
           <li (click)="handleLinkClick('statistics')">
             {{ t("statistics") }}
