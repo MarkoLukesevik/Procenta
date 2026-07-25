@@ -14,7 +14,8 @@ import { provideToastr } from 'ngx-toastr';
 import { routes } from './app/app.routes';
 import { AppComponent } from './app/app.component';
 import { provideAnimations } from '@angular/platform-browser/animations';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import { warmupInterceptor } from './app/interceptors/warmup.interceptor';
 import { LanguageService } from './app/services/language.service';
 import { APP_INITIALIZER } from '@angular/core';
 
@@ -36,6 +37,6 @@ bootstrapApplication(AppComponent, {
     provideRouter(routes, withPreloading(PreloadAllModules)),
     provideAnimations(),
     provideToastr(),
-    provideHttpClient(),
+    provideHttpClient(withInterceptors([warmupInterceptor])),
   ],
 });

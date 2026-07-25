@@ -155,4 +155,6 @@ export default {
   discounts: 'Discounts:',
   qr_scans_per_day: 'QR Scans per Day',
   qr_scans: 'QR Scans',
+  warming_up_server:
+    'Warming up the server — the first request can take up to a minute…',
 };

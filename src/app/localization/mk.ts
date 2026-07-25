@@ -160,4 +160,6 @@ export default {
   discounts: 'Попусти:',
   qr_scans_per_day: 'QR скенирања на ден',
   qr_scans: 'QR скенирања',
+  warming_up_server:
+    'Го подготвуваме серверот — првото барање може да потрае до една минута…',
 };

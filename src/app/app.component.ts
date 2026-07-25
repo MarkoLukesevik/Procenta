@@ -18,10 +18,17 @@ import { AccountType } from './responses/auth-response';
 import { HeaderComponent } from './components/layout/header/header.component';
 import { FooterComponent } from './components/layout/footer/footer.component';
 import { BottomNavComponent } from './components/layout/bottom-nav/bottom-nav.component';
+import { WarmupBannerComponent } from './components/layout/warmup-banner/warmup-banner.component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, HeaderComponent, FooterComponent, BottomNavComponent],
+  imports: [
+    RouterOutlet,
+    HeaderComponent,
+    FooterComponent,
+    BottomNavComponent,
+    WarmupBannerComponent,
+  ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })

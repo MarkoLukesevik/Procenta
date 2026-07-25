@@ -1,0 +1,7 @@
+@if (loadingService.isWarmingUp()) {
+  <div class="warmup-banner" role="status" aria-live="polite">
+    <i class="fa-solid fa-mug-hot warmup-banner__icon"></i>
+    <span class="warmup-banner__text">{{ t("warming_up_server") }}</span>
+    <i class="fa-solid fa-spinner fa-spin warmup-banner__spinner"></i>
+  </div>
+}
